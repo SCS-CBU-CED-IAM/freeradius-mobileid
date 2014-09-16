@@ -1,0 +1,58 @@
+authorize {
+    # Cleanups with preprocess
+	preprocess
+
+	# Password checks
+	chap
+	mschap
+
+	# Suffix handling for realms
+	suffix
+
+	# Read the 'users' from either file, sql or ldap
+	files
+	# sql
+	# ldap
+
+	# Password check with PAP (give the other a chance)
+	pap
+}
+
+authenticate {
+	Auth-Type PAP {
+		pap
+	}
+	Auth-Type CHAP {
+        chap
+	}
+	Auth-Type MS-CHAP {
+        mschap
+	}
+	# Uncomment it if you want to use ldap for authentication
+	# Auth-Type LDAP {
+	#       ldap
+	# }
+}
+
+post-auth {
+	# Update request with values from users database
+        update request {
+            Called-Station-Id := "%{control:Called-Station-Id}"
+            X-MSS-Language := "%{control:X-MSS-Language}"
+            X-MSS-MobileID-SN := "%{control:X-MSS-MobileID-SN}"
+	}
+
+	# Set Called-Station-Id to User-Name, if not found.
+	if (!Called-Station-Id || Called-Station-Id == "") {
+            update request {
+            Called-Station-Id := "%{User-Name}"
+		}
+	}
+
+	# Callout Mobile ID
+	mobileid
+
+	Post-Auth-Type REJECT {
+        attr_filter.access_reject
+	}
+}

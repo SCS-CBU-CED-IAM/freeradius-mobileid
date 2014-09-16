@@ -1,0 +1,24 @@
+# Application Provider's Credentials
+AP_ID=mid://dev.swisscom.ch                    # AP_ID used to identify to Mobile ID (provided by Swisscom)
+AP_PWD=disabled                                # AP Password must be present but is not validated.
+
+# SSL Client Authentication
+CERT_FILE=$PWD/mycert.crt                      # Client certificate for the HTTPS/SSL authentication
+CERT_KEY=$PWD/mycert.key                       # Client private key file that is related to the client certificate
+
+# Service identification
+AP_PREFIX="myserver.com"                       # AP prefix that will be added to the message sent to the mobile
+
+# Swisscom SDCS elements
+CERT_CA_SSL=$PWD/mobileid-ca-ssl.crt           # Root CA certificate for the HTTPS/SSL server validation
+CERT_CA_MID=$PWD/mobileid-ca-signature.crt     # Root CA and intermediate CA certificates to validate the MID Signature's user certificate
+
+# Additional cURL options, e.g. if you want to use HTTP proxy (refer to man curl)
+# --proxy <[protocol://][user@password]proxyhost[:port]>
+CURL_OPTIONS="--silent"
+
+# Logging
+VERBOSITY=2                                    # Silent=0, Info=1, Error=2, Debug=3
+
+# Swisscom BASE URL
+BASE_URL=https://soap.mobileid.swisscom.com
