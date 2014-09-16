@@ -2,7 +2,7 @@
 AP_ID=mid://dev.swisscom.ch                    # AP_ID used to identify to Mobile ID (provided by Swisscom)
 AP_PWD=disabled                                # AP Password must be present but is not validated.
 
-# SSL Client Authentication
+# SSL Client Authentication ($PWD is refering to the location of the script itself)
 CERT_FILE=$PWD/mycert.crt                      # Client certificate for the HTTPS/SSL authentication
 CERT_KEY=$PWD/mycert.key                       # Client private key file that is related to the client certificate
 

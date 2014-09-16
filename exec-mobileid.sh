@@ -1,16 +1,20 @@
 #!/bin/sh
 # exec-mobileid.sh - 1.0
-#
-# Script to invoke Mobile ID authentication. It requires following
-# attributes to be set during the call from the FreeRADIUS side:
-#  CALLED_STATION_ID: the mobile phone number of the Mobile ID user
-#  X_MSS_LANGUAGE: the language for the call (defaults to EN if unset or invalid)
-#  X_MSS_MOBILEID_SN: the related SerialNumber in the DN of the Mobile ID user (optional)
+# Script to invoke Mobile ID service over curl for use in FreeRADIUS.
 #
 # Each of the attributes in the request will be available in an
 # environment variable.  The name of the variable depends on the
 # name of the attribute.  All letters are converted to upper case,
 # and all hyphens '-' to underlines.
+#
+# The script uses the content of following attributes:
+#  CALLED_STATION_ID: the mobile phone number of the Mobile ID user
+#  X_MSS_LANGUAGE: the language for the call (defaults to EN if unset or invalid)
+#  X_MSS_MOBILEID_SN: the related SerialNumber in the DN of the Mobile ID user (optional)
+# Those attributes can be overriden by the command line parameters
+#  arg1: CALLED_STATION_ID
+#  arg2: X_MSS_LANGUAGE
+#  arg3: X_MSS_MOBILEID_SN
 #
 # It will return the proper FreeRADIUS error code and on user relevant errors
 # ecbo the translated 'Reply-Message'
@@ -74,9 +78,13 @@ done
 
 # Remove quote and all spaces for related mobile number
 MSISDN=`eval echo $CALLED_STATION_ID|sed -e "s/ //g"`
+[ "$MSISDN" = "" ] && MSISDN=$1
+
 # Remove quote from others relevant attributes
 USERLANG=`eval echo $X_MSS_LANGUAGE`
 UNIQUEID=`eval echo $X_MSS_MOBILEID_SN`
+[ "$USERLANG" = "" ] && USERLANG=$2
+[ "$UNIQUEID" = "" ] && UNIQUEID=$3
 
 # Read configuration from property file
 FILE="$PWD/exec-mobileid.properties"
