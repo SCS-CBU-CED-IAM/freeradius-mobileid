@@ -38,8 +38,8 @@ Edit <cfg>/radiusd.conf and adjust/set following settings to at least
 
 Define custom attributes in <cfg>/dictionary
 ```
-ATTRIBUTE    X-MSS-Language    3000    string
-ATTRIBUTE    X-MSS-MobileID-SN 3001	string
+ATTRIBUTE  X-MSS-Language     3000  string
+ATTRIBUTE  X-MSS-MobileID-SN  3001  string
 ```
 
 ### Create the rlm_exec module file for Mobile ID
@@ -47,7 +47,7 @@ ATTRIBUTE    X-MSS-MobileID-SN 3001	string
 Create a rlm_exec module file mobileid in `<cfg>/mods-enabled` based on the sample provided in `samples/modules/` folder:
 ```
 exec mobileid {
-    program = '<program> <arg1> <arg2> <...>'
+    program = '<program>'
     wait = yes
     timeout = 120
     input_pairs = request
@@ -79,4 +79,4 @@ client 0.0.0.0/0 {
 
 ### Create the Mobile ID module properties file
 
-Use the `exec-mobileid.properties.sample' and create your own `exec-mobileid.properties` file. Refer to the sample file for the description of the settings.
+Use the `exec-mobileid.properties.sample` and create your own `exec-mobileid.properties` file. Refer to the sample file for the description of the settings.
