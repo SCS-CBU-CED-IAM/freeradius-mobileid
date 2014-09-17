@@ -33,10 +33,10 @@ Use the `exec-mobileid.properties.sample` and create your own `exec-mobileid.pro
 
 At this point you can test the module itself with proper command line parameters:
 
-Example:
-`./exec-mobileid.sh +41791234567`
-`./exec-mobileid.sh +41791234567 de`
-`./exec-mobileid.sh +41791234567 de MIDCHEGU8GSH6K88`
+Examples:
+`./exec-mobileid.sh +41791234567`  
+`./exec-mobileid.sh +41791234567 de`  
+`./exec-mobileid.sh +41791234567 de MIDCHEGU8GSH6K88`  
 
 ### Increase maximum request time in radiusd.conf
 
