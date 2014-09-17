@@ -101,10 +101,10 @@ case "$USERLANG" in
   * ) USERLANG="en" ;;
 esac
 
-FILE="$PWD/exec-mobileid.dict_$USERLANG"
+FILE="$PWD/dictionaries/dict_$USERLANG"
 debug "Reading resources from $FILE"
 [ -r "$FILE" ] || error "Resource file ($FILE) missing or not readable"
-. $PWD/exec-mobileid.dict_$USERLANG
+. $PWD/dictionaries/dict_$USERLANG
 
 # Details of the Mobile ID request
 inform "MSS_Signature $MSISDN '$DTBS' $USERLANG"
