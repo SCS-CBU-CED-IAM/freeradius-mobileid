@@ -1,15 +1,23 @@
 # Set default language to English
-DEFAULT         X-MSS-Language := en
-                Fall-Through = Yes
+DEFAULT X-MSS-Language := en
+        Fall-Through = Yes
 
 # Configuration for specific users
-"user1"         Called-Station-Id := +41791234567, Auth-Type := Accept
-"user2"         Cleartext-Password := "pwduser", Called-Station-Id := +41791234567, X-MSS-Language := de
-"user3"         Cleartext-Password := "pwduser", Called-Station-Id := +41791234567, X-MSS-MobileID-SN := MIDCHEGU8GSH6K83
-"0791234567"    Cleartext-Password := "pwduser", Called-Station-Id := +41791234567
+#  user with specific mobile number and no password validation at all
+#   "user1"      Called-Station-Id := +41791234567, Auth-Type := Accept
 
-# This if you want to allow +4179xxxxxxx as implicit User-Name
+#  user with specific mobile number, password and language
+#   "user2"      Cleartext-Password := "pwduser", Called-Station-Id := +41791234567, X-MSS-Language := de
+
+#  user with specific mobile number, password and serialnumber in the DN as security element
+#   "user3"      Cleartext-Password := "pwduser", Called-Station-Id := +41791234567, X-MSS-MobileID-SN := MIDCHEGU8GSH6K83
+
+#  user with specific mobile number, encrypted password and serialnumber in the DN as security element
+#   "user3"      Crypt-Password := "saV9ejDMWuP92", Called-Station-Id := +41791234567, X-MSS-MobileID-SN := MIDCHEGU8GSH6K83
+
+
+# This if you want to allow the mobile phone number (+41...) as implicit User-Name
 #  with a generic password for all users
-# DEFAULT	Cleartext-Password := "default"
+#   DEFAULT Cleartext-Password := "default"
 #  or without password validation at all
 DEFAULT	Auth-Type := Accept
