@@ -27,16 +27,20 @@ Set proper permissions to the FreeRADIUS deamon to access those files. Example:
 
 `<cfg>` is referring to the folder containing the configuration elements. This is depending to the operating system and the chosen installation method. For Linux it should be `/etc/freeradius` and for Windows `C:\FreeRADIUS\etc\raddb`
 
-### Create the Mobile ID module properties file
+### Create the Mobile ID module properties file and test it
 
 Use the `exec-mobileid.properties.sample` and create your own `exec-mobileid.properties` file. Refer to the [sample file](exec-mobileid.properties.sample) for the settings.
 
+At this point you can test the module itself with proper command line parameters:
+
+Example:
+`./exec-mobileid.sh +41791234567`
+`./exec-mobileid.sh +41791234567 de`
+`./exec-mobileid.sh +41791234567 de MIDCHEGU8GSH6K88`
+
 ### Increase maximum request time in radiusd.conf
 
-Edit <cfg>/radiusd.conf and increase the `max_request_time` to at least 120 seconds:
-```
-  max_request_time = 120
-```
+Edit <cfg>/radiusd.conf and increase the `max_request_time` to at least 120 seconds: `max_request_time = 120`
 
 ### Define additional custom attributes for Mobile ID
 
@@ -77,20 +81,27 @@ Relevant end user errors will set the `Reply-Message` attribute over the output 
 
 Example when the user cancels the Mobile ID request on his device:
 ```
-> echo "User-Name=+41000092401,User-Password=''" | radclient -t 120 ...
+$echo "User-Name=+41000092401,User-Password=''" | radclient -t 120 ...
 Received response ID 255, code 3, length = 160
     Reply-Message = "The request has been canceled by the user. To complete the request it has to be accepted and confirmed with the Mobile ID PIN by the user."
 ```
 
+Example when the user related security element is not matching:
+```
+$echo "User-Name=+41000092401,User-Password=''" | radclient -t 120 ...
+Received response ID 255, code 3, length = 160
+    Reply-Message = "Your unique Mobile ID identification changed. Please contact your administrator."
+```
+
 ### Translations
 
-The actual resources are translated in EN, DE, FR, IT. Refer to the files in the `dictionaries/` folder.
+The actual resources are translated in EN, DE, FR, IT and located in the `dictionaries/` folder.
 
 ### Message to be displayed / signed
 
 The message is set in the translation dictionaries files and prefixed with the `$AP_PREFIX` defined in the .properties file.
-Example: "/myerver.com: Authentication with Mobile ID?"
+Example: "myerver.com: Authentication with Mobile ID?"
 
 ### Logging
 
-...
+Up to the point where the properties file is read the verbosity is set to ERROR. After that point the `VERBOSITY` setting of the properties file will take place.
