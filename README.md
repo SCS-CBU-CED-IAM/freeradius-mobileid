@@ -77,8 +77,7 @@ Relevant end user errors will set the `Reply-Message` attribute over the output 
 
 Example when the user cancels the Mobile ID request on his device:
 ```
-echo "User-Name=+41000092401,User-Password='',X-MSS-Language='en'" | radclient -t 120 localhost auth pass
-
+> echo "User-Name=+41000092401,User-Password=''" | radclient -t 120 ...
 Received response ID 255, code 3, length = 160
     Reply-Message = "The request has been canceled by the user. To complete the request it has to be accepted and confirmed with the Mobile ID PIN by the user."
 ```
@@ -90,7 +89,7 @@ The actual resources are translated in EN, DE, FR, IT. Refer to the files in the
 ### Message to be displayed / signed
 
 The message is set in the translation dictionaries files and prefixed with the `$AP_PREFIX` defined in the .properties file.
-Example: "http://myerver.com: Authentication with Mobile ID?"
+Example: "/myerver.com: Authentication with Mobile ID?"
 
 ### Logging
 
