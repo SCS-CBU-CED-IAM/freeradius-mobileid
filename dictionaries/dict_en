@@ -20,4 +20,4 @@ ERROR_503="Verification error with the confirmation. To be able to use Mobile ID
 ERROR_="Mobile ID can not be used at this time. Please try it again later."
 
 # Error (Unique ID)
-ERROR_ID="Your unique Mobile ID identification changed. Please contact your administrator."
+ERROR_ID="Your unique Mobile ID serial number has changed. Please contact your administrator."

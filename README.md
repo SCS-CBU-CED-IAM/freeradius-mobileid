@@ -68,8 +68,8 @@ Sample site configurations can be found in [samples/sites-available](samples/sit
 
 Adjust your user store like `<cfg>/users` with proper MID attributes according to the Mobile ID module. The values that have to be set are:
 * `CALLED-STATION-ID`: the mobile phone number of the Mobile ID user
-* `X-MSS-LANGUAGE`: the language for the call (defaults to EN if unset or invalid)
-* `X-MSS-MOBILEID-SN`: the related SerialNumber in the DN of the Mobile ID user (optional)
+* `X-MSS-LANGUAGE`: the language for the request to the Mobile ID user (defaults to EN if unset or invalid)
+* `X-MSS-MOBILEID-SN`: the unique Mobile ID serial number that must be verified in the response (optional)
 
 Sample user file can be found here [samples/](samples/users.sample).
 
@@ -90,7 +90,7 @@ Example when the user related security element is not matching:
 ```
 $echo "User-Name=+41000092401,User-Password=''" | radclient -t 120 ...
 Received response ID 255, code 3, length = 160
-    Reply-Message = "Your unique Mobile ID identification changed. Please contact your administrator."
+    Reply-Message = "Your unique Mobile ID serial number has changed. Please contact your administrator."
 ```
 
 ### Translations
