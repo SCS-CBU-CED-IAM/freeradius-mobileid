@@ -4,20 +4,20 @@
 DTBS="$AP_PREFIX: Autenticazione con Mobile ID?"
 
 # Errors
-ERROR_105="**Mobile ID has not been ordered or is not activated for this subscriber number. To be able to use Mobile ID, it has to be ordered and activated first."
-ERROR_208="**Transaction Expiry date has been reached or Time out has elapsed. Please try again."
-ERROR_209="**The MSSP has not succeeded to contact the enduser's mobile equipment. (Bad connection...). Please try again."
-ERROR_401="**The request has been canceled by the user. To complete the request it has to be accepted and confirmed with the Mobile ID PIN by the user."
-ERROR_402="**The user's Mobile ID PIN is blocked. To be able to use Mobile ID again, it has to be reactivated."
-ERROR_403="**The subscriber number is blocked. To be able to use Mobile ID again, the operator has to be contacted."
-ERROR_404="**The subscriber number is not yet activated for Mobile ID. To be able to use Mobile ID, it has to be activated."
-ERROR_406="**Error on the user device while confirming the request. Probably an other signature request is already in progress. Please try again."
-ERROR_422="**The subscriber number is not yet activated for Mobile ID. To be able to use Mobile ID, it has to be activated first."
-ERROR_501="**To be able to use Mobile ID again, it has to be reactivated."
-ERROR_503="**Verification error with the confirmation. To be able to use Mobile ID again, it has to be reactivated."
+ERROR_105="Mobile ID non è stato ancora ordinato o non è attivato per questo numero di telefono. Per poter utilizzare Mobile ID, deve essere comandata come opzione di un contratto Swisscom di telefonia mobile."
+ERROR_208="La data di scadenza di transazione è stata raggiunta o il tempo fuori è trascorso. Riprovi di nuovo."
+ERROR_209="Il servizio non è riuscito per contattare la strumentazione mobile dell'utilizzatore finale. (Connessione scadente…). Riprovi di nuovo."
+ERROR_401="La richiesta é stata cancellata dal utilizzatore."
+ERROR_402="Il codice PIN Mobile ID dell'utilizzatore é bloccato. Per poter di nuovo utilizzare Mobilie ID, l'utilizzatore deve attivarlo"
+ERROR_403="Il numero di telefonia mobile dell'utenza é bloccato. Per poter di nuovo utilizzare Mobilie ID, l'utilizzatore deve sbloccare il numero mobile."
+ERROR_404="Il numero di telefonia mobile dell'utenza non é abilitato per Mobile ID. Per poter utilizzare Mobile ID, il servizio deve essere attivato."
+ERROR_406="Errore causato dall'apparecchio mobile durante la conferma della richiesta. Probabilmente un altra richiesta di firma è già in corso. Riprovi di nuovo."
+ERROR_422="Il numero di telefonia mobile dell'utenza non é abilitato per Mobile ID. Per poter utilizzare Mobile ID, il servizio deve essere attivato."
+ERROR_501="Errore durante la conferma. Per poter utilizzare Mobile ID, il servizio deve essere riattivato."
+ERROR_503="Errore durante la conferma. Riprovi di nuovo."
 
 # Error (Generic)
-ERROR_="**Mobile ID can not be used at this time. Please try again."
+ERROR_="Mobile ID attualmente non può essere utilizzato. Riprova più tardi."
 
 # Error (Unique ID)
-ERROR_ID="Your unique Mobile ID serial number has changed. Please contact your administrator."
+ERROR_ID="Il numero di serie unico del Mobile ID è cambiato. Contattare l'amministratore."
