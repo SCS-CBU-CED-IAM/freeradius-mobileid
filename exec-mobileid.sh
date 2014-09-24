@@ -255,7 +255,7 @@ cleanups                                 # Cleanups
 inform "RC=$RC"
 
 # Echo to the console the output pairs
-[ "$REPLY_MESSAGE" != "" ] && echo "Reply-Message:='$REPLY_MESSAGE'"
+[ "$REPLY_MESSAGE" != "" ] && echo "Reply-Message:=\"$REPLY_MESSAGE\""
 # and return the error code
 exit $RC
 
