@@ -16,8 +16,9 @@
 #  arg2: X_MSS_LANGUAGE
 #  arg3: X_MSS_MOBILEID_SN
 #
-# It will return the proper FreeRADIUS error code and on user relevant errors
-# ecbo the translated 'Reply-Message'
+# It will return the proper FreeRADIUS error code, echo the actual/updated SerialNumber of
+# the DN from the related Mobile ID user as X-MSS-MobileID-SN. In case of user related
+# error it will be echo as 'Reply-Message'
 
 # Possible return codes
 RLM_MODULE_SUCCESS=0                     # ok: the module succeeded
@@ -181,6 +182,7 @@ debug ">>> $TMP.curl.log <<<" "$DEBUG_INFO"
 
 # Parse the response
 REPLY_MESSAGE=""                         # Empty the RADIUS reply message
+UNIQUEIDNEW=""                           # and the unique ID
 if [ "$RC_CURL" = "0" -a "$http_code" = "200" ]; then
   DEBUG_INFO=`cat $TMP.rsp | xmllint --format -`
   debug ">>> $TMP.rsp <<<" "$DEBUG_INFO"
@@ -255,7 +257,9 @@ cleanups                                 # Cleanups
 inform "RC=$RC"
 
 # Echo to the console the output pairs
+[ "$UNIQUEIDNEW" != "" ] && echo "X-MSS-MobileID-SN:=\"$UNIQUEIDNEW\""
 [ "$REPLY_MESSAGE" != "" ] && echo "Reply-Message:=\"$REPLY_MESSAGE\""
+
 # and return the error code
 exit $RC
 
