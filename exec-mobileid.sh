@@ -1,5 +1,5 @@
 #!/bin/sh
-# exec-mobileid.sh - 1.0
+# exec-mobileid.sh
 # Script to invoke Mobile ID service over curl for use in FreeRADIUS.
 #
 # Each of the attributes in the request will be available in an
@@ -210,7 +210,7 @@ if [ "$RC_CURL" = "0" -a "$http_code" = "200" ]; then
   RES_CERT_SUBJ=$(openssl x509 -subject -nameopt utf8 -nameopt sep_comma_plus -noout -in $TMP.sig.certs.level0.pem)
   UNIQUEIDNEW=$(echo "$RES_CERT_SUBJ" | sed -n -e 's/.*serialNumber=\(.*\),CN=.*/\1/p')
   if [ "$UNIQUEID" != "" ]; then           # Unique ID to be checked
-    inform "Check X_MSS_MOBILEID_SN: $UNIQUEIDNEW against $UNIQUEID"
+    inform "Check ID: $UNIQUEIDNEW against $UNIQUEID"
     if [ "$UNIQUEID" != "$UNIQUEIDNEW" ]; then
       ERROR="ERROR_ID"
       eval REPLY_MESSAGE=\$$ERROR
@@ -218,7 +218,7 @@ if [ "$RC_CURL" = "0" -a "$http_code" = "200" ]; then
       error "$REPLY_MESSAGE"
     fi
    else
-    inform "Check X_MSS_MOBILEID_SN: Not set, $UNIQUEIDNEW ignored"
+    inform "Check ID: Not set, $UNIQUEIDNEW ignored"
   fi
 
   # Extract the PKCS7 and validate the signature
