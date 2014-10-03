@@ -4,20 +4,20 @@
 DTBS="$AP_PREFIX: Authentifizierung mit Mobile ID?"
 
 # Errors
-ERROR_105="Mobile ID ist für diese Rufnummer noch nicht bestellt worden oder ist nicht aktiviert. Um Mobile ID nutzen zu können, muss die Option auf einem Swisscom Mobilvertrag bestellt und aktiviert werden."
+ERROR_105="Mobile ID ist für diese Rufnummer noch nicht bestellt worden oder ist nicht aktiviert. Besuchen Sie bitte www.swisscom.ch/mobileid um die Mobile ID zu aktivieren."
 ERROR_208="Gültigkeitsdatum der Transaktion ist abgelaufen oder das Timeout wurde erreicht. Bitte versuchen Sie es erneut."
 ERROR_209="Der Service konnte das mobile Endgerät nicht kontaktieren. (Schlechte Verbindung…). Bitte versuchen Sie es erneut."
 ERROR_401="Der Vorgang wurde vom Nutzer abgebrochen."
-ERROR_402="Die Mobile ID PIN des Nutzers ist gesperrt. Um Mobile ID erneut nutzen zu können, muss sie reaktiviert werden."
-ERROR_403="Die Rufnummer des Nutzers ist gesperrt. Um Mobile ID erneut nutzen zu können muss der Benutzer zuerst seine Mobilnummer entsperren lassen."
-ERROR_404="Die Rufnummer ist nicht für Mobile ID aktiviert. Um Mobile ID nutzen zu können, muss der Service zuerst aktiviert werden."
+ERROR_402="Ihre Mobile ID PIN ist gesperrt. Besuchen Sie bitte www.swisscom.ch/mobileid um Ihren PIN zurückzusetzen"
+ERROR_403="Ihre Rufnummer ist gesperrt. Um Mobile ID erneut nutzen zu können müssen Sie zuerst ihre Mobilnummer entsperren lassen."
+ERROR_404="Ihre Rufnummer ist nicht für Mobile ID aktiviert. Besuchen Sie bitte www.swisscom.ch/mobileid um die Mobile ID zu aktivieren."
 ERROR_406="Fehler auf dem Endgerät beim Erstellen der Bestätigung. Wahrscheinlich ist eine andere Signatur Anfrage bereits im Gange. Bitte versuchen Sie es erneut."
-ERROR_422="Die Rufnummer ist nicht für Mobile ID aktiviert. Um Mobile ID nutzen zu können, muss der Service zuerst aktiviert werden."
-ERROR_501="Fehler beim Prüfen der Bestätigung. Um Mobile ID nutzen zu können, muss der Service wieder aktiviert werden."
+ERROR_422="Ihre Rufnummer ist nicht für Mobile ID aktiviert. Besuchen Sie bitte www.swisscom.ch/mobileid um die Mobile ID zu aktivieren."
+ERROR_501="Fehler beim Prüfen der Bestätigung. Besuchen Sie bitte www.swisscom.ch/mobileid um die Mobile ID wieder zu aktivieren."
 ERROR_503="Fehler beim Prüfen der Bestätigung. Bitte versuchen Sie es erneut."
 
 # Error (Generic)
 ERROR_="Mobile ID kann zurzeit nicht genutzt werden. Bitte versuchen Sie es später erneut."
 
 # Error (Unique ID)
-ERROR_ID="**Your unique Mobile ID serial number has changed. Please contact your administrator."
+ERROR_ID="**Ihre Mobile ID Seriennummer hat geändert. Bitte kontaktieren Sie Ihren Administrator."
