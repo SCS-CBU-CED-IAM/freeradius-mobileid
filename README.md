@@ -97,14 +97,14 @@ Example when the related mobile phone number does not have the Mobile ID option:
 ```
 $echo "User-Name=+41000092105,User-Password=''" | radclient -t 120 ...
 Received response ID 255, code 3, length = 160
-    Reply-Message = "Mobile ID has not been ordered or is not activated for this subscriber number. To be able to use Mobile ID, it has to be ordered and activated first."
+    Reply-Message = "Mobile ID has not been ordered or is not activated for this subscriber number. Please visit www.swisscom.ch/mobileid to activate your Mobile ID."
 ```
 
 Example when the user related security element is not matching:
 ```
 $echo "User-Name=+41791234567,User-Password=''" | radclient -t 120 ...
 Received response ID 255, code 3, length = 160
-    Reply-Message = "Your unique Mobile ID serial number has changed. Please contact your administrator."
+    Reply-Message = "Your unique serial number of the Mobile ID has changed. Please contact your administrator."
 ```
 
 ### Translations
