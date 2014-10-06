@@ -1,4 +1,4 @@
-# Dictionnary file: German
+# Dictionary file: German
 
 # Message sent to Mobile ID (use $AP_PREFIX to set the customer prefix)
 DTBS="$AP_PREFIX: Authentifizierung mit Mobile ID?"
@@ -20,4 +20,4 @@ ERROR_503="Fehler beim Prüfen der Bestätigung. Bitte versuchen Sie es erneut."
 ERROR_="Mobile ID kann zurzeit nicht genutzt werden. Bitte versuchen Sie es später erneut."
 
 # Error (Unique ID)
-ERROR_ID="**Ihre Mobile ID Seriennummer hat geändert. Bitte kontaktieren Sie Ihren Administrator."
+ERROR_ID="Ihre Mobile ID Seriennummer hat geändert. Bitte kontaktieren Sie Ihren Administrator."

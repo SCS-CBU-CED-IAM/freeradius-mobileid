@@ -1,4 +1,4 @@
-# Dictionnary file: English
+# Dictionary file: English
 
 # Message sent to Mobile ID (use $AP_PREFIX to set the customer prefix)
 DTBS="$AP_PREFIX: Authentication with Mobile ID?"

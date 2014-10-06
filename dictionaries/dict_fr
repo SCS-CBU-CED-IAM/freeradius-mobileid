@@ -1,4 +1,4 @@
-# Dictionnary file: French
+# Dictionary file: French
 
 # Message sent to Mobile ID (use $AP_PREFIX to set the customer prefix)
 DTBS="$AP_PREFIX: Authentification avec Mobile ID?"
