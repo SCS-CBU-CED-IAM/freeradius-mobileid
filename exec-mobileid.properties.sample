@@ -21,4 +21,4 @@ CURL_OPTIONS="--silent"
 VERBOSITY=2                                        # Silent=0, Info=1, Error=2, Debug=3
 
 # Swisscom BASE URL
-BASE_URL=https://soap.mobileid.swisscom.com
+BASE_URL=https://mobileid.swisscom.com
