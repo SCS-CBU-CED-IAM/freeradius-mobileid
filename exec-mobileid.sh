@@ -205,9 +205,20 @@ if [ "$RC_CURL" = "0" -a "$http_code" = "200" ]; then
   
   # Split the certificate list into separate files
   awk -v tmp=$TMP.sig.certs.level -v c=-1 '/-----BEGIN CERTIFICATE-----/{inc=1;c++} inc {print > (tmp c ".pem")}/---END CERTIFICATE-----/{inc=0}' $TMP.sig.cert.pem
-  # Signers certificate is in level0
-  [ -s "$TMP.sig.certs.level0.pem" ] || error "Unable to extract signers certificate from the list"
-  RES_CERT_SUBJ=$(openssl x509 -subject -nameopt utf8 -nameopt sep_comma_plus -noout -in $TMP.sig.certs.level0.pem)
+
+  # Find the signers certificate based on the SerialNumber in the Subject (DN)
+  SIGNER=
+  for i in $TMP.sig.certs.level?.pem; do
+    if [ -s "$i" ]; then
+      RES_TMP=$(openssl x509 -subject -nameopt utf8 -nameopt sep_comma_plus -noout -in $i)
+      RES_TMP=$(echo "$RES_TMP" | sed -n "/serialNumber=/p")
+      if [ "$RES_TMP" != "" ]; then SIGNER=$i; fi
+    fi
+  done
+  [ -s "$SIGNER" ] || error "Unable to extract signers certificate from the list"
+
+  # Get the details from the signers certificate
+  RES_CERT_SUBJ=$(openssl x509 -subject -nameopt utf8 -nameopt sep_comma_plus -noout -in $SIGNER)
   UNIQUEIDNEW=$(echo "$RES_CERT_SUBJ" | sed -n -e 's/.*serialNumber=\(.*\),CN=.*/\1/p')
   if [ "$UNIQUEID" != "" ]; then           # Unique ID to be checked
     inform "Check ID: $UNIQUEIDNEW against $UNIQUEID"
