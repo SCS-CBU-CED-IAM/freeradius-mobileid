@@ -1,5 +1,18 @@
+server mobileid {
+
+listen {
+	type = auth
+	ipaddr = *
+	port = 0
+	limit {
+		max_connections = 0
+		lifetime = 0
+		idle_timeout = 30
+	}
+}
+
 authorize {
-    # Cleanups with preprocess
+	# Cleanups with preprocess
 	preprocess
 
 	# Password checks
@@ -23,29 +36,29 @@ authenticate {
 		pap
 	}
 	Auth-Type CHAP {
-        chap
+		chap
 	}
 	Auth-Type MS-CHAP {
-        mschap
+		mschap
 	}
 	# Uncomment it if you want to use ldap for authentication
 	# Auth-Type LDAP {
-	#       ldap
+	#	ldap
 	# }
 }
 
 post-auth {
 	# Update request with values from users database
-        update request {
-            Called-Station-Id := "%{control:Called-Station-Id}"
-            X-MSS-Language := "%{control:X-MSS-Language}"
-            X-MSS-MobileID-SN := "%{control:X-MSS-MobileID-SN}"
+	update request {
+		Called-Station-Id := "%{control:Called-Station-Id}"
+		X-MSS-Language := "%{control:X-MSS-Language}"
+		X-MSS-MobileID-SN := "%{control:X-MSS-MobileID-SN}"
 	}
 
 	# Set Called-Station-Id to User-Name, if not found.
 	if (!Called-Station-Id || Called-Station-Id == "") {
-            update request {
-            Called-Station-Id := "%{User-Name}"
+		update request {
+			Called-Station-Id := "%{User-Name}"
 		}
 	}
 
@@ -53,6 +66,8 @@ post-auth {
 	mobileid
 
 	Post-Auth-Type REJECT {
-        attr_filter.access_reject
+		attr_filter.access_reject
 	}
+}
+
 }
