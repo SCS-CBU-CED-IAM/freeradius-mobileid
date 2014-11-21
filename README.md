@@ -16,7 +16,7 @@ Checkout the project directly from git under a specific folder:
   git clone https://github.com/SCS-CBU-CED-IAM/freeradius-mobileid.git freeradius
 ```
 
-Set proper permissions to the FreeRADIUS deamon to access those files. Example:
+Set proper permissions to the FreeRADIUS daemon to access those files. Example:
 ```
   chown -R freerad:freerad /opt/freeradius
   chmod +x /opt/freeradius/*.sh
@@ -25,7 +25,7 @@ Set proper permissions to the FreeRADIUS deamon to access those files. Example:
 
 ## Configuration
 
-`<cfg>` is referring to the folder containing the configuration elements. This is depending to the operating system and the chosen installation method. For Linux it should be `/etc/freeradius` and for Windows `C:\FreeRADIUS\etc\raddb`
+`<cfg>` is referring to the folder containing the configuration elements. This is depending to the operating system and the chosen installation method. For Linux it should be `/etc/freeradius` or `/etc/raddb` and for Windows `C:\FreeRADIUS\etc\raddb`
 
 ### Create the Mobile ID module properties file and test it
 
@@ -119,3 +119,7 @@ Example: "myerver.com: Authentication with Mobile ID?"
 ### Logging
 
 Up to the point where the properties file is read the verbosity is set to ERROR. After that point the `VERBOSITY` setting of the properties file will take place.
+
+### Patching rlm_exec for higher `timeout’
+
+Refer to the technical documentations in case you need to patch the FreeRADIUS server rlm_exec module to allow higher timeout value. Instruction files can be found here [docs/](docs/).

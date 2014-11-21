@@ -1,0 +1,66 @@
+##################################################################################
+## freeradius patching rlm_exec for higher timeout to support Mobile ID         ##
+## Based on http://wiki.centos.org/HowTos/RebuildSRPM                           ##
+##################################################################################
+
+## Installing freeradius ##
+sudo yum install freeradius freeradius-ldap freeradius-utils
+
+# After doing all the proper setup for Mobile ID following error will be raised:
+/etc/raddb/mods-enabled/exec_mobileid[3]: Timeout '120' is too large (maximum: 30)
+/etc/raddb/mods-enabled/exec_mobileid[3]: Instantiation failed for module "mobileid"
+
+
+## Patching ##
+
+# Prepare Build environment
+cd
+sudo yum install rpm-build redhat-rpm-config make gcc
+mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+echo '%_topdir %(echo $HOME)/rpmbuild' > ~/.rpmmacros
+
+# Get and install the source RPM
+curl -O http://vault.centos.org/7.0.1406/os/Source/SPackages/freeradius-3.0.1-6.el7.src.rpm
+rpm -i freeradius-3.0.1-6.el7.src.rpm 
+
+# Install dependencies
+sudo yum install autoconf gdbm-devel openssl-devel pam-devel net-snmp-devel net-snmp-utils readline-devel libpcap-devel libtalloc-devel tncfhh-devel openldap-devel python-devel mysql-devel postgresql-devel sqlite-devel unixODBC-devel perl-ExtUtils-Embed
+
+# Extract and backup the sources
+cd ~/rpmbuild/SPECS
+rpmbuild -bp freeradius.spec 
+cd ~/rpmbuild/BUILD
+cp -pvr freeradius-server-3.0.1 freeradius-server-3.0.1.orig
+
+# Update the desired source files
+vi freeradius-server-3.0.1/src/modules/rlm_exec/rlm_exec.c
+  ## Manual editing (search for 30 and replace with 120)
+  
+# Create the patch file
+cd ~/rpmbuild/BUILD
+diff -Npru freeradius-server-3.0.1.orig freeradius-server-3.0.1 > freeradius-rlm_exec-mobileid.patch
+cp freeradius-rlm_exec-mobileid.patch ../SOURCES/
+
+# Edit the spec file and add the patch
+cd ~/rpmbuild/SPECS/
+vi freeradius.spec 
+  ## Manual editing to add the .patch file
+  # ...
+  # Patch8: freeradius-rlm_exec-mobileid.patch
+  # ...
+  # %patch8 -p1
+
+# Build the RPMs
+cd ~/rpmbuild/SPECS/
+rpmbuild -ba freeradius.spec 
+
+# Install the updated RPMs
+cd ~/rpmbuild/RPMS/x86_64/
+sudo yum upgrade freeradius-3.0.1-6.el7.centos.x86_64.rpm freeradius-utils-3.0.1-6.el7.centos.x86_64.rpm freeradius-devel-3.0.1-6.el7.centos.x86_64.rpm freeradius-ldap-3.0.1-6.el7.centos.x86_64.rpm 
+
+# Restart the server in debug
+cd
+sudo service radiusd stop
+radiusd -X
+
+##################################################################################
