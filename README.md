@@ -16,13 +16,6 @@ Checkout the project directly from git under a specific folder:
   git clone https://github.com/SCS-CBU-CED-IAM/freeradius-mobileid.git freeradius
 ```
 
-Set proper permissions to the FreeRADIUS daemon to access those files. Example:
-```
-  chown -R freerad:freerad /opt/freeradius
-  chmod +x /opt/freeradius/*.sh
-```
-
-
 ## Configuration
 
 `<cfg>` is referring to the folder containing the configuration elements. This is depending to the operating system and the chosen installation method. For Linux it should be `/etc/freeradius` or `/etc/raddb` and for Windows `C:\FreeRADIUS\etc\raddb`
@@ -84,6 +77,24 @@ Adjust your user store like `<cfg>/users` with proper MID attributes according t
 
 Sample user file can be found here [samples/](samples/users.sample).
 
+### Permissions
+
+Set proper permissions to the FreeRADIUS daemon to access those files. Example:
+```
+  # FreeRADIUS Server configuration
+  sudo chown -R :freerad /etc/freeradius
+
+  # FreeRADIUS Mobile ID Module
+  sudo chown -R :freerad /opt/freeradius
+  sudo chmod +x /opt/freeradius/*.sh
+  ## Group should be able to read all
+  sudo chmod -R g+r /opt/freeradius
+  ## Others should be able to read all
+  sudo chmod -R o+r /opt/freeradius
+  ## Others should not be able to read the client certificate
+  sudo chmod o-r /opt/freeradius/certs
+```
+
 ### Testing
 
 Start FreeRADIUS and test it. Rather than launching the FreeRADIUS over the service, start the daemon from the console in debug mode: 
@@ -132,6 +143,6 @@ Example: "myerver.com: Authentication with Mobile ID?"
 
 Up to the point where the properties file is read the verbosity is set to ERROR. After that point the `VERBOSITY` setting of the properties file will take place.
 
-## Patching rlm_exec for higher `timeout’
+## Patching rlm_exec for higher `timeout`
 
 Refer to the technical documentations in case you need to patch the FreeRADIUS server rlm_exec module to allow higher timeout value. Instruction files can be found here [docs/](docs/).
