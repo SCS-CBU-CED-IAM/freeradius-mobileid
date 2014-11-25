@@ -54,7 +54,8 @@ Edit <cfg>/radiusd.conf and increase the `max_request_time` to at least 120 seco
 
 ### Define additional custom attributes for Mobile ID
 
-Define custom attributes in <cfg>/dictionary
+Define custom attributes in `<cfg>/dictionary`
+
 ```
 ATTRIBUTE  X-MSS-Language     3000  string
 ATTRIBUTE  X-MSS-MobileID-SN  3001  string
@@ -65,8 +66,8 @@ ATTRIBUTE  X-MSS-MobileID-SN  3001  string
 Create a rlm_exec module file mobileid in `<cfg>/mods-enabled` based on the sample provided in [samples/modules/](samples/modules)
 
 The <program> depends on the operating system and on the location of the files:
- * Linux: program = '/opt/freeradius/exec-mobileid.sh'
- * Windows: program = 'c:\\FreeRADIUS\\var\\mobileid\\exec-mobileid.bat %{Called-Station-Id} %{X-MSS-Language} %{X-MSS-MobileID-SN}'
+ * Linux: `program = '/opt/freeradius/exec-mobileid.sh'`
+ * Windows: `program = 'c:\\FreeRADIUS\\var\\mobileid\\exec-mobileid.bat %{Called-Station-Id} %{X-MSS-Language} %{X-MSS-MobileID-SN}'`
  
 ### Configure your site to use the Mobile ID module
 
@@ -82,6 +83,17 @@ Adjust your user store like `<cfg>/users` with proper MID attributes according t
 * `X-MSS-MOBILEID-SN`: the unique Mobile ID serial number that must be verified in the response (optional)
 
 Sample user file can be found here [samples/](samples/users.sample).
+
+### Testing
+
+Start FreeRADIUS and test it. Rather than launching the FreeRADIUS over the service, start the daemon from the console in debug mode: 
+```
+sudo service freeradius stop
+sudo freeradius –X -f
+```
+
+An easy way to test your RADIUS server is by using the FreeRADIUS provided radclient tool: 
+`echo "User-Name=+4179xxxxxxx,User-Password=''" | radclient -t 120 localhost auth testing123`
 
 ## Advanced configuration
 
@@ -109,7 +121,7 @@ Received response ID 255, code 3, length = 160
 
 ### Translations
 
-The actual resources are translated in EN, DE, FR, IT and located in the `dictionaries/` folder.
+The actual resources are translated in EN, DE, FR, IT and located in the `dictionaries/` [folder](dictionaries/).
 
 ### Message to be displayed / signed
 
@@ -120,6 +132,6 @@ Example: "myerver.com: Authentication with Mobile ID?"
 
 Up to the point where the properties file is read the verbosity is set to ERROR. After that point the `VERBOSITY` setting of the properties file will take place.
 
-### Patching rlm_exec for higher `timeout’
+## Patching rlm_exec for higher `timeout’
 
 Refer to the technical documentations in case you need to patch the FreeRADIUS server rlm_exec module to allow higher timeout value. Instruction files can be found here [docs/](docs/).

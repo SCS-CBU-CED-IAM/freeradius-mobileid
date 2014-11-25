@@ -1,3 +1,5 @@
+# This is a sample configuration for a server entity
+
 server mobileid {
 
 listen {

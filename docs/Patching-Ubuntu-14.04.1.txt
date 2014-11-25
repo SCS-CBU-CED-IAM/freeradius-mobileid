@@ -1,0 +1,37 @@
+##################################################################################
+## freeradius patching rlm_exec for higher timeout to support Mobile ID         ##
+##################################################################################
+
+## Installing freeradius ##
+sudo apt-get install freeradius freeradius-ldap freeradius-utils libxml2-utils
+
+# After doing all the proper setup for Mobile ID following error will be raised:
+Child PID 2366 (/opt/freeradius/exec-mobileid.sh) is taking too much time: forcing failure and killing child.
+
+
+## Patching ##
+
+# Prepare Build environment
+sudo apt-get install devscripts
+sudo apt-get build-dep freeradius devscripts build-essential
+
+# Get and install the source RPM
+cd /tmp
+apt-get source freeradiuscd freeradius-2.1.12+dfsg
+
+# Update the desired source files
+vi src/main/exec.c
+  ## Manual editing (search for 10 and replace with 120)
+
+# Recompile and install patched versiondch -v2.1.12+dfsg-99 'Patched timeout for MobileID'
+dpkg-buildpackage -rfakeroot -i.*
+
+# Install the updated RPMs
+sudo dpkg -i ../*.deb
+
+# Restart the server in debug
+cd
+sudo service freeradius stop
+freeradius -X
+
+##################################################################################
