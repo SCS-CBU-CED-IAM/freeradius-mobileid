@@ -86,13 +86,12 @@ Set proper permissions to the FreeRADIUS daemon to access those files. Example:
 
   # FreeRADIUS Mobile ID Module
   sudo chown -R :freerad /opt/freeradius
+  ## Execution flag for the scripts
   sudo chmod +x /opt/freeradius/*.sh
-  ## Group should be able to read all
-  sudo chmod -R g+r /opt/freeradius
-  ## Others should be able to read all
-  sudo chmod -R o+r /opt/freeradius
-  ## Others should not be able to read the client certificate
-  sudo chmod o-r /opt/freeradius/certs
+  ## Everyone can read all
+  sudo chmod -R +r /opt/freeradius
+  ## but others should not be able to read the client certificate
+  sudo chmod o-r /opt/freeradius/certs/*
 ```
 
 ### Testing
