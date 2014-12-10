@@ -47,7 +47,7 @@ debug() { log $dbg_lvl "DEBUG: $@"; }
 log() {
   if [ $VERBOSITY -ge $1 ]; then
     echo "exec-mobileid::$2" >&3
-	if [ "$3" != "" ]; then echo "$3" >&3; fi
+    if [ "$3" != "" ]; then echo "$3" >&3; fi
   fi
 }
 
