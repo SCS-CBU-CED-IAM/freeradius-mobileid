@@ -90,7 +90,7 @@ UNIQUEID=`eval echo $X_MSS_MOBILEID_SN`
 [ "$UNIQUEID" = "" ] && UNIQUEID=$3
 
 # Generate a unique transaction ID that can be used inter alia in the DTBS
-TRANS_ID=$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9+-*%/=!?" | fold -w 6 | head -n 1)
+TRANS_ID=$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9+%/=!?" | fold -w 6 | head -n 1)
 
 # Read configuration from property file
 FILE="$PWD/exec-mobileid.properties"
