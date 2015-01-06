@@ -69,10 +69,12 @@ cleanups()
 }
 
 # Get the Path of the script
-PWD=$(dirname $0)                               
+PWD=$(dirname $0)
+# Seeds the random number generator from PID of script
+RANDOM=$$
 
 # Check the dependencies
-for cmd in curl openssl base64 sed date xmllint awk tr; do
+for cmd in curl openssl base64 sed date xmllint awk tr fold head; do
   hash $cmd &> /dev/null
   if [ $? -eq 1 ]; then error "Dependency error: '$cmd' not found" ; fi
 done
@@ -86,6 +88,9 @@ USERLANG=`eval echo $X_MSS_LANGUAGE`
 UNIQUEID=`eval echo $X_MSS_MOBILEID_SN`
 [ "$USERLANG" = "" ] && USERLANG=$2
 [ "$UNIQUEID" = "" ] && UNIQUEID=$3
+
+# Generate a unique transaction ID that can be used inter alia in the DTBS
+TRANS_ID=$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9+-*%/=!?" | fold -w 6 | head -n 1)
 
 # Read configuration from property file
 FILE="$PWD/exec-mobileid.properties"
@@ -119,7 +124,6 @@ debug ">>> Available variables <<<" "$DEBUG_INFO"
 [ -r "$CERT_FILE" ]   || error "SSL certificate file ($CERT_FILE) missing or not readable"
 
 # Create temporary request (Synchron with timeout, signature as PKCS7 and validation at service)
-RANDOM=$$                                # Seeds the random number generator from PID of script
 AP_INSTANT=$(date +%Y-%m-%dT%H:%M:%S%:z) # Define instant and transaction id
 AP_TRANSID=AP.TEST.$((RANDOM%89999+10000)).$((RANDOM%8999+1000))
 TMP=$(mktemp /tmp/_tmp.XXXXXX)           # Request goes here

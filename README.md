@@ -135,8 +135,8 @@ The actual resources are translated in EN, DE, FR, IT and located in the `dictio
 
 ### Message to be displayed / signed
 
-The message is set in the translation dictionaries files and prefixed with the `$AP_PREFIX` defined in the .properties file.
-Example: "myerver.com: Authentication with Mobile ID?"
+The message is set in the translation dictionaries files. It will be prefixed with the `$AP_PREFIX` defined in the .properties file and ending with the `$TRANS_ID` value.
+Example: "myerver.com: Authentication with Mobile ID? (jdclOE)"
 
 ### Logging
 

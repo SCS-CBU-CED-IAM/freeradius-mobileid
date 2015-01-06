@@ -1,7 +1,7 @@
 # Dictionary file: English
 
 # Message sent to Mobile ID (use $AP_PREFIX to set the customer prefix)
-DTBS="$AP_PREFIX: Authentication with Mobile ID?"
+DTBS="$AP_PREFIX: Authentication with Mobile ID? ($TRANS_ID)"
 
 # Errors
 ERROR_105="Mobile ID has not been ordered or is not activated for this subscriber number. Please visit www.swisscom.ch/mobileid to activate your Mobile ID."
