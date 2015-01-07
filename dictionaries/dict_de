@@ -1,7 +1,9 @@
 # Dictionary file: German
 
-# Message sent to Mobile ID (use $AP_PREFIX to set the customer prefix)
-DTBS="$AP_PREFIX: Authentifizierung mit Mobile ID? ($TRANS_ID)"
+# Message sent to Mobile ID
+#  use #AP_PREFIX# to set the customer prefix
+#  use #TRANSID# to set the unique transaction id
+DTBS="#AP_PREFIX#: Authentifizierung mit Mobile ID? (#TRANSID#)"
 
 # Errors
 ERROR_105="Mobile ID ist für diese Rufnummer noch nicht bestellt worden oder ist nicht aktiviert. Besuchen Sie bitte www.swisscom.ch/mobileid um die Mobile ID zu aktivieren."

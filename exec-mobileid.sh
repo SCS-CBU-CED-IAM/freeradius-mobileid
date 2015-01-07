@@ -74,7 +74,7 @@ PWD=$(dirname $0)
 RANDOM=$$
 
 # Check the dependencies
-for cmd in curl openssl base64 sed date xmllint awk tr fold head; do
+for cmd in curl openssl base64 sed date xmllint awk tr head; do
   hash $cmd &> /dev/null
   if [ $? -eq 1 ]; then error "Dependency error: '$cmd' not found" ; fi
 done
@@ -88,9 +88,6 @@ USERLANG=`eval echo $X_MSS_LANGUAGE`
 UNIQUEID=`eval echo $X_MSS_MOBILEID_SN`
 [ "$USERLANG" = "" ] && USERLANG=$2
 [ "$UNIQUEID" = "" ] && UNIQUEID=$3
-
-# Generate a unique transaction ID that can be used inter alia in the DTBS
-TRANS_ID=$(cat /dev/urandom | LC_CTYPE=C tr -dc "a-zA-Z0-9+%/=!?" | fold -w 6 | head -n 1)
 
 # Read configuration from property file
 FILE="$PWD/exec-mobileid.properties"
@@ -111,6 +108,13 @@ FILE="$PWD/dictionaries/dict_$USERLANG"
 debug "Reading resources from $FILE"
 [ -r "$FILE" ] || error "Resource file ($FILE) missing or not readable"
 . $PWD/dictionaries/dict_$USERLANG
+
+# Include AP_PREFIX into DTBS message (if requested)
+DTBS=$(echo "$DTBS" | sed -e "s/#AP_PREFIX#/${AP_PREFIX}/g")
+
+# Generate a unique transaction id and include into DTBS message (if requested)
+TRANSID=$(LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | head -c 6)
+DTBS=$(echo "$DTBS" | sed -e "s/#TRANSID#/${TRANSID}/g")
 
 # Details of the Mobile ID request
 inform "MSS_Signature $MSISDN '$DTBS' $USERLANG"
