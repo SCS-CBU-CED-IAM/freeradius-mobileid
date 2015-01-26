@@ -1,9 +1,10 @@
 ##################################################################################
 ## freeradius patching rlm_exec for higher timeout to support Mobile ID         ##
+##                                                                              ##
 ## Based on http://wiki.centos.org/HowTos/RebuildSRPM                           ##
 ##################################################################################
 
-## Installing freeradius ##
+## Installing freeradius
 sudo yum install freeradius freeradius-ldap freeradius-utils
 
 # After doing all the proper setup for Mobile ID following error will be raised:
@@ -11,7 +12,11 @@ sudo yum install freeradius freeradius-ldap freeradius-utils
 /etc/raddb/mods-enabled/exec_mobileid[3]: Instantiation failed for module "mobileid"
 
 
-## Patching ##
+## Patching
+## !!! Important notice !!!
+##   Building content as the 'root' user can be a recipe for disaster, whether
+##   using the RPM packaging system or plain tarballs. The matter is discussed
+##   http://www.owlriver.com/tips/non-root/ in greater detail.
 
 # Prepare Build environment
 cd
