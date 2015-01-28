@@ -25,9 +25,12 @@ sudo yum install rpm-build redhat-rpm-config make gcc
 mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
 echo '%_topdir %(echo $HOME)/rpmbuild' > ~/.rpmmacros
 
-# Get and install the source RPM
+# Get and install the source RPM (! not as root !)
 curl -O http://vault.centos.org/7.0.1406/os/Source/SPackages/freeradius-3.0.1-6.el7.src.rpm
 rpm -i freeradius-3.0.1-6.el7.src.rpm 
+## Note: the warnings can be ignored
+## warning: user mockbuild does not exist - using root
+## warning: group mockbuild does not exist - using root
 
 # Install dependencies
 sudo yum install autoconf gdbm-devel openssl-devel pam-devel net-snmp-devel net-snmp-utils readline-devel libpcap-devel libtalloc-devel tncfhh-devel openldap-devel python-devel mysql-devel postgresql-devel sqlite-devel unixODBC-devel perl-ExtUtils-Embed
@@ -51,10 +54,10 @@ cp freeradius-rlm_exec-mobileid.patch ../SOURCES/
 cd ~/rpmbuild/SPECS/
 vi freeradius.spec 
   ## Manual editing to add the .patch file
-  # ...
-  # Patch8: freeradius-rlm_exec-mobileid.patch
-  # ...
-  # %patch8 -p1
+  ...
+  Patch8: freeradius-rlm_exec-mobileid.patch
+  ...
+  %patch8 -p1
 
 # Build the RPMs
 cd ~/rpmbuild/SPECS/
