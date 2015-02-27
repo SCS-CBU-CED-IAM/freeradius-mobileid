@@ -157,9 +157,7 @@ Refer to the technical documentations in case you need to patch the FreeRADIUS s
 **Mobile ID Request not sent when FreeRADIUS is started as daemon**
 
 `curl` will raise error 7 and you should disable `SELINUX`:
-```
-sudo vi /etc/selinux/config
-```
+edit following file `/etc/selinux/config`
 locate following line `SELINUX=enforcing`
 Change this to `SELINUX=disabled`
 
