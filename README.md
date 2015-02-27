@@ -94,6 +94,8 @@ Set proper permissions to the FreeRADIUS daemon to access those files. Example:
   sudo chmod o-r /opt/freeradius/certs/*
 ```
 
+The group name is depending on the Linux distribution. In general it's either `freerad` or `radiusd`.
+
 ### Testing
 
 Start FreeRADIUS and test it. Rather than launching the FreeRADIUS over the service, start the daemon from the console in debug mode: 
@@ -101,6 +103,9 @@ Start FreeRADIUS and test it. Rather than launching the FreeRADIUS over the serv
 sudo service freeradius stop
 sudo freeradius –X -f
 ```
+
+The service name is depending on the Linux distribution. In general it's either `freeradius`or `radiusd`.
+
 
 An easy way to test your RADIUS server is by using the FreeRADIUS provided radclient tool: 
 `echo "User-Name=+4179xxxxxxx,User-Password=''" | radclient -t 120 localhost auth testing123`
@@ -146,3 +151,22 @@ Up to the point where the properties file is read the verbosity is set to ERROR.
 ## Patching rlm_exec for higher `timeout`
 
 Refer to the technical documentations in case you need to patch the FreeRADIUS server rlm_exec module to allow higher timeout value. Instruction files can be found here [docs/](docs/).
+
+## Known Issues
+
+**Mobile ID Request not sent when FreeRADIUS is started as daemon**
+
+`curl` will raise error 7 and you should disable `SELINUX`:
+```
+sudo vi /etc/selinux/config
+```
+locate following line `SELINUX=enforcing`
+Change this to `SELINUX=disabled`
+
+A reboot is needed
+
+**OS X 10.x: Requests always fail with MSS error 104: _Wrong SSL credentials_.**
+
+The `curl` shipped with OS X uses their own Secure Transport engine, which broke the --cert option, see: http://curl.haxx.se/mail/archive-2013-10/0036.html
+
+Install curl from Mac Ports `sudo port install curl` or home-brew: `brew install curl && brew link --force curl`.
