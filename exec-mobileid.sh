@@ -19,6 +19,12 @@
 # It will return the proper FreeRADIUS error code, echo the actual/updated SerialNumber of
 # the DN from the related Mobile ID user as X-MSS-MobileID-SN. In case of user related
 # error it will be echo as 'Reply-Message'
+#
+#
+# Dependencies: curl, openssl, base64, sed, date, xmllint, awk, tr, head
+#
+# License: Licensed under the Apache License, Version 2.0 or later; see LICENSE.md
+# Author: Swisscom (Schweiz) AG
 
 # Possible return codes
 RLM_MODULE_SUCCESS=0                     # ok: the module succeeded
