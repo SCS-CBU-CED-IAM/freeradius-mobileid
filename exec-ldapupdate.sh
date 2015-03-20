@@ -115,25 +115,22 @@ $attribute_toupdate: $UNIQUEID"
     DEBUG_INFO=`cat $TMP.update`
     debug ">>> $TMP.update <<<" "$DEBUG_INFO"
 
-    if [ "$RC_LDAP" = "0" ]; then            # All fine
-      RC=$RLM_MODULE_SUCCESS
-     else                                    # -> error in ldapmodify
+    if [ "$RC_LDAP" != "0" ]; then           # Error in ldapmodify
       error "ldapmodify failed with $RC_LDAP"
-      RC=$RLM_MODULE_NOTFOUND
     fi
    else                                    # -> entry not found
     inform "No entry $USERID found"
-    RC=$RLM_MODULE_NOTFOUND
   fi
  else                                    # -> error in ldapsearch
    error "ldapsearch failed with $RC_LDAP"
-   RC=$RLM_MODULE_FAIL
 fi
 
 cleanups                                 # Cleanups
+
+# Allways return succes to avoid login error
+RC=$RLM_MODULE_SUCCESS
 inform "RC=$RC"
 
-# and return the error code
 exit $RC
 
 #==========================================================
