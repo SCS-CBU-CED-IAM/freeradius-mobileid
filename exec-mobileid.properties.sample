@@ -17,8 +17,14 @@ CERT_CA_MID=$PWD/certs/mobileid-ca-signature.crt  # Root CA and intermediate CA 
 # --proxy <[protocol://][user@password]proxyhost[:port]>
 CURL_OPTIONS="--silent"
 
-# Logging
-VERBOSITY=2                                        # Silent=0, Info=1, Error=2, Debug=3
+# Unique Mobile ID (SN of DN) verification
+#  ifset: the verification will only be done if a value has been provided to the module
+#  required: the verification is mandatory and a value must be provided to the module
+#  ignore: there will be no verification done
+UNIQUEID_CHECK=ifset
+
+# Logging (Silent=0, Info=1, Error=2, Debug=3)
+VERBOSITY=2
 
 # Swisscom BASE URL
 BASE_URL=https://mobileid.swisscom.com

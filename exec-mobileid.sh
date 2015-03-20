@@ -99,6 +99,8 @@ UNIQUEID=`eval echo $X_MSS_MOBILEID_SN`
 FILE="$PWD/exec-mobileid.properties"
 [ -r "$FILE" ] || error "Properties file ($FILE) missing or not readable"
 . $PWD/exec-mobileid.properties
+# and set default values
+[ "$UNIQUEID_CHECK" = "" ] && UNIQUEID_CHECK="ifset"
 
 # Read dictionary / resources
 USERLANG=$(echo $USERLANG | tr '[:upper:]' '[:lower:]')
@@ -163,11 +165,6 @@ REQ_SOAP='<?xml version="1.0" encoding="UTF-8"?>
               <mss:mssURI>http://mss.ficom.fi/TS102204/v1.0.0#userLang</mss:mssURI>
             </mss:Description>
             <fi:UserLang>'$USERLANG'</fi:UserLang>
-          </mss:Service>
-          <mss:Service>
-            <mss:Description>
-              <mss:mssURI>http://uri.etsi.org/TS102204/v1.1.2#validate</mss:mssURI>
-            </mss:Description>
           </mss:Service>
         </mss:AdditionalServices>
       </mss:MSS_SignatureReq>
@@ -234,16 +231,29 @@ if [ "$RC_CURL" = "0" -a "$http_code" = "200" ]; then
   # Get the details from the signers certificate
   RES_CERT_SUBJ=$(openssl x509 -subject -nameopt utf8 -nameopt sep_comma_plus -noout -in $SIGNER)
   UNIQUEIDNEW=$(echo "$RES_CERT_SUBJ" | sed -n -e 's/.*serialNumber=\(.*\),CN=.*/\1/p')
-  if [ "$UNIQUEID" != "" ]; then           # Unique ID to be checked
-    inform "Check ID: $UNIQUEIDNEW against $UNIQUEID"
-    if [ "$UNIQUEID" != "$UNIQUEIDNEW" ]; then
-      ERROR="ERROR_ID"
+
+  # Unique ID checks
+  case "$UNIQUEID_CHECK" in
+    "ifset" )                              # If it has been set/passed it must match
+      if [ "$UNIQUEID" != "" ]; then         # Unique ID to be checked
+        inform "Check ID 'ifset': $UNIQUEID set, must match with $UNIQUEIDNEW"
+        [ "$UNIQUEID" != "$UNIQUEIDNEW" ] && ERROR="ERROR_ID"
+       else
+        inform "Check ID 'ifset': Not set, $UNIQUEIDNEW will be ignored"
+      fi
+    ;;
+    "required" )
+      inform "Check ID 'required': $UNIQUEIDNEW has to match $UNIQUEID"
+      [ "$UNIQUEID" != "$UNIQUEIDNEW" ] && ERROR="ERROR_ID"
+    ;;
+    * )
+      inform "Check ID 'ignored': $UNIQUEIDNEW is ignored"
+    ;;
+  esac
+  if [ "$ERROR" = "ERROR_ID" ]; then       # Unique ID error raised
       eval REPLY_MESSAGE=\$$ERROR
       RES_RC="ID"                          # set to ID Error
       error "$REPLY_MESSAGE"
-    fi
-   else
-    inform "Check ID: Not set, $UNIQUEIDNEW ignored"
   fi
 
   # Extract the PKCS7 and validate the signature

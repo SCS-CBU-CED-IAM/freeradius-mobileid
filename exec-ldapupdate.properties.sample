@@ -1,0 +1,17 @@
+# LDAP Connection Details
+server="ldap://yourserver.com"
+userid="CN=SystemLDAP,CN=Users,DC=org,DC=acme,DC=com"
+password=ThisMustStaySecret
+timeout=5
+
+# LDAP Search Elements
+#  use $USERID to set the related userid in the filter
+basedn="CN=Users,DC=org,DC=acme,DC=ch"
+filter="(&(objectclass=user)(objectCategory=person)(sAMAccountName=$USERID))"
+attributes="mobile msNPCallingStationID"
+
+# LDAP Update Entry
+attribute_toupdate="msNPCallingStationID"
+
+# Logging (Silent=0, Info=1, Error=2, Debug=3
+VERBOSITY=2

@@ -1,4 +1,4 @@
-#  rlm_exec - mobileid
+#  rlm_exec
 
 exec mobileid {
     program = '/opt/freeradius/exec-mobileid.sh'

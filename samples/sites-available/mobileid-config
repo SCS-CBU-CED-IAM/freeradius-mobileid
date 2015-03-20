@@ -54,6 +54,9 @@ post-auth {
 	# Callout Mobile ID
 	mobileid
 
+	# Optional call to update the user entry
+	# mobileid-ldapupdate
+
 	Post-Auth-Type REJECT {
 		attr_filter.access_reject
 	}

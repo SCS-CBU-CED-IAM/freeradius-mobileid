@@ -22,4 +22,4 @@ ERROR_503="Erreur lors de la vérification de la requête. Veuillez réessayer."
 ERROR_="Mobile ID ne peut actuellement pas être utilisée. Veuillez réessayer ultérieurement."
 
 # Error (Unique ID)
-ERROR_ID="Votre numéro de série unique de la Mobile ID a changé. Contactez votre administrateur."
+ERROR_ID="Erreur sur le numéro de série de la Mobile ID. Contactez votre administrateur système."

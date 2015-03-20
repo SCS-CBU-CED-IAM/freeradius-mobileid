@@ -22,4 +22,4 @@ ERROR_503="Errore durante la conferma. Riprovi di nuovo."
 ERROR_="Mobile ID attualmente non può essere utilizzato. Riprova più tardi."
 
 # Error (Unique ID)
-ERROR_ID="Il numero di serie unico del Mobile ID è cambiato. Contattare l'amministratore."
+ERROR_ID="Errore sul numero di serie del Mobile ID. Contattare il vostro amministratore di sistema."

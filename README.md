@@ -56,7 +56,7 @@ ATTRIBUTE  X-MSS-MobileID-SN  3001  string
 
 ### Create the rlm_exec module file for Mobile ID
 
-Create a rlm_exec module file mobileid in `<cfg>/mods-enabled` based on the sample provided in [samples/modules/](samples/modules)
+Create a rlm_exec module file exec-mobileid in `<cfg>/mods-enabled` based on the sample provided in [samples/modules/](samples/modules)
 
 The <program> depends on the operating system and on the location of the files:
  * Linux: `program = '/opt/freeradius/exec-mobileid.sh'`
@@ -131,7 +131,7 @@ Example when the user related security element is not matching:
 ```
 $echo "User-Name=+41791234567,User-Password=''" | radclient -t 120 ...
 Received response ID 255, code 3, length = 160
-    Reply-Message = "Your unique serial number of the Mobile ID has changed. Please contact your administrator."
+    Reply-Message = "Error on the Mobile ID serial number. Please contact your system administrator."
 ```
 
 ### Translations
