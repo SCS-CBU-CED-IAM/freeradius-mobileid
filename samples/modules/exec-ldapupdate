@@ -1,7 +1,7 @@
 #  rlm_exec
 
 exec mobileid-ldapupdate {
-    program = '/opt/freeradius/exec-ldapupdate.sh %{mschap:User-Name} %{X-MSS-MobileID-SN}'
+    program = '/opt/freeradius/exec-ldapupdate.sh %{mschap:User-Name} %{reply:X-MSS-MobileID-SN}'
     wait = yes
     input_pairs = request
     output = none
