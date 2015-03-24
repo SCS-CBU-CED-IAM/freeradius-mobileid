@@ -56,7 +56,7 @@ ATTRIBUTE  X-MSS-MobileID-SN  3001  string
 
 ### Create the rlm_exec module file for Mobile ID
 
-Create a rlm_exec module file exec_mobileid in `<cfg>/mods-available` based on the sample provided in [samples/modules/](samples/modules) and make it available over a symlink in `<cfg>/mods-enabled`.
+Create a rlm_exec module file exec_mobileid in `<cfg>/mods-available` based on the sample provided in [samples/modules/exec_mobileid](samples/modules/exec_mobileid) and make it available over a symlink in `<cfg>/mods-enabled`.
 
 Note: On older distributions, the `<cfg>/mods-available` may not be present and the relevant place will be `<cfg>/modules`
 
@@ -114,7 +114,11 @@ An easy way to test your RADIUS server is by using the FreeRADIUS provided radcl
 
 ## Advanced configuration
 
-### Returned value pair 'X-MSS-MobileID-SN'
+### Verification of the actual Mobile ID serial number
+
+Refer to the `UNIQUEID_CHECK` setting of [sample file](exec-mobileid.properties.sample) for the possible verifications. By default the verification will only be done if a value has been set in `X-MSS-MobileID-SN`.
+
+### Returned value pair `X-MSS-MobileID-SN`
 
 The actual SerialNumber of the DN from the related Mobile ID user will be set as `X-MSS-MobileID-SN` over the output pairs. This attribute `%{reply:X-MSS-MobileID-SN}` can be used for further processing if needed.
 
@@ -137,10 +141,9 @@ exec-ldapupdate::INFO: No entry johndoe found
 exec-ldapupdate::INFO: RC=0
 ```
 
+2) Create a rlm_exec module file exec_ldapupdate in `<cfg>/mods-available` based on the sample provided in [samples/modules/exec_ldapupdate](samples/modules/exec_ldapupdate) and make it available over a symlink in `<cfg>/mods-enabled`.
 
-2) Create a rlm_exec module file exec_ldapupdate in `<cfg>/mods-available` based on the sample provided in [samples/modules/](samples/modules) and make it available over a symlink in `<cfg>/mods-enabled`.
-
-3) Configure your site to enable this module after the Mobile ID call
+3) Configure your site to enable this module after the Mobile ID call  
 Uncomment the `# mobileid-ldapupdate` in the `post-auth` section to make it active.
 
 
@@ -180,8 +183,8 @@ Up to the point where the properties file is read the verbosity is set to ERROR.
 
 **Patching rlm_exec for higher `timeout`**
 
-If you get errors like `Child PID 2366 (/opt/freeradius/exec-mobileid.sh) is taking too much time: forcing failure and killing child.` or `timeout configuration value is too high` you have to patch the FreeRADIUS server rlm_exec module to allow higher timeout value. Instruction files can be found here [docs/](docs/).
-
+If you get errors like `Child PID 2366 (/opt/freeradius/exec-mobileid.sh) is taking too much time: forcing failure and killing child.` or `timeout configuration value is too high` you have to patch the FreeRADIUS server rlm_exec module to allow higher timeout value. 
+Instruction files can be found here [docs/](docs/).
 
 **Mobile ID Request not sent when FreeRADIUS is started as daemon**
 
