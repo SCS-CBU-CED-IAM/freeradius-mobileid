@@ -116,15 +116,15 @@ An easy way to test your RADIUS server is by using the FreeRADIUS provided radcl
 
 ### Verification of the actual Mobile ID serial number
 
-Refer to the `UNIQUEID_CHECK` setting of [sample file](exec-mobileid.properties.sample) for the possible verifications. By default the verification will only be done if a value has been set in `X-MSS-MobileID-SN`.
+Refer to the `UNIQUEID_CHECK` setting of [sample file](exec-mobileid.properties.sample) for the possible verifications. By default the verification will only be done if a value has been set in `X-MSS-MobileID-SN`
 
 ### Returned value pair `X-MSS-MobileID-SN`
 
 The actual SerialNumber of the DN from the related Mobile ID user will be set as `X-MSS-MobileID-SN` over the output pairs. This attribute `%{reply:X-MSS-MobileID-SN}` can be used for further processing if needed.
 
-### Updating LDAP/AD with initial/current 'X-MSS-MobileID-SN' value
+### Updating LDAP/AD with initial/current `X-MSS-MobileID-SN` value
 
-Updating the related user entry with initial/current 'X-MSS-MobileID-SN' value can be done by calling the rlm_exec module exec_ldapupdate. 
+Updating the related user entry with initial/current `X-MSS-MobileID-SN` value can be done by calling the rlm_exec module exec_ldapupdate. 
 
 1) Use the `exec-ldapupdate.properties.sample` and create your own `exec-ldapupdate.properties` file. Refer to the [sample file](exec-ldapupdate.properties.sample) for the settings. 
 
