@@ -5,7 +5,7 @@ Mobile ID module for FreeRADIUS.
 
 Refer to the technical documentations at [Mobile ID](http://swisscom.com/mid "Mobile ID") for complementary informations. Especially the:
 * Mobile ID RADIUS integration guide
-* Mobile ID client reference guide
+* Mobile ID Client reference guide
 
 
 ## Install
@@ -56,7 +56,9 @@ ATTRIBUTE  X-MSS-MobileID-SN  3001  string
 
 ### Create the rlm_exec module file for Mobile ID
 
-Create a rlm_exec module file exec-mobileid in `<cfg>/mods-enabled` based on the sample provided in [samples/modules/](samples/modules)
+Create a rlm_exec module file exec_mobileid in `<cfg>/mods-available` based on the sample provided in [samples/modules/](samples/modules) and make it available over a symlink in `<cfg>/mods-enabled`.
+
+Note: On older distributions, the `<cfg>/mods-available` may not be present and the relevant place will be `<cfg>/modules`
 
 The <program> depends on the operating system and on the location of the files:
  * Linux: `program = '/opt/freeradius/exec-mobileid.sh'`
@@ -114,7 +116,33 @@ An easy way to test your RADIUS server is by using the FreeRADIUS provided radcl
 
 ### Returned value pair 'X-MSS-MobileID-SN'
 
-The actual SerialNumber of the DN from the related Mobile ID user will be set as `X-MSS-MobileID-SN` over the output pairs. This attribute can be used for further processing if needed.
+The actual SerialNumber of the DN from the related Mobile ID user will be set as `X-MSS-MobileID-SN` over the output pairs. This attribute `%{reply:X-MSS-MobileID-SN}` can be used for further processing if needed.
+
+### Updating LDAP/AD with initial/current 'X-MSS-MobileID-SN' value
+
+Updating the related user entry with initial/current 'X-MSS-MobileID-SN' value can be done by calling the rlm_exec module exec_ldapupdate. 
+
+1) Use the `exec-ldapupdate.properties.sample` and create your own `exec-ldapupdate.properties` file. Refer to the [sample file](exec-ldapupdate.properties.sample) for the settings. 
+
+At this point you can test the module itself with proper command line parameters. Examples:  
+```
+./exec-ldapupdate.sh john.doe MIDCHEGU8GSH6K88
+exec-ldapupdate::INFO: Searching for (&(objectclass=user)(objectCategory=person)(sAMAccountName=john.doe))
+exec-ldapupdate::INFO: Changing msNPCallingStationID on entry CN=John Doe,CN=Users,DC=org,DC=cartel,DC=ch with value MIDCHEGU8GSH6K88
+exec-ldapupdate::INFO: RC=0
+
+./exec-ldapupdate.sh johndoe MIDCHEGU8GSH6K88
+exec-ldapupdate::INFO: Searching for (&(objectclass=user)(objectCategory=person)(sAMAccountName=johndoe))
+exec-ldapupdate::INFO: No entry johndoe found
+exec-ldapupdate::INFO: RC=0
+```
+
+
+2) Create a rlm_exec module file exec_ldapupdate in `<cfg>/mods-available` based on the sample provided in [samples/modules/](samples/modules) and make it available over a symlink in `<cfg>/mods-enabled`.
+
+3) Configure your site to enable this module after the Mobile ID call
+Uncomment the `# mobileid-ldapupdate` in the `post-auth` section to make it active.
+
 
 ### Returned value pair 'Reply-Message'
 
@@ -148,11 +176,12 @@ Example: "myerver.com: Authentication with Mobile ID? (jdclOE)"
 
 Up to the point where the properties file is read the verbosity is set to ERROR. After that point the `VERBOSITY` setting of the properties file will take place.
 
-## Patching rlm_exec for higher `timeout`
-
-Refer to the technical documentations in case you need to patch the FreeRADIUS server rlm_exec module to allow higher timeout value. Instruction files can be found here [docs/](docs/).
-
 ## Known Issues
+
+**Patching rlm_exec for higher `timeout`**
+
+If you get errors like `Child PID 2366 (/opt/freeradius/exec-mobileid.sh) is taking too much time: forcing failure and killing child.` or `timeout configuration value is too high` you have to patch the FreeRADIUS server rlm_exec module to allow higher timeout value. Instruction files can be found here [docs/](docs/).
+
 
 **Mobile ID Request not sent when FreeRADIUS is started as daemon**
 
