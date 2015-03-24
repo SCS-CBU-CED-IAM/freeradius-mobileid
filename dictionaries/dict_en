@@ -6,16 +6,17 @@
 DTBS="#AP_PREFIX#: Authentication with Mobile ID? (#TRANSID#)"
 
 # Errors
-ERROR_105="Mobile ID has not been ordered or is not activated for this subscriber number. Please visit www.swisscom.ch/mobileid to activate your Mobile ID."
+#  use #URL# to set the Portal Helper URL
+ERROR_105="Mobile ID has not been ordered or is not activated for this subscriber number. Please visit #URL# to activate your Mobile ID."
 ERROR_208="Transaction Expiry date has been reached or Time out has elapsed. Please try again."
 ERROR_209="The service has not succeeded to contact the enduser's mobile equipment. (Bad connection...). Please try again."
 ERROR_401="The request has been canceled by the user."
-ERROR_402="The Mobile ID PIN is blocked. Please visit www.swisscom.ch/mobileid to reset your PIN."
+ERROR_402="The Mobile ID PIN is blocked. Please visit #URL# to reset your PIN."
 ERROR_403="Your mobile subscription is blocked. To be able to use Mobile ID again, please contact your operator and reactivate your number."
-ERROR_404="The subscriber number is not yet activated for Mobile ID. Please visit www.swisscom.ch/mobileid to activate your Mobile ID."
+ERROR_404="The subscriber number is not yet activated for Mobile ID. Please visit #URL# to activate your Mobile ID."
 ERROR_406="Error on the user device while confirming the request. Probably an other signature request is already in progress. Please try again."
-ERROR_422="Mobile ID has not been activated for this subscriber number. Please visit www.swisscom.ch/mobileid to activate your Mobile ID."
-ERROR_501="Verification error with the confirmation. Please visit www.swisscom.ch/mobileid to reactivate your Mobile ID."
+ERROR_422="Mobile ID has not been activated for this subscriber number. Please visit #URL# to activate your Mobile ID."
+ERROR_501="Verification error with the confirmation. Please visit #URL# to reactivate your Mobile ID."
 ERROR_503="Verification error with the confirmation. Please try again."
 
 # Error (Generic)

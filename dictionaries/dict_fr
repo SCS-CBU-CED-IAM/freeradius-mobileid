@@ -6,16 +6,17 @@
 DTBS="#AP_PREFIX#: Authentification avec Mobile ID? (#TRANSID#)"
 
 # Errors
-ERROR_105="Mobile ID n'a pas encore été commandée ou n'est pas activée pour ce numéro d'appel. Veuillez visiter le portail de Swisscom www.swisscom.ch/mobileid pour activer Mobile ID."
+#  use #URL# to set the Portal Helper URL
+ERROR_105="Mobile ID n'a pas encore été commandée ou n'est pas activée pour ce numéro d'appel. Veuillez visiter #URL# pour activer Mobile ID."
 ERROR_208="La date d'expiration de la transaction ou le timeout a été atteint. Veuillez réessayer."
 ERROR_209="Le service n'a pas pu contacter le mobile de l'utilisateur. (Mauvaise connexion…). Veuillez réessayer"
 ERROR_401="La requête a été annulée par l'utilisateur."
-ERROR_402="Votre PIN de la Mobile ID de l'utilisateur est bloqué. Veuillez visiter le portail de Swisscom www.swisscom.ch/mobileid pour réactiver Mobile ID."
-ERROR_403="Votre numéro d'appel de l'utilisateur est bloqué. Pour pouvoir utiliser la Mobile ID, vous dévez d'abord faire débloquer votre numéro d'appel."
-ERROR_404="Pour votre numéro d'appel la Mobile ID n'a pas été activée. Veuillez visiter le portail de Swisscom www.swisscom.ch/mobileid pour activer Mobile ID."
+ERROR_402="Votre PIN de la Mobile ID de l'utilisateur est bloqué. Veuillez visiter #URL# pour réactiver Mobile ID."
+ERROR_403="Votre numéro d'appel de l'utilisateur est bloqué. Pour pouvoir utiliser la Mobile ID, vous devez d'abord faire débloquer votre numéro d'appel."
+ERROR_404="Pour votre numéro d'appel la Mobile ID n'a pas été activée. Veuillez visiter #URL# pour activer Mobile ID."
 ERROR_406="Erreur sur l'appareil de l'utilisateur lors de la confirmation de la requête. Probablement une autre demande de signature est déjà en cours. Veuillez réessayer."
-ERROR_422="Pour votre numéro d'appel la Mobile ID n'a pas encore été activée. Veuillez visiter le portail de Swisscom www.swisscom.ch/mobileid pour activer Mobile ID."
-ERROR_501="Erreur lors de la vérification de la requête. Veuillez visiter le portail de Swisscom www.swisscom.ch/mobileid pour réactiver Mobile ID."
+ERROR_422="Pour votre numéro d'appel la Mobile ID n'a pas encore été activée. Veuillez visiter #URL# pour activer Mobile ID."
+ERROR_501="Erreur lors de la vérification de la requête. Veuillez visiter #URL# pour réactiver Mobile ID."
 ERROR_503="Erreur lors de la vérification de la requête. Veuillez réessayer."
 
 # Error (Generic)

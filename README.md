@@ -147,7 +147,7 @@ exec-ldapupdate::INFO: RC=0
 Uncomment the `# mobileid-ldapupdate` in the `post-auth` section to make it active.
 
 
-### Returned value pair 'Reply-Message'
+### Returned value pair `Reply-Message`
 
 Relevant end user errors will set the `Reply-Message` attribute over the output pairs. 
 

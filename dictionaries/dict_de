@@ -6,16 +6,17 @@
 DTBS="#AP_PREFIX#: Authentifizierung mit Mobile ID? (#TRANSID#)"
 
 # Errors
-ERROR_105="Mobile ID ist für diese Rufnummer noch nicht bestellt worden oder ist nicht aktiviert. Besuchen Sie bitte www.swisscom.ch/mobileid um die Mobile ID zu aktivieren."
+#  use #URL# to set the Portal Helper URL
+ERROR_105="Mobile ID ist für diese Rufnummer noch nicht bestellt worden oder ist nicht aktiviert. Besuchen Sie bitte #URL# um die Mobile ID zu aktivieren."
 ERROR_208="Gültigkeitsdatum der Transaktion ist abgelaufen oder das Timeout wurde erreicht. Bitte versuchen Sie es erneut."
 ERROR_209="Der Service konnte das mobile Endgerät nicht kontaktieren. (Schlechte Verbindung…). Bitte versuchen Sie es erneut."
 ERROR_401="Der Vorgang wurde vom Nutzer abgebrochen."
-ERROR_402="Ihre Mobile ID PIN ist gesperrt. Besuchen Sie bitte www.swisscom.ch/mobileid um Ihren PIN zurückzusetzen"
+ERROR_402="Ihre Mobile ID PIN ist gesperrt. Besuchen Sie bitte #URL# um Ihren PIN zurückzusetzen"
 ERROR_403="Ihre Rufnummer ist gesperrt. Um Mobile ID erneut nutzen zu können müssen Sie zuerst ihre Mobilnummer entsperren lassen."
-ERROR_404="Ihre Rufnummer ist nicht für Mobile ID aktiviert. Besuchen Sie bitte www.swisscom.ch/mobileid um die Mobile ID zu aktivieren."
+ERROR_404="Ihre Rufnummer ist nicht für Mobile ID aktiviert. Besuchen Sie bitte #URL# um die Mobile ID zu aktivieren."
 ERROR_406="Fehler auf dem Endgerät beim Erstellen der Bestätigung. Wahrscheinlich ist eine andere Signatur Anfrage bereits im Gange. Bitte versuchen Sie es erneut."
-ERROR_422="Ihre Rufnummer ist nicht für Mobile ID aktiviert. Besuchen Sie bitte www.swisscom.ch/mobileid um die Mobile ID zu aktivieren."
-ERROR_501="Fehler beim Prüfen der Bestätigung. Besuchen Sie bitte www.swisscom.ch/mobileid um die Mobile ID wieder zu aktivieren."
+ERROR_422="Ihre Rufnummer ist nicht für Mobile ID aktiviert. Besuchen Sie bitte #URL# um die Mobile ID zu aktivieren."
+ERROR_501="Fehler beim Prüfen der Bestätigung. Besuchen Sie bitte #URL# um die Mobile ID wieder zu aktivieren."
 ERROR_503="Fehler beim Prüfen der Bestätigung. Bitte versuchen Sie es erneut."
 
 # Error (Generic)
