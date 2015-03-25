@@ -281,12 +281,17 @@ if [ "$RC_CURL" = "0" -a "$http_code" = "200" ]; then
     RES_VALUE=$(sed -n -e 's/.*<soapenv:Value>mss:_\(.*\)<\/soapenv:Value>.*/\1/p' $TMP.rsp)
     RES_REASON=$(sed -n -e 's/.*<soapenv:Text.*>\(.*\)<\/soapenv:Text>.*/\1/p' $TMP.rsp)
     RES_DETAIL=$(sed -n -e 's/.*<ns1:detail.*>\(.*\)<\/ns1:detail>.*/\1/p' $TMP.rsp)
-    RES_URL=$(sed -n -e 's/.*<PortalUrl.*>\(.*\)<\/PortalUrl>.*/\1/p' $TMP.rsp)
     inform "FAILED on $MSISDN with error $RES_VALUE ($RES_REASON: $RES_DETAIL)"
-    ERROR="ERROR_$RES_VALUE"                   # Define the error var
-    eval REPLY_MESSAGE=\$$ERROR                # Get the related error from the dictionaries
+    # Extract the Portal URL and replace the &amp; with &
+    RES_URL=$(sed -n -e 's/.*<PortalUrl.*>\(.*\)<\/PortalUrl>.*/\1/p' $TMP.rsp)
+    RES_URL=${RES_URL//&amp;/&}
+    # Define default URL if no one returned
     [ "$RES_URL" = "" ] && RES_URL="http://mobileid.ch"
-    REPLY_MESSAGE=$(echo "$REPLY_MESSAGE" | sed -e "s|#URL#|${RES_URL}|g")
+    # Define the error var and get the related error text
+    ERROR="ERROR_$RES_VALUE"
+    eval REPLY_MESSAGE=\$$ERROR
+    # Replace the #URL# placeholder
+    REPLY_MESSAGE=${REPLY_MESSAGE//#URL#/$RES_URL}
   fi
   RC=$RLM_MODULE_FAIL                        # Module failed
 fi

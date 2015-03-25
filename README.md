@@ -153,16 +153,16 @@ Relevant end user errors will set the `Reply-Message` attribute over the output 
 
 Example when the related mobile phone number does not have the Mobile ID option:
 ```
-$echo "User-Name=+41000092105,User-Password=''" | radclient -t 120 ...
+$echo "User-Name=+41791234567,User-Password=''" | radclient -t 120 ...
 Received response ID 255, code 3, length = 160
-    Reply-Message = "Mobile ID has not been ordered or is not activated for this subscriber number. Please visit www.swisscom.ch/mobileid to activate your Mobile ID."
+    Reply-Message:="The subscriber number is not yet activated for Mobile ID. Please visit https://sam.sso.bluewin.ch/registration/MobileId?msisdn=41791234567 to activate your Mobile ID."
 ```
 
 Example when the user related security element is not matching:
 ```
 $echo "User-Name=+41791234567,User-Password=''" | radclient -t 120 ...
 Received response ID 255, code 3, length = 160
-    Reply-Message = "Error on the Mobile ID serial number. Please contact your system administrator."
+    Reply-Message:="Error on the Mobile ID serial number. Please contact your system administrator."
 ```
 
 ### Translations
