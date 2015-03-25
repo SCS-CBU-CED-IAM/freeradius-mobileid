@@ -284,7 +284,7 @@ if [ "$RC_CURL" = "0" -a "$http_code" = "200" ]; then
     inform "FAILED on $MSISDN with error $RES_VALUE ($RES_REASON: $RES_DETAIL)"
     # Extract the Portal URL and replace the &amp; with &
     RES_URL=$(sed -n -e 's/.*<PortalUrl.*>\(.*\)<\/PortalUrl>.*/\1/p' $TMP.rsp)
-    RES_URL=${RES_URL//&amp;/&}
+    RES_URL=${RES_URL//amp;/}
     # Define default URL if no one returned
     [ "$RES_URL" = "" ] && RES_URL="http://mobileid.ch"
     # Define the error var and get the related error text
