@@ -284,14 +284,20 @@ if [ "$RC_CURL" = "0" -a "$http_code" = "200" ]; then
     inform "FAILED on $MSISDN with error $RES_VALUE ($RES_REASON: $RES_DETAIL)"
     # Extract the Portal URL and replace the &amp; with &
     RES_URL=$(sed -n -e 's/.*<PortalUrl.*>\(.*\)<\/PortalUrl>.*/\1/p' $TMP.rsp)
-    RES_URL=${RES_URL//amp;/}
+    RES_URL=$(echo "$RES_URL" | sed -e "s/amp;//g")
     # Define default URL if no one returned
     [ "$RES_URL" = "" ] && RES_URL="http://mobileid.ch"
     # Define the error var and get the related error text
     ERROR="ERROR_$RES_VALUE"
     eval REPLY_MESSAGE=\$$ERROR
     # Replace the #URL# placeholder
-    REPLY_MESSAGE=${REPLY_MESSAGE//#URL#/$RES_URL}
+    REPLY_MESSAGE=$(echo "$REPLY_MESSAGE" | sed -e "s|#URL#|${RES_URL}|g")
+    # (TODO) if there is an & in the RES_URL the #URL# will stay after the first sed
+    # Example:
+    #   RES_URL having: https://sam.sso.bluewin.ch/registration/MobileId?resetPin=true&msisdn=41798776284
+    #   and REPLY_MESSAGE having "The Mobile ID PIN is blocked. Please visit #URL# to reset your PIN."
+    #   will endup in "The Mobile ID PIN is blocked. Please visit https://sam.sso.bluewin.ch/registration/MobileId?resetPin=true#URL#msisdn=41798776284 to reset your PIN."
+    REPLY_MESSAGE=$(echo "$REPLY_MESSAGE" | sed -e "s|#URL#|\&|g")
   fi
   RC=$RLM_MODULE_FAIL                        # Module failed
 fi
