@@ -292,11 +292,8 @@ if [ "$RC_CURL" = "0" -a "$http_code" = "200" ]; then
     eval REPLY_MESSAGE=\$$ERROR
     # Replace the #URL# placeholder
     REPLY_MESSAGE=$(echo "$REPLY_MESSAGE" | sed -e "s|#URL#|${RES_URL}|g")
-    # (TODO) if there is an & in the RES_URL the #URL# will stay after the first sed
-    # Example:
-    #   RES_URL having: https://sam.sso.bluewin.ch/registration/MobileId?resetPin=true&msisdn=41798776284
-    #   and REPLY_MESSAGE having "The Mobile ID PIN is blocked. Please visit #URL# to reset your PIN."
-    #   will endup in "The Mobile ID PIN is blocked. Please visit https://sam.sso.bluewin.ch/registration/MobileId?resetPin=true#URL#msisdn=41798776284 to reset your PIN."
+    # If there is an & in the RES_URL the #URL# will remain as & has special use in 'sed'
+    # We need to do it a 2nd time to replace it with the proper &
     REPLY_MESSAGE=$(echo "$REPLY_MESSAGE" | sed -e "s|#URL#|\&|g")
   fi
   RC=$RLM_MODULE_FAIL                        # Module failed
