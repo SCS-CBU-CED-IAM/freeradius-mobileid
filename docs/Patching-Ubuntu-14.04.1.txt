@@ -17,7 +17,8 @@ sudo apt-get build-dep freeradius devscripts build-essential
 
 # Get and install the source RPM
 cd /tmp
-apt-get source freeradiuscd freeradius-2.1.12+dfsg
+apt-get source freeradius
+cd freeradius-2.1.12+dfsg
 
 # Update the desired source files
 vi src/main/exec.c
