@@ -16,6 +16,7 @@ Checkout the project directly from git under a specific folder:
   git clone https://github.com/SCS-CBU-CED-IAM/freeradius-mobileid.git freeradius
 ```
 
+
 ## Configuration
 
 `<cfg>` is referring to the folder containing the configuration elements. This is depending to the operating system and the chosen installation method. For Linux it should be `/etc/freeradius` or `/etc/raddb` and for Windows `C:\FreeRADIUS\etc\raddb`
@@ -24,9 +25,7 @@ Checkout the project directly from git under a specific folder:
 
 Use the `exec-mobileid.properties.sample` and create your own `exec-mobileid.properties` file. Refer to the [sample file](exec-mobileid.properties.sample) for the settings.
 
-At this point you can test the module itself with proper command line parameters:
-
-Examples:  
+At this point you can test the Mobile ID module itself with proper command line parameters. Examples:  
 ```
 ./exec-mobileid.sh +41791234567 
 X-MSS-MobileID-SN:="MIDCHEGU8GSH6K88"
@@ -45,16 +44,19 @@ Reply-Message:="The request has been canceled by the user."
 
 Edit <cfg>/radiusd.conf and increase the `max_request_time` to at least 120 seconds: `max_request_time = 120`
 
-### Define additional custom attributes for Mobile ID
+### Define additional custom attributes
 
-Define custom attributes in `<cfg>/dictionary`
+Define custom attributes for Mobile ID in `<cfg>/dictionary`
 
 ```
+# Entry to control the Mobile ID request language
 ATTRIBUTE  X-MSS-Language     3000  string
+
+# Entry to control the unique Mobile ID serial number
 ATTRIBUTE  X-MSS-MobileID-SN  3001  string
 ```
 
-### Create the rlm_exec module file for Mobile ID
+### Create a rlm_exec module file for Mobile ID
 
 Create a rlm_exec module file exec_mobileid in `<cfg>/mods-available` based on the sample provided in [samples/modules/exec_mobileid](samples/modules/exec_mobileid) and make it available over a symlink in `<cfg>/mods-enabled`.
 
@@ -112,6 +114,7 @@ The service name is depending on the Linux distribution. In general it's either 
 An easy way to test your RADIUS server is by using the FreeRADIUS provided radclient tool: 
 `echo "User-Name=+4179xxxxxxx,User-Password=''" | radclient -t 120 localhost auth testing123`
 
+
 ## Advanced configuration
 
 ### Verification of the actual Mobile ID serial number
@@ -147,6 +150,8 @@ exec-ldapupdate::INFO: RC=0
 Uncomment the `# mobileid-ldapupdate` in the `post-auth` section to make it active.
 
 
+## Additional information
+
 ### Returned value pair `Reply-Message`
 
 Relevant end user errors will set the `Reply-Message` attribute over the output pairs. 
@@ -178,6 +183,7 @@ Example: "myerver.com: Authentication with Mobile ID? (jdclOE)"
 ### Logging
 
 Up to the point where the properties file is read the verbosity is set to ERROR. After that point the `VERBOSITY` setting of the properties file will take place.
+
 
 ## Known Issues
 
