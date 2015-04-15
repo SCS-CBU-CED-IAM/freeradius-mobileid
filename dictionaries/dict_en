@@ -15,7 +15,7 @@ ERROR_402="The Mobile ID PIN is blocked. Please visit #URL# to reset your PIN."
 ERROR_403="The Mobile ID is suspended. Please visit #URL# to reactivate your Mobile ID."
 ERROR_404="The subscriber number is not yet activated for Mobile ID. Please visit #URL# to activate your Mobile ID."
 ERROR_406="Error on the enduser mobile device, probably an other signature request is already in progress. Please try again."
-ERROR_422="Mobile ID has not been activated for this subscriber number. Please visit #URL# to activate your Mobile ID."
+ERROR_422="The Mobile ID is no more active. Please visit #URL# to reactivate your Mobile ID."
 ERROR_501="Verification error with the confirmation. Please try again and if the error persist contact your Mobile Network Operator."
 ERROR_503="Verification error with the confirmation. Please try again and if the error persist contact your Mobile Network Operator."
 

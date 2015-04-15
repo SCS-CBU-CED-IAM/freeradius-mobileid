@@ -15,7 +15,7 @@ ERROR_402="Votre PIN Mobile ID est bloqué. Veuillez visiter #URL# pour réiniti
 ERROR_403="Votre Mobile ID est suspendue. Veuillez visiter #URL# pour réactiver Mobile ID."
 ERROR_404="Pour votre numéro d'appel la Mobile ID n'est pas activée. Veuillez visiter #URL# pour activer Mobile ID."
 ERROR_406="Erreur sur le mobile de l'utilisateur, probablement une autre demande de signature est déjà en cours. Veuillez réessayer."
-ERROR_422="Pour votre numéro d'appel la Mobile ID n'est pas activée. Veuillez visiter #URL# pour activer Mobile ID."
+ERROR_422="Votre Mobile ID n'est plus active. Veuillez visiter #URL# pour réactiver Mobile ID."
 ERROR_501="Erreur lors de la vérification de la requête. Veuillez réessayer et si l'erreur persiste contactez votre opérateur mobile."
 ERROR_503="Erreur lors de la vérification de la requête. Veuillez réessayer et si l'erreur persiste contactez votre opérateur mobile."
 
