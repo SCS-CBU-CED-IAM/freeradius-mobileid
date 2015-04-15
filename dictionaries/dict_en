@@ -7,17 +7,17 @@ DTBS="#AP_PREFIX#: Authentication with Mobile ID? (#TRANSID#)"
 
 # Errors
 #  use #URL# to set the Portal Helper URL
-ERROR_105="Mobile ID has not been ordered or is not activated for this subscriber number. Please visit #URL# to activate your Mobile ID."
-ERROR_208="Transaction Expiry date has been reached or Time out has elapsed. Please try again."
-ERROR_209="The service has not succeeded to contact the enduser's mobile equipment. (Bad connection...). Please try again."
+ERROR_105="Mobile ID has not been ordered for this subscriber number. Please visit the Mobile ID Portal of your Mobile Network Operator."
+ERROR_208="The transaction has timed out. Please try again."
+ERROR_209="The service could not contact the enduser mobile device (bad connection...). Please try again."
 ERROR_401="The request has been canceled by the user."
 ERROR_402="The Mobile ID PIN is blocked. Please visit #URL# to reset your PIN."
-ERROR_403="Your mobile subscription is blocked. To be able to use Mobile ID again, please contact your operator and reactivate your number."
+ERROR_403="The Mobile ID is suspended. Please visit #URL# to reactivate your Mobile ID."
 ERROR_404="The subscriber number is not yet activated for Mobile ID. Please visit #URL# to activate your Mobile ID."
-ERROR_406="Error on the user device while confirming the request. Probably an other signature request is already in progress. Please try again."
+ERROR_406="Error on the enduser mobile device, probably an other signature request is already in progress. Please try again."
 ERROR_422="Mobile ID has not been activated for this subscriber number. Please visit #URL# to activate your Mobile ID."
-ERROR_501="Verification error with the confirmation. Please visit #URL# to reactivate your Mobile ID."
-ERROR_503="Verification error with the confirmation. Please try again."
+ERROR_501="Verification error with the confirmation. Please try again and if the error persist contact your Mobile Network Operator."
+ERROR_503="Verification error with the confirmation. Please try again and if the error persist contact your Mobile Network Operator."
 
 # Error (Generic)
 ERROR_="Mobile ID can not be used at this time. Please try it again later."

@@ -7,17 +7,17 @@ DTBS="#AP_PREFIX#: Authentification avec Mobile ID? (#TRANSID#)"
 
 # Errors
 #  use #URL# to set the Portal Helper URL
-ERROR_105="Mobile ID n'a pas encore été commandée ou n'est pas activée pour ce numéro d'appel. Veuillez visiter #URL# pour activer Mobile ID."
-ERROR_208="La date d'expiration de la transaction ou le timeout a été atteint. Veuillez réessayer."
-ERROR_209="Le service n'a pas pu contacter le mobile de l'utilisateur. (Mauvaise connexion…). Veuillez réessayer"
+ERROR_105="Mobile ID n'a pas encore été commandée pour ce numéro d'appel. Veuillez visiter le portail Mobile ID de votre opérateur mobile."
+ERROR_208="La transaction a expirée. Veuillez réessayer."
+ERROR_209="Le service n'a pas pu contacter le mobile de l'utilisateur (mauvaise connexion...). Veuillez réessayer."
 ERROR_401="La requête a été annulée par l'utilisateur."
-ERROR_402="Votre PIN de la Mobile ID de l'utilisateur est bloqué. Veuillez visiter #URL# pour réactiver Mobile ID."
-ERROR_403="Votre numéro d'appel de l'utilisateur est bloqué. Pour pouvoir utiliser la Mobile ID, vous devez d'abord faire débloquer votre numéro d'appel."
-ERROR_404="Pour votre numéro d'appel la Mobile ID n'a pas été activée. Veuillez visiter #URL# pour activer Mobile ID."
-ERROR_406="Erreur sur l'appareil de l'utilisateur lors de la confirmation de la requête. Probablement une autre demande de signature est déjà en cours. Veuillez réessayer."
-ERROR_422="Pour votre numéro d'appel la Mobile ID n'a pas encore été activée. Veuillez visiter #URL# pour activer Mobile ID."
-ERROR_501="Erreur lors de la vérification de la requête. Veuillez visiter #URL# pour réactiver Mobile ID."
-ERROR_503="Erreur lors de la vérification de la requête. Veuillez réessayer."
+ERROR_402="Votre PIN Mobile ID est bloqué. Veuillez visiter #URL# pour réinitialiser le code PIN."
+ERROR_403="Votre Mobile ID est suspendue. Veuillez visiter #URL# pour réactiver Mobile ID."
+ERROR_404="Pour votre numéro d'appel la Mobile ID n'est pas activée. Veuillez visiter #URL# pour activer Mobile ID."
+ERROR_406="Erreur sur le mobile de l'utilisateur, probablement une autre demande de signature est déjà en cours. Veuillez réessayer."
+ERROR_422="Pour votre numéro d'appel la Mobile ID n'est pas activée. Veuillez visiter #URL# pour activer Mobile ID."
+ERROR_501="Erreur lors de la vérification de la requête. Veuillez réessayer et si l'erreur persiste contactez votre opérateur mobile."
+ERROR_503="Erreur lors de la vérification de la requête. Veuillez réessayer et si l'erreur persiste contactez votre opérateur mobile."
 
 # Error (Generic)
 ERROR_="Mobile ID ne peut actuellement pas être utilisée. Veuillez réessayer ultérieurement."

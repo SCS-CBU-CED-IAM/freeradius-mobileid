@@ -7,17 +7,17 @@ DTBS="#AP_PREFIX#: Authentifizierung mit Mobile ID? (#TRANSID#)"
 
 # Errors
 #  use #URL# to set the Portal Helper URL
-ERROR_105="Mobile ID ist für diese Rufnummer noch nicht bestellt worden oder ist nicht aktiviert. Besuchen Sie bitte #URL# um die Mobile ID zu aktivieren."
-ERROR_208="Gültigkeitsdatum der Transaktion ist abgelaufen oder das Timeout wurde erreicht. Bitte versuchen Sie es erneut."
-ERROR_209="Der Service konnte das mobile Endgerät nicht kontaktieren. (Schlechte Verbindung…). Bitte versuchen Sie es erneut."
+ERROR_105="Mobile ID ist für diese Rufnummer noch nicht bestellt worden. Besuchen Sie das Mobile ID Portal von Ihrem Mobilfunkanbieter."
+ERROR_208="Die Transaktion ist abgelaufen. Bitte versuchen Sie es erneut."
+ERROR_209="Der Service konnte das mobile Endgerät nicht kontaktieren (schlechte Verbindung...). Bitte versuchen Sie es erneut."
 ERROR_401="Der Vorgang wurde vom Nutzer abgebrochen."
-ERROR_402="Ihre Mobile ID PIN ist gesperrt. Besuchen Sie bitte #URL# um Ihren PIN zurückzusetzen"
-ERROR_403="Ihre Rufnummer ist gesperrt. Um Mobile ID erneut nutzen zu können müssen Sie zuerst ihre Mobilnummer entsperren lassen."
-ERROR_404="Ihre Rufnummer ist nicht für Mobile ID aktiviert. Besuchen Sie bitte #URL# um die Mobile ID zu aktivieren."
-ERROR_406="Fehler auf dem Endgerät beim Erstellen der Bestätigung. Wahrscheinlich ist eine andere Signatur Anfrage bereits im Gange. Bitte versuchen Sie es erneut."
+ERROR_402="Ihre Mobile ID PIN ist gesperrt. Besuchen Sie #URL# um Ihren PIN zurückzusetzen."
+ERROR_403="Ihre Mobile ID ist suspendiert. Besuchen Sie #URL# um die Mobile ID zu reaktivieren."
+ERROR_404="Die Rufnummer ist nicht für Mobile ID aktiviert. Besuchen Sie #URL# um die Mobile ID zu aktivieren."
+ERROR_406="Fehler auf dem mobilen Endgerät, wahrscheinlich ist eine andere Signatur Anfrage bereits im Gange. Bitte versuchen Sie es erneut."
 ERROR_422="Ihre Rufnummer ist nicht für Mobile ID aktiviert. Besuchen Sie bitte #URL# um die Mobile ID zu aktivieren."
-ERROR_501="Fehler beim Prüfen der Bestätigung. Besuchen Sie bitte #URL# um die Mobile ID wieder zu aktivieren."
-ERROR_503="Fehler beim Prüfen der Bestätigung. Bitte versuchen Sie es erneut."
+ERROR_501="Fehler beim Prüfen der Bestätigung. Bitte versuchen Sie es erneut und wenn der Fehler bestehen bleibt, kontaktieren Sie Ihren Mobilfunkanbieter."
+ERROR_503="Fehler beim Prüfen der Bestätigung. Bitte versuchen Sie es erneut und wenn der Fehler bestehen bleibt, kontaktieren Sie Ihren Mobilfunkanbieter."
 
 # Error (Generic)
 ERROR_="Mobile ID kann zurzeit nicht genutzt werden. Bitte versuchen Sie es später erneut."

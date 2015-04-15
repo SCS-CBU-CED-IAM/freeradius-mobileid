@@ -7,17 +7,17 @@ DTBS="#AP_PREFIX#: Autenticazione con Mobile ID? (#TRANSID#)"
 
 # Errors
 #  use #URL# to set the Portal Helper URL
-ERROR_105="Mobile ID non è stato ancora ordinato o non è attivato per questo numero di telefono. Visita #URL# per attivare Mobile ID."
-ERROR_208="La data di scadenza di transazione è stata raggiunta o il tempo fuori è trascorso. Riprovi di nuovo."
-ERROR_209="Il servizio non è riuscito per contattare la strumentazione mobile dell'utilizzatore finale. (Connessione scadente…). Riprovi di nuovo."
+ERROR_105="Mobile ID non è stato ancora ordinato per questo numero di telefono. Si prega di visitare il Mobile ID portale del proprio operatore mobile."
+ERROR_208="L'operazione è scaduta. Riprovi di nuovo."
+ERROR_209="Il servizio non ha potuto contattare apparecchiature mobili del utente finale (connessione scadente...). Riprovi di nuovo."
 ERROR_401="La richiesta é stata cancellata dal utilizzatore."
-ERROR_402="Il vostro codice PIN Mobile ID é bloccato. Visita #URL# per ripristinare il PIN."
-ERROR_403="Il vostro numero di telefonia mobile é bloccato. Per poter di nuovo utilizzare Mobile ID, dovete sbloccare il numero mobile."
-ERROR_404="Il vostro numero di telefonia mobile non é abilitato per Mobile ID. Visita #URL# per attivare Mobile ID."
-ERROR_406="Errore causato dall'apparecchio mobile durante la conferma della richiesta. Probabilmente un altra richiesta di firma è già in corso. Riprovi di nuovo."
+ERROR_402="Il vostro PIN Mobile ID é bloccato. Consulti #URL# per ripristinare il PIN."
+ERROR_403="Your Mobile ID è sospeso. Consulti #URL# per riattivare Mobile ID."
+ERROR_404="Il vostro numero di telefonia mobile non é abilitato per Mobile ID. Consulti #URL# per attivare Mobile ID."
+ERROR_406="Errore causato dall'apparecchio mobile, probabilmente un altra richiesta di firma è già in corso. Riprovi di nuovo."
 ERROR_422="Il vostro numero di telefonia mobile non é abilitato per Mobile ID. Visita #URL# per attivare Mobile ID."
-ERROR_501="Errore durante la conferma. Visita #URL# per riattivare Mobile ID."
-ERROR_503="Errore durante la conferma. Riprovi di nuovo."
+ERROR_501="Errore durante la conferma. Riprovi di nuovo e se l'errore persiste rivolgersi all'operatore di rete mobile."
+ERROR_503="Errore durante la conferma. Riprovi di nuovo e se l'errore persiste rivolgersi all'operatore di rete mobile."
 
 # Error (Generic)
 ERROR_="Mobile ID attualmente non può essere utilizzato. Riprova più tardi."
