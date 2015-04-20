@@ -62,10 +62,7 @@ UNIQUEID=$2
 FILE="$PWD/exec-ldapupdate.properties"
 [ -r "$FILE" ] || error "Properties file ($FILE) missing or not readable"
 . $PWD/exec-ldapupdate.properties
-
-# Details of the environment
-DEBUG_INFO=`printenv`
-debug ">>> Available variables <<<" "$DEBUG_INFO"
+[ "$server" = "" ] && error "Missing 'server' setting in the properties file ($FILE)"
 
 # Temporary files
 TMP=$(mktemp /tmp/_tmp.XXXXXX)           # Request goes here
@@ -82,41 +79,43 @@ OPT="$OPT -s sub -z 1"                              # Other options: scope, resu
 OPT="$OPT $filter"                                  # Filter
 [ "$attributes" = "" ] || OPT="$OPT $attributes"    # and attributes
 
+debug "ldapsearch $OPT"
 ldapsearch $OPT > $TMP.search
 RC_LDAP=$?
 
-debug "ldapsearch $OPT"
 DEBUG_INFO=`cat $TMP.search`
 debug ">>> $TMP.search <<<" "$DEBUG_INFO"
 
 if [ "$RC_LDAP" = "0" ]; then            # Parse the search result
   RES_DN=$(sed -n -e 's|dn: ||p' $TMP.search)
   if [ "$RES_DN" != "" ]; then             # Entry found
-    inform "Changing $attribute_toupdate on entry $RES_DN with value $UNIQUEID"
-
-    # Updating the entry
-    UPDATE="dn: $RES_DN
+    inform "Found entry $RES_DN"
+      if [ "$UNIQUEID" != "" ]; then         # New value has been passed/set
+      inform "Changing $attribute_toupdate on entry $RES_DN with value $UNIQUEID"
+      # Updating the entry
+      UPDATE="dn: $RES_DN
 changetype: modify
 replace: $attribute_toupdate
 $attribute_toupdate: $UNIQUEID"
-    echo "$UPDATE" > $TMP.update
+      echo "$UPDATE" > $TMP.update
 
-    OPT="-f $TMP.update"                     # File with LDIF content
-    [ "$server" = "" ] || OPT="$OPT -H $server"         # ldap server
-    [ "$userid" = "" ] || OPT="$OPT -D $userid"         # Bind DN
-    [ "$password" = "" ] || OPT="$OPT -w $password"     # Password
-    OPT="$OPT -x"                                       # Other options: quiet, timeout
-    [ "$timeout" = "" ] || OPT="$OPT -o nettimeout=$timeout"
+      OPT="-f $TMP.update"                     # File with LDIF content
+      [ "$server" = "" ] || OPT="$OPT -H $server"         # ldap server
+      [ "$userid" = "" ] || OPT="$OPT -D $userid"         # Bind DN
+      [ "$password" = "" ] || OPT="$OPT -w $password"     # Password
+      OPT="$OPT -x"                                       # Other options: quiet, timeout
+      [ "$timeout" = "" ] || OPT="$OPT -o nettimeout=$timeout"
 
-    ldapmodify $OPT > /dev/null 2>&1
-    RC_LDAP=$?
+      debug "ldapmodify $OPT"
+      ldapmodify $OPT > /dev/null 2>&1
+      RC_LDAP=$?
 
-    debug "ldapmodify $OPT"
-    DEBUG_INFO=`cat $TMP.update`
-    debug ">>> $TMP.update <<<" "$DEBUG_INFO"
+      DEBUG_INFO=`cat $TMP.update`
+      debug ">>> $TMP.update <<<" "$DEBUG_INFO"
 
-    if [ "$RC_LDAP" != "0" ]; then           # Error in ldapmodify
-      error "ldapmodify failed with $RC_LDAP"
+      if [ "$RC_LDAP" != "0" ]; then           # Error in ldapmodify
+        error "ldapmodify failed with $RC_LDAP"
+      fi
     fi
    else                                    # -> entry not found
     inform "No entry $USERID found"
