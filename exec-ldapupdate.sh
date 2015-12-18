@@ -17,7 +17,6 @@ RLM_MODULE_NOTFOUND=7                    # notfound: the user was not found
 
 # Logging functions
 VERBOSITY=2                              # Default verbosity to error (can be set by .properties)
-exec 3>&2                                # Logging stream (file descriptor 3) defaults to STDERR
 silent_lvl=0
 inf_lvl=1
 err_lvl=2
@@ -27,9 +26,9 @@ inform() { log $inf_lvl "INFO: $@"; }
 error() { log $err_lvl "ERROR: $@"; }
 debug() { log $dbg_lvl "DEBUG: $@"; }
 log() {
-  if [ $VERBOSITY -ge $1 ]; then
-    echo "exec-ldapupdate::$2" >&3
-    if [ "$3" != "" ]; then echo "$3" >&3; fi
+  if [ $VERBOSITY -ge $1 ]; then         # Logging to syslog and STDERR
+    logger -s "freeradius:exec-ldapupdate::$2"
+    if [ "$3" != "" ]; then logger -s "$3" ; fi
   fi
 }
 
