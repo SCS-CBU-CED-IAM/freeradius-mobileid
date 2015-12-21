@@ -313,9 +313,9 @@ cleanups                                 # Cleanups
 inform "RC=$RC"
 
 # Echo to the console the output pairs
-[ "$RES_1901" != "" ] && echo "X-MSS-MobileID-MCCMNC:=\"$RES_1901\""
-[ "$UNIQUEIDNEW" != "" ] && echo "X-MSS-MobileID-SN:=\"$UNIQUEIDNEW\""
-[ "$REPLY_MESSAGE" != "" ] && echo "Reply-Message:=\"$REPLY_MESSAGE\""
+[ "$RES_1901" != "" ] && echo "X-MSS-MobileID-MCCMNC:=\"$RES_1901\"\n"
+[ "$UNIQUEIDNEW" != "" ] && echo "X-MSS-MobileID-SN:=\"$UNIQUEIDNEW\"\n"
+[ "$REPLY_MESSAGE" != "" ] && echo "Reply-Message:=\"$REPLY_MESSAGE\"\n"
 
 # and return the error code
 exit $RC
