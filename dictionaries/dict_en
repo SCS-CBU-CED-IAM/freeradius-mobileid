@@ -24,3 +24,6 @@ ERROR_="Mobile ID can not be used at this time. Please try it again later."
 
 # Error (Unique ID)
 ERROR_ID="Error on the Mobile ID serial number. Please contact your system administrator."
+
+# Error (MCC)
+ERROR_MCC="Error on the Mobile ID location."

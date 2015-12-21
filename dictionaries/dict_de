@@ -24,3 +24,6 @@ ERROR_="Mobile ID kann zurzeit nicht genutzt werden. Bitte versuchen Sie es spä
 
 # Error (Unique ID)
 ERROR_ID="Fehler auf der Mobile ID Seriennummer. Bitte kontaktieren Sie Ihren Systemadministrator."
+
+# Error (MCC)
+ERROR_MCC="Fehler beim Mobile ID Standort."

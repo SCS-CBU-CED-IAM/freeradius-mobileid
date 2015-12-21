@@ -11,14 +11,15 @@
 #  CALLED_STATION_ID: the mobile phone number of the Mobile ID user
 #  X_MSS_LANGUAGE: the language for the call (defaults to EN if unset or invalid)
 #  X_MSS_MOBILEID_SN: the related SerialNumber in the DN of the Mobile ID user (optional)
+#  X-MSS-MobileID-MCCMNC: the related MCCMNC in the subscriber information of the Mobile ID user (optional)
 # Those attributes can be overriden by the command line parameters
 #  arg1: CALLED_STATION_ID
 #  arg2: X_MSS_LANGUAGE
 #  arg3: X_MSS_MOBILEID_SN
 #
 # It will return the proper FreeRADIUS error code, echo the actual/updated SerialNumber of
-# the DN from the related Mobile ID user as X-MSS-MobileID-SN. In case of user related
-# error it will be echo as 'Reply-Message'
+# the DN from the related Mobile ID user as X-MSS-MobileID-SN and, if allowed, the X-MSS-MobileID-MCCMNC.
+# In case of user related error it will be echo as 'Reply-Message'
 #
 #
 # Dependencies: curl, openssl, base64, sed, date, xmllint, awk, tr, head, logger
@@ -212,6 +213,7 @@ if [ "$RC_CURL" = "0" -a "$http_code" = "200" ]; then
 
   # Parse the Subscriber Info and get the detail of 1901
   RES_1901=$(sed -n -e 's/.*<ns1:Detail id="1901" value="\([^"]*\).*/\1/p' $TMP.rsp)
+  [ "$RES_1901" = "" ] && RES_1901="00000"
 
   # Decode the signature
   base64 --decode  $TMP.sig.base64 > $TMP.sig.der
@@ -262,6 +264,18 @@ if [ "$RC_CURL" = "0" -a "$http_code" = "200" ]; then
   if [ "$ERROR" = "ERROR_ID" ]; then       # Unique ID error raised
       eval REPLY_MESSAGE=\$$ERROR
       RES_RC="ID"                          # set to ID Error
+      error "$REPLY_MESSAGE"
+  fi
+
+  # Optional Subscriber Info checks 
+  if [ "$ALLOWED_MCC" != "" ]; then        # Allowed MCC is set
+    MCC=${RES_1901:0:3}                      # Get the MCC out
+    inform "Check Subscriber Info: $MCC"
+    [[ ",$ALLOWED_MCC," =~ ",$MCC," ]] || ERROR="ERROR_MCC"
+  fi
+  if [ "$ERROR" = "ERROR_MCC" ]; then      # Unique ID error raised
+      eval REPLY_MESSAGE=\$$ERROR
+      RES_RC="MCC"                         # set to MCC Error
       error "$REPLY_MESSAGE"
   fi
 
