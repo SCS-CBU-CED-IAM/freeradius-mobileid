@@ -208,10 +208,9 @@ Instruction files can be found here [docs/](docs/).
 
 **Mobile ID Request not sent when FreeRADIUS is started as daemon**
 
-`curl` will raise error 7 
-`exec-mobileid.sh` states about `freeradius:exec-mobileid::ERROR: Error in creating temporary file(s)` 
+`curl` raises error 7 and/or `exec-mobileid.sh` states about `freeradius:exec-mobileid::ERROR: Error in creating temporary file(s)` 
 
-Disabling `SELINUX` should help here: 
+Try disabling `SELINUX`: 
 - edit following file `/etc/selinux/config` 
 - locate following line `SELINUX=enforcing` 
 - change this to `SELINUX=disabled` or `SELINUX=permissive` 
