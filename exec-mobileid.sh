@@ -164,6 +164,11 @@ REQ_SOAP='<?xml version="1.0" encoding="UTF-8"?>
         <mss:AdditionalServices>
           <mss:Service>
             <mss:Description>
+              <mss:mssURI>http://mid.swisscom.ch/as#subscriberInfo</mss:mssURI>
+            </mss:Description>
+          </mss:Service>
+          <mss:Service>
+            <mss:Description>
               <mss:mssURI>http://mss.ficom.fi/TS102204/v1.0.0#userLang</mss:mssURI>
             </mss:Description>
             <fi:UserLang>'$USERLANG'</fi:UserLang>
@@ -204,8 +209,11 @@ if [ "$RC_CURL" = "0" -a "$http_code" = "200" ]; then
   RES_RC=$(sed -n -e 's/.*<mss:StatusCode Value="\([^"]*\).*/\1/p' $TMP.rsp)
   RES_ST=$(sed -n -e 's/.*<mss:StatusMessage>\(.*\)<\/mss:StatusMessage>.*/\1/p' $TMP.rsp)
   sed -n -e 's/.*<mss:Base64Signature>\(.*\)<\/mss:Base64Signature>.*/\1/p' $TMP.rsp > $TMP.sig.base64
-  
   [ -s "$TMP.sig.base64" ] || error "No Base64Signature found"
+
+  # Parse the Subscriber Info and get the detail of 1901
+  RES_1901=$(sed -n -e 's/.*<ns1:Detail id="1901" value="\([^"]*\).*/\1/p' $TMP.rsp)
+
   # Decode the signature
   base64 --decode  $TMP.sig.base64 > $TMP.sig.der
   [ -s "$TMP.sig.der" ] || error "Unable to decode Base64Signature"
@@ -305,6 +313,7 @@ cleanups                                 # Cleanups
 inform "RC=$RC"
 
 # Echo to the console the output pairs
+[ "$RES_1901" != "" ] && echo "X-MSS-MobileID-MCCMNC:=\"$RES_1901\""
 [ "$UNIQUEIDNEW" != "" ] && echo "X-MSS-MobileID-SN:=\"$UNIQUEIDNEW\""
 [ "$REPLY_MESSAGE" != "" ] && echo "Reply-Message:=\"$REPLY_MESSAGE\""
 

@@ -50,10 +50,13 @@ Define custom attributes for Mobile ID in `<cfg>/dictionary`
 
 ```
 # Entry to control the Mobile ID request language
-ATTRIBUTE  X-MSS-Language     3000  string
+ATTRIBUTE  X-MSS-Language         3000  string
 
 # Entry to control the unique Mobile ID serial number
-ATTRIBUTE  X-MSS-MobileID-SN  3001  string
+ATTRIBUTE  X-MSS-MobileID-SN      3001  string
+
+# Subscriber Info value of MCCMNC out of field value 1901
+ATTRIBUTE  X-MSS-MobileID-MCCMNC  3002  string
 ```
 
 ### Create a rlm_exec module file for Mobile ID
@@ -148,6 +151,17 @@ exec-ldapupdate::INFO: RC=0
 
 3) Configure your site to enable this module after the Mobile ID call  
 Uncomment the `# mobileid-ldapupdate` in the `post-auth` section to make it active.
+
+### Subscriber Information
+
+The actual MCC-MNC (http://www.mcc-mnc.com) information will be returned for authorised customers into `X-MSS-MobileID-MCCMNC` for further parsing.
+
+Example for Switzerland (228) and Swisscom (01)
+```
+./exec-mobileid.sh +41791234567 
+X-MSS-MobileID-MCCMNC:="22801"
+X-MSS-MobileID-SN:="MIDCHEGU8GSH6K88"
+```
 
 
 ## Additional information

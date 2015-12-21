@@ -3,5 +3,12 @@
 #	add them here.  The numbers you pick should be between
 #	3000 and 4000.
 #
-ATTRIBUTE	X-MSS-Language       3000    string
-ATTRIBUTE	X-MSS-MobileID-SN    3001    string
+
+# Entry to control the Mobile ID request language
+ATTRIBUTE  X-MSS-Language         3000  string
+
+# Entry to control the unique Mobile ID serial number
+ATTRIBUTE  X-MSS-MobileID-SN      3001  string
+
+# Subscriber Info value of MCCMNC out of field value 1901
+ATTRIBUTE  X-MSS-MobileID-MCCMNC  3002  string
