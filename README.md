@@ -115,7 +115,7 @@ The service name is depending on the Linux distribution. In general it's either 
 
 
 An easy way to test your RADIUS server is by using the FreeRADIUS provided radclient tool: 
-`echo "User-Name=+4179xxxxxxx,User-Password=''" | radclient -t 120 localhost auth testing123`
+`echo "User-Name=+4179xxxxxxx,User-Password=''" | radclient -x -t 120 localhost auth testing123`
 
 
 ## Advanced configuration
@@ -172,14 +172,14 @@ Relevant end user errors will set the `Reply-Message` attribute over the output 
 
 Example when the related mobile phone number does not have the Mobile ID option:
 ```
-$echo "User-Name=+41791234567,User-Password=''" | radclient -t 120 ...
+$echo "User-Name=+41791234567,User-Password=''" | radclient -x -t 120 ...
 Received response ID 255, code 3, length = 160
     Reply-Message:="The subscriber number is not yet activated for Mobile ID. Please visit https://sam.sso.bluewin.ch/registration/MobileId?msisdn=41791234567 to activate your Mobile ID."
 ```
 
 Example when the user related security element is not matching:
 ```
-$echo "User-Name=+41791234567,User-Password=''" | radclient -t 120 ...
+$echo "User-Name=+41791234567,User-Password=''" | radclient -x -t 120 ...
 Received response ID 255, code 3, length = 160
     Reply-Message:="Error on the Mobile ID serial number. Please contact your system administrator."
 ```
