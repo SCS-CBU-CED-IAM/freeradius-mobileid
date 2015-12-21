@@ -163,6 +163,9 @@ X-MSS-MobileID-MCCMNC:="22801",
 X-MSS-MobileID-SN:="MIDCHEGU8GSH6K88",
 ```
 
+If not authorised or the information is unknown, then this value will be `00000`.
+
+Refer also to the optional `ALLOWED_MCC` setting in [sample file](exec-mobileid.properties.sample) for active enforcement of specific allowed Mobile Country Codes.
 
 ## Additional information
 
