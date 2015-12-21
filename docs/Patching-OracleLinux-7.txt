@@ -1,0 +1,94 @@
+##################################################################################
+## freeradius patching rlm_exec for higher timeout to support Mobile ID         ##
+##                                                                              ##
+## Based on http://blog.packagecloud.io/eng/2015/04/20/working-with-source-rpms ##
+##################################################################################
+
+## Installing freeradius
+sudo yum install freeradius -y
+
+# After doing all the proper setup for Mobile ID following error will be raised:
+/etc/raddb/mods-enabled/exec_mobileid[3]: Timeout '120' is too large (maximum: 30)
+/etc/raddb/mods-enabled/exec_mobileid[3]: Instantiation failed for module "mobileid"
+
+
+## Patching
+## !!! Important notice !!!
+##   Building content as the 'root' user can be a recipe for disaster, whether
+##   using the RPM packaging system or plain tarballs. The matter is discussed
+##   http://www.owlriver.com/tips/non-root/ in greater detail.
+
+# Prepare Build environment
+cd
+sudo yum upgrade -y
+sudo yum install yum-utils rpm-build -y
+mkdir -p ~/rpmbuild/{BUILD,RPMS,SOURCES,SPECS,SRPMS}
+echo '%_topdir %(echo $HOME)/rpmbuild' > ~/.rpmmacros
+
+# Get and install the source RPM (! not as root !)
+yumdownloader --source freeradius
+rpm -i freeradius-3.0.4-6.el7.src.rpm 
+ ## Note: the warnings can be ignored
+ ## warning: user mockbuild does not exist - using root
+ ## warning: group mockbuild does not exist - using root
+
+# Actions related to dependencies
+# (before doing so, check the results of `sudo yum-builddep freeradius -y`
+
+  curl -O --silent ftp://fr2.rpmfind.net/linux/centos/7.2.1511/os/x86_64/Packages/libpcap-devel-1.5.3-8.el7.x86_64.rpm
+    sudo yum install libpcap-devel-1.5.3-8.el7.x86_64.rpm 
+
+  curl -O --silent ftp://fr2.rpmfind.net/linux/centos/7.2.1511/os/x86_64/Packages/libtalloc-devel-2.1.2-1.el7.x86_64.rpm
+    sudo yum install libtalloc-devel-2.1.2-1.el7.x86_64.rpm
+
+  curl -O --silent ftp://fr2.rpmfind.net/linux/centos/7.1.1503/os/x86_64/Packages/tncfhh-devel-0.8.3-16.el7.x86_64.rpm
+  curl -O --silent ftp://fr2.rpmfind.net/linux/centos/7.1.1503/os/x86_64/Packages/tncfhh-examples-0.8.3-16.el7.x86_64.rpm
+  curl -O --silent ftp://fr2.rpmfind.net/linux/centos/7.2.1511/os/x86_64/Packages/libtnc-1.25-6.el7.x86_64.rpm
+    sudo yum install tncfhh-devel-0.8.3-16.el7.x86_64.rpm tncfhh-examples-0.8.3-16.el7.x86_64.rpm libtnc-1.25-6.el7.x86_64.rpm
+
+  sudo yum erase mysql*
+
+# Install dependencies
+sudo yum-builddep freeradius -y
+
+# Extract and backup the sources
+cd ~/rpmbuild/SPECS
+rpmbuild -bp freeradius.spec 
+cd ~/rpmbuild/BUILD
+cp -pvr freeradius-server-3.0.4 freeradius-server-3.0.4.orig
+
+# Update the desired source files
+vi freeradius-server-3.0.4/src/modules/rlm_exec/rlm_exec.c
+  ## Manual editing (search for 30 and replace with 120)
+  
+# Create the patch file
+cd ~/rpmbuild/BUILD
+diff -Npru freeradius-server-3.0.4.orig freeradius-server-3.0.4 > freeradius-rlm_exec-mobileid.patch
+cp freeradius-rlm_exec-mobileid.patch ../SOURCES/
+
+# Edit the spec file and add the patch
+cd ~/rpmbuild/SPECS/
+vi freeradius.spec 
+  ## Increment the Release by one
+  Release: 7%{?dist}
+
+  ## Manual editing to add the .patch file
+  ...
+  Patch32: freeradius-rlm_exec-mobileid.patch
+  ...
+  %patch32 -p1
+
+# Build the RPMs
+cd ~/rpmbuild/SPECS/
+rpmbuild -ba freeradius.spec 
+
+# Install the updated RPMs
+cd ~/rpmbuild/RPMS/x86_64/
+sudo yum install freeradius-3.0.4-7.el7.x86_64.rpm freeradius-utils-3.0.4-7.el7.x86_64.rpm  -y
+
+# Restart the server in debug
+cd
+sudo service radiusd stop
+radiusd -X
+
+##################################################################################
