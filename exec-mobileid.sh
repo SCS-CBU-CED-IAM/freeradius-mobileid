@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # exec-mobileid.sh
 # Script to invoke Mobile ID service over curl for use in FreeRADIUS.
 #

@@ -24,7 +24,7 @@ CURL_OPTIONS="--silent"
 UNIQUEID_CHECK=ifset
 
 # List of allowed Mobile Country Codes, http://www.mcc-mnc.com (Optional)
-# ALLOEWED_MCC="228,295"                            # Allows from Switzerland and Lichtenstein
+# ALLOWED_MCC="228,295"                             # Allows from Switzerland and Lichtenstein
 
 # Logging (Silent=0, Info=1, Error=2, Debug=3)
 VERBOSITY=2
