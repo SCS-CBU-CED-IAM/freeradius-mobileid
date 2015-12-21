@@ -21,7 +21,7 @@
 # error it will be echo as 'Reply-Message'
 #
 #
-# Dependencies: curl, openssl, base64, sed, date, xmllint, awk, tr, head
+# Dependencies: curl, openssl, base64, sed, date, xmllint, awk, tr, head, logger
 #
 # License: Licensed under the Apache License, Version 2.0 or later; see LICENSE.md
 # Author: Swisscom (Schweiz) AG
@@ -79,7 +79,7 @@ PWD=$(dirname $0)
 RANDOM=$$
 
 # Check the dependencies
-for cmd in curl openssl base64 sed date xmllint awk tr head; do
+for cmd in curl openssl base64 sed date xmllint awk tr head logger; do
   hash $cmd &> /dev/null
   if [ $? -eq 1 ]; then error "Dependency error: '$cmd' not found" ; fi
 done

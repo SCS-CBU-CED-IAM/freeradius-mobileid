@@ -5,7 +5,7 @@
 #  arg1: User to be found
 #  arg2: MobileID SerialNumber
 #
-# Dependencies: ldapsearch, ldapmodify, sed
+# Dependencies: ldapsearch, ldapmodify, sed, logger
 #
 # License: Licensed under the Apache License, Version 2.0 or later; see LICENSE.md
 # Author: Swisscom (Schweiz) AG
@@ -46,7 +46,7 @@ PWD=$(dirname $0)
 RANDOM=$$
 
 # Check the dependencies
-for cmd in ldapsearch ldapmodify sed; do
+for cmd in ldapsearch ldapmodify sed logger; do
   hash $cmd &> /dev/null
   if [ $? -eq 1 ]; then error "Dependency error: '$cmd' not found" ; fi
 done
