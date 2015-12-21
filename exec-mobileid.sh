@@ -116,11 +116,14 @@ debug "Reading resources from $FILE"
 [ -r "$FILE" ] || error "Resource file ($FILE) missing or not readable"
 . $PWD/dictionaries/dict_$USERLANG
 
+# Temporary files
+TMP=$(mktemp /tmp/_tmp.XXXXXX)
+[ -r "$TMP" ] || error "Error in creating temporary file(s)"
+
 # Include AP_PREFIX into DTBS message (if requested)
 DTBS=$(echo "$DTBS" | sed -e "s/#AP_PREFIX#/${AP_PREFIX}/g")
-
-# Generate a unique transaction id and include into DTBS message (if requested)
-TRANSID=$(LC_CTYPE=C tr -dc A-Za-z0-9 < /dev/urandom | head -c 6)
+# Take extension of temp file as transaction ID and include into DTBS message (if requested)
+TRANSID="${TMP##*.}"
 DTBS=$(echo "$DTBS" | sed -e "s/#TRANSID#/${TRANSID}/g")
 
 # Details of the Mobile ID request
@@ -133,10 +136,6 @@ debug ">>> Available variables <<<" "$DEBUG_INFO"
 [ -r "$CERT_CA_SSL" ] || error "CA certificate file ($CERT_CA_SSL) missing or not readable"
 [ -r "$CERT_KEY" ]    || error "SSL key file ($CERT_KEY) missing or not readable"
 [ -r "$CERT_FILE" ]   || error "SSL certificate file ($CERT_FILE) missing or not readable"
-
-# Temporary files
-TMP=`mktemp -q`
-[ -r "$TMP" ] || error "Error in creating temporary file(s)"
 
 # Create temporary request (Synchron with timeout, signature as PKCS7 and validation at service)
 AP_INSTANT=$(date +%Y-%m-%dT%H:%M:%S%:z) # Define instant and transaction id
