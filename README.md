@@ -28,16 +28,16 @@ Use the `exec-mobileid.properties.sample` and create your own `exec-mobileid.pro
 At this point you can test the Mobile ID module itself with proper command line parameters. Examples:  
 ```
 ./exec-mobileid.sh +41791234567 
-X-MSS-MobileID-SN:="MIDCHEGU8GSH6K88"
+X-MSS-MobileID-SN:="MIDCHEGU8GSH6K88",
 
 ./exec-mobileid.sh +41791234567 de 
-X-MSS-MobileID-SN:="MIDCHEGU8GSH6K88"
+X-MSS-MobileID-SN:="MIDCHEGU8GSH6K88",
 
 ./exec-mobileid.sh +41791234567 de MIDCHEGU8GSH6K88 
-X-MSS-MobileID-SN:="MIDCHEGU8GSH6K88"
+X-MSS-MobileID-SN:="MIDCHEGU8GSH6K88",
 
 ./exec-mobileid.sh +41791234567 de MIDCHEGU8GSH6K88 
-Reply-Message:="The request has been canceled by the user."
+Reply-Message:="The request has been canceled by the user.",
 ```
 
 ### Increase maximum request time in radiusd.conf
@@ -159,8 +159,8 @@ The actual MCC-MNC (http://www.mcc-mnc.com) information will be returned for aut
 Example for Switzerland (228) and Swisscom (01)
 ```
 ./exec-mobileid.sh +41791234567 
-X-MSS-MobileID-MCCMNC:="22801"
-X-MSS-MobileID-SN:="MIDCHEGU8GSH6K88"
+X-MSS-MobileID-MCCMNC:="22801",
+X-MSS-MobileID-SN:="MIDCHEGU8GSH6K88",
 ```
 
 
