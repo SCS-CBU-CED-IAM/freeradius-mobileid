@@ -64,7 +64,8 @@ FILE="$PWD/exec-ldapupdate.properties"
 [ "$server" = "" ] && error "Missing 'server' setting in the properties file ($FILE)"
 
 # Temporary files
-TMP=$(mktemp /tmp/_tmp.XXXXXX)           # Request goes here
+TMP=`mktemp -q`
+[ -r "$TMP" ] || error "Error in creating temporary file(s)"
 
 # Lookup for the user and get the DN
 inform "Searching for $filter"

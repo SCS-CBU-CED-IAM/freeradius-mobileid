@@ -134,10 +134,13 @@ debug ">>> Available variables <<<" "$DEBUG_INFO"
 [ -r "$CERT_KEY" ]    || error "SSL key file ($CERT_KEY) missing or not readable"
 [ -r "$CERT_FILE" ]   || error "SSL certificate file ($CERT_FILE) missing or not readable"
 
+# Temporary files
+TMP=`mktemp -q`
+[ -r "$TMP" ] || error "Error in creating temporary file(s)"
+
 # Create temporary request (Synchron with timeout, signature as PKCS7 and validation at service)
 AP_INSTANT=$(date +%Y-%m-%dT%H:%M:%S%:z) # Define instant and transaction id
 AP_TRANSID=AP.TEST.$((RANDOM%89999+10000)).$((RANDOM%8999+1000))
-TMP=$(mktemp /tmp/_tmp.XXXXXX)           # Request goes here
 TIMEOUT=80                               # Value of Timeout
 TIMEOUT_CON=90                           # Timeout of the client connection
 REQ_SOAP='<?xml version="1.0" encoding="UTF-8"?>
