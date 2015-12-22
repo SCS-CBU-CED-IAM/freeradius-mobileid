@@ -3,7 +3,7 @@
 
 2) define proper attribute mapping between RADIUS and the related LDAP attributes:
 
-# FreeRADIUS 2.x: Adjust the <cfg>/ldap.attrmapcheckItem	Called-Station-Id	mobilecheckItem	X-MSS-Language		preferredLanguagecheckItem	X-MSS-MobileID-SN	msNPCallingStationID# FreeRADIUS 3.x: Adjust the <cfg>/mods-enabled/ldapupdate {	...	#  Generic valuepair attribute	Called-Station-Id	:= 'mobile'	X-MSS-Language		:= 'preferredLanguage'	X-MSS-MobileID-SN	:= 'msNPCallingStationID'3) Set proper filter to find the related user
+# FreeRADIUS 2.x: Adjust the <cfg>/ldap.attrmapcheckItem	Called-Station-Id	mobilecheckItem	X-MSS-Language		preferredLanguagecheckItem	X-MSS-MobileID-SN	msNPCallingStationID# FreeRADIUS 3.x: Adjust the <cfg>/mods-enabled/ldapupdate {	...	#  Generic valuepair attribute	control:Called-Station-Id	:= 'mobile'	control:X-MSS-Language		:= 'preferredLanguage'	control:X-MSS-MobileID-SN	:= 'msNPCallingStationID'3) Set proper filter to find the related user
 user {
 	...
 	#  Filter for user objects based on the sAMAccountName:
