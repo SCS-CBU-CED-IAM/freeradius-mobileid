@@ -84,7 +84,7 @@ rpmbuild -ba freeradius.spec
 
 # Install the updated RPMs
 cd ~/rpmbuild/RPMS/x86_64/
-sudo yum install freeradius-3.0.4-7.el7.x86_64.rpm freeradius-utils-3.0.4-7.el7.x86_64.rpm  -y
+sudo yum install freeradius-3.0.4-7.el7.x86_64.rpm freeradius-utils-3.0.4-7.el7.x86_64.rpm freeradius-ldap-3.0.4-7.el7.x86_64.rpm -y
 
 # Restart the server in debug
 cd

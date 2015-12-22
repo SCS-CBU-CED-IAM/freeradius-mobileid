@@ -27,7 +27,14 @@ authorize {
 	# Read the 'users' from either file, sql or ldap
 	files
 	# sql
+
 	# ldap
+	# Uncomment it if you want to use ldap for authentication
+	# if ((ok || updated) && User-Password) {
+	#	update {
+	#		control:Auth-Type := ldap
+	#	}
+	# }
 
 	# Password check with PAP (give the other a chance)
 	pap
@@ -43,10 +50,9 @@ authenticate {
 	Auth-Type MS-CHAP {
 		mschap
 	}
-	# Uncomment it if you want to use ldap for authentication
-	# Auth-Type LDAP {
-	#	ldap
-	# }
+	Auth-Type LDAP {
+		ldap
+	}
 }
 
 post-auth {

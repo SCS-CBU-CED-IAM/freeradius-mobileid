@@ -19,7 +19,7 @@ Checkout the project directly from git under a specific folder:
 
 ## Configuration
 
-`<cfg>` is referring to the folder containing the configuration elements. This is depending to the operating system and the chosen installation method. For Linux it should be `/etc/freeradius` or `/etc/raddb` and for Windows `C:\FreeRADIUS\etc\raddb`
+`<cfg>` is referring to the folder containing the FreeRADIUS configuration elements. This is depending to the operating system and the chosen installation method. For Linux it should be `/etc/freeradius` or `/etc/raddb` and for Windows `C:\FreeRADIUS\etc\raddb`
 
 ### Create the Mobile ID module properties file and test it
 
@@ -42,7 +42,7 @@ Reply-Message:="The request has been canceled by the user.",
 
 ### Increase maximum request time in radiusd.conf
 
-Edit <cfg>/radiusd.conf and increase the `max_request_time` to at least 120 seconds: `max_request_time = 120`
+Edit `<cfg>/radiusd.conf` and increase the `max_request_time` to at least 120 seconds: `max_request_time = 120`
 
 ### Define additional custom attributes
 
@@ -201,6 +201,7 @@ Example: "myerver.com: Authentication with Mobile ID? (jdclOE)"
 
 Up to the point where the properties file is read the verbosity is set to ERROR. After that point the `VERBOSITY` setting of the properties file will take place.
 
+The logging itself is done to standard error (screen), as well as to the system log.
 
 ## Known Issues
 
