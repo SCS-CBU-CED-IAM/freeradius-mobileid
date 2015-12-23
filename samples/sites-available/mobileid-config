@@ -4,52 +4,38 @@ authorize {
 	# Cleanups with preprocess
 	preprocess
 
-	# Password checks
+	# Password handling
 	chap
 	mschap
 
 	# Suffix handling for realms
 	suffix
+	if (Stripped-User-Name != "") {
+		update request {
+			User-Name := Stripped-User-Name
+		}
+	}
 
-	# Read the 'users' from either file, sql or ldap
+	# Read the 'users' from either file and validate password
 	files
-	# sql
+	pap
 
-	# ldap
+	# Read the 'users' from sql or ldap
+	#   sql
+	#   ldap
 	# Uncomment it if you want to use ldap for authentication
-	# if ((ok || updated) && User-Password) {
+	#if ((ok || updated) && User-Password) {
 	#	update {
 	#		control:Auth-Type := ldap
 	#	}
-	# }
+	#}
 
-	# Password check with PAP (give the other a chance)
-	pap
-}
-
-authenticate {
-	Auth-Type PAP {
-		pap
-	}
-	Auth-Type CHAP {
-		chap
-	}
-	Auth-Type MS-CHAP {
-		mschap
-	}
-	Auth-Type LDAP {
-		ldap
-	}
-}
-
-post-auth {
-	# Update request with values from users database
+	# Update request with values from 'users' store
 	update request {
 		Called-Station-Id := "%{control:Called-Station-Id}"
 		X-MSS-Language := "%{control:X-MSS-Language}"
 		X-MSS-MobileID-SN := "%{control:X-MSS-MobileID-SN}"
 	}
-
 	# Set Called-Station-Id to User-Name, if not found.
 	if (!Called-Station-Id || Called-Station-Id == "") {
 		update request {
@@ -57,12 +43,44 @@ post-auth {
 		}
 	}
 
-	# Callout Mobile ID
-	mobileid
+	# Ensure Auth-Type is set to go over authenticate
+	if (!control:Auth-Type) {
+		update {
+			control:Auth-Type := mobileid
+		}
+	}
+}
 
-	# Optional call to update the user entry
-	# mobileid-ldapupdate
+authenticate {
+	Auth-Type PAP {
+		pap
+		# Callout Mobile ID after 1st method
+		mobileid
+	}
+	Auth-Type CHAP {
+		chap
+		# Callout Mobile ID after 1st method
+		mobileid
+	}
+	Auth-Type MS-CHAP {
+		mschap
+		# Callout Mobile ID after 1st method
+		mobileid
+	}
+	Auth-Type LDAP {
+		ldap
+		# Callout Mobile ID after 1st method
+		mobileid
+		# Optional call to update the user entry
+		# mobileid-ldapupdate
+	}
+	Auth-Type MOBILEID {
+		# Callout Mobile ID only
+		mobileid
+	}
+}
 
+post-auth {
 	Post-Auth-Type REJECT {
 		attr_filter.access_reject
 	}
