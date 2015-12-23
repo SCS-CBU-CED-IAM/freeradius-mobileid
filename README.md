@@ -117,17 +117,22 @@ The group name is depending on the Linux distribution. In general it's either `f
 
 ### Testing
 
-Start FreeRADIUS and test it. Rather than launching the FreeRADIUS over the service, start the daemon from the console in debug mode: 
+Start FreeRADIUS and test it. Rather than launching the FreeRADIUS over the service, start the `freeradius` service from the console in debug mode: 
 ```
 sudo service freeradius stop
 sudo freeradius –X -f
 ```
-
-The service name is depending on the Linux distribution. In general it's either `freeradius`or `radiusd`.
+depending on the Linux distribution, the service name may be `radiusd`:
+```
+sudo service radiusd stop
+sudo radiusd –X -f
+```
 
 
 An easy way to test your RADIUS server is by using the FreeRADIUS provided radclient tool: 
-`echo "User-Name=+4179xxxxxxx,User-Password=''" | radclient -x -t 120 localhost auth testing123`
+````
+echo "User-Name=+4179xxxxxxx,User-Password=''" | radclient -x -t 120 localhost auth testing123
+````
 
 
 ## Advanced configuration
@@ -175,7 +180,7 @@ Example for Switzerland (228) and Swisscom (01)
 X-MSS-MobileID-MCCMNC:="22801",
 X-MSS-MobileID-SN:="MIDCHEGU8GSH6K88",
 ```
-If not authorised or the information is unknown, then this value will be `00000`.
+If not authorised or the information is unknown, then the value will be `X-MSS-MobileID-MCCMNC:="00000",`.
 
 ## Additional information
 
