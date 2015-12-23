@@ -8,7 +8,7 @@ Refer to the technical documentations at [Mobile ID](http://swisscom.com/mid "Mo
 * Mobile ID Client reference guide
 
 
-## Install
+## Install / Update
 
 Checkout the project directly from git under a specific folder:
 ```
@@ -16,6 +16,12 @@ Checkout the project directly from git under a specific folder:
   git clone https://github.com/SCS-CBU-CED-IAM/freeradius-mobileid.git freeradius
 ```
 
+To update your local folder with the current repository:
+```
+  cd /opt/freeradius
+  git pull
+  # don't forget to update the permissions (see bellow)
+```
 
 ## Configuration
 
@@ -23,7 +29,8 @@ Checkout the project directly from git under a specific folder:
 
 ### Create the Mobile ID module properties file and test it
 
-Use the `exec-mobileid.properties.sample` and create your own `exec-mobileid.properties` file. Refer to the [sample file](exec-mobileid.properties.sample) for the settings.
+Copy the `exec-mobileid.properties.sample` to `exec-mobileid.properties` and edit it. Refer to the [sample file](exec-mobileid.properties.sample) for the settings.
+
 
 At this point you can test the Mobile ID module itself with proper command line parameters. Examples:  
 ```
@@ -89,14 +96,19 @@ Sample user file can be found here [samples/](samples/users.sample).
 Set proper permissions to the FreeRADIUS daemon to access those files. Example:
 ```
   # FreeRADIUS Server configuration
-  sudo chown -R :freerad /etc/freeradius
+  [ -d /etc/freeradius ] && sudo chown -R :freerad /etc/freeradius
+  [ -d /etc/raddb ] && sudo chown -R :radiusd /etc/raddb
 
   # FreeRADIUS Mobile ID Module
-  sudo chown -R :freerad /opt/freeradius
+  [ -d /etc/freeradius ] && sudo chown -R :freerad /opt/freeradius
+  [ -d /etc/raddb ] && sudo chown -R :radiusd /opt/freeradius
+
   ## Execution flag for the scripts
   sudo chmod +x /opt/freeradius/*.sh
+
   ## Everyone can read all
   sudo chmod -R +r /opt/freeradius
+
   ## but others should not be able to read the client certificate
   sudo chmod o-r /opt/freeradius/certs/*
 ```
@@ -132,7 +144,7 @@ The actual SerialNumber of the DN from the related Mobile ID user will be set as
 
 Updating the related user entry with initial/current `X-MSS-MobileID-SN` value can be done by calling the rlm_exec module exec_ldapupdate. 
 
-1) Use the `exec-ldapupdate.properties.sample` and create your own `exec-ldapupdate.properties` file. Refer to the [sample file](exec-ldapupdate.properties.sample) for the settings. 
+1) Copy the `exec-ldapupdate.properties.sample` to `exec-ldapupdate.properties` and edit it. Refer to the [sample file](exec-ldapupdate.properties.sample) for the settings. 
 
 At this point you can test the module itself with proper command line parameters. Examples:  
 ```
@@ -155,6 +167,7 @@ Uncomment the `# mobileid-ldapupdate` in the `post-auth` section to make it acti
 ### Subscriber Information
 
 The actual MCC-MNC (http://www.mcc-mnc.com) information will be returned for authorised customers into `X-MSS-MobileID-MCCMNC` for further parsing.
+This can be used to restrict the countries from where the users are allowed to login from. For more details, refer to the optional `ALLOWED_MCC` setting in [sample file](exec-mobileid.properties.sample).
 
 Example for Switzerland (228) and Swisscom (01)
 ```
@@ -162,10 +175,7 @@ Example for Switzerland (228) and Swisscom (01)
 X-MSS-MobileID-MCCMNC:="22801",
 X-MSS-MobileID-SN:="MIDCHEGU8GSH6K88",
 ```
-
 If not authorised or the information is unknown, then this value will be `00000`.
-
-Refer also to the optional `ALLOWED_MCC` setting in [sample file](exec-mobileid.properties.sample) for active enforcement of specific allowed Mobile Country Codes.
 
 ## Additional information
 
