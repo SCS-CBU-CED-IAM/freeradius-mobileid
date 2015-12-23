@@ -93,7 +93,7 @@ Sample user file can be found here [samples/](samples/users.sample).
 
 ### Permissions
 
-Set proper permissions to the FreeRADIUS daemon to access those files. Example:
+Set proper permissions to the FreeRADIUS daemon to access those files. The group name is depending on the Linux distribution. In general it's either `freerad` or `radiusd`. Example:
 ```
   # FreeRADIUS Server configuration
   [ -d /etc/freeradius ] && sudo chown -R :freerad /etc/freeradius
@@ -113,7 +113,6 @@ Set proper permissions to the FreeRADIUS daemon to access those files. Example:
   sudo chmod o-r /opt/freeradius/certs/*
 ```
 
-The group name is depending on the Linux distribution. In general it's either `freerad` or `radiusd`.
 
 ### Testing
 
