@@ -16,13 +16,20 @@ authorize {
 		}
 	}
 
-	# Read the 'users' from either file and validate password
+	# Read the 'users' from file, update request with values and validate password
 	files
+	update request {
+		Called-Station-Id := "%{control:Called-Station-Id}"
+		X-MSS-Language := "%{control:X-MSS-Language}"
+		X-MSS-MobileID-SN := "%{control:X-MSS-MobileID-SN}"
+	}
 	pap
 
-	# Read the 'users' from sql or ldap
-	#   sql
-	#   ldap
+	# Read the 'users' from sql
+	# sql
+
+	# Read the 'users' from ldap
+	# ldap
 	# Uncomment it if you want to use ldap for authentication
 	#if ((ok || updated) && User-Password) {
 	#	update {
@@ -30,12 +37,6 @@ authorize {
 	#	}
 	#}
 
-	# Update request with values from 'users' store
-	update request {
-		Called-Station-Id := "%{control:Called-Station-Id}"
-		X-MSS-Language := "%{control:X-MSS-Language}"
-		X-MSS-MobileID-SN := "%{control:X-MSS-MobileID-SN}"
-	}
 	# Set Called-Station-Id to User-Name, if not found.
 	if (!Called-Station-Id || Called-Station-Id == "") {
 		update request {
