@@ -29,13 +29,8 @@ authorize {
 		}
 	}
 
-	# Read the 'users' from file, update request with values and validate password
+	# Read the 'users' from file and validate password
 	files
-	update request {
-		Called-Station-Id := "%{control:Called-Station-Id}"
-		X-MSS-Language := "%{control:X-MSS-Language}"
-		X-MSS-MobileID-SN := "%{control:X-MSS-MobileID-SN}"
-	}
 	pap
 
 	# Read the 'users' from sql
@@ -50,6 +45,12 @@ authorize {
 	#	}
 	#}
 
+	# Update request with control values 
+	update request {
+		Called-Station-Id := "%{control:Called-Station-Id}"
+		X-MSS-Language := "%{control:X-MSS-Language}"
+		X-MSS-MobileID-SN := "%{control:X-MSS-MobileID-SN}"
+	}
 	# Set Called-Station-Id to User-Name, if not found.
 	if (!Called-Station-Id || Called-Station-Id == "") {
 		update request {
