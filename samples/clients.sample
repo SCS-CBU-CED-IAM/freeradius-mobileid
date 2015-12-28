@@ -13,3 +13,4 @@ client any-secret {
 	ipaddr = 0.0.0.0/0
 	ipv6addr = ::
 	secret = "testing123"
+}
