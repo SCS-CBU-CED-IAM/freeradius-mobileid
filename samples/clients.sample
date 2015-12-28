@@ -1,0 +1,15 @@
+# -*- text -*-
+##
+## clients.conf -- client configuration directives
+##
+##	$Id$
+
+#######################################################################
+#
+#  Define RADIUS clients (usually a NAS, Access Point, etc.).
+
+# Allow all external to use the service
+client any-secret {                                                      
+	ipaddr = 0.0.0.0/0
+	ipv6addr = ::
+	secret = "testing123"
