@@ -70,7 +70,8 @@ authenticate {
 		mobileid
 	}
 	Auth-Type LDAP {
-		ldap
+		# Uncomment it if you want to use ldap for authentication
+		# ldap
 		# Callout Mobile ID after 1st method
 		mobileid
 		# Optional call to update the user entry
