@@ -12,8 +12,6 @@ ENV LDAP_BASEDN="CN=Users,DC=org,DC=acme,DC=ch"
 # Install FreeRADIUS
 RUN apk update && apk upgrade \
   && apk add --update freeradius freeradius-ldap freeradius-radclient bash git openldap-clients libxml2-utils \
-# TODO check if needed:  && openssl && \
-# TODO check if needed:  && /bin/sh /etc/raddb/certs/bootstrap && \
   && rm -rf /var/cache/apk/*
 
 # Install Mobile ID module

@@ -25,6 +25,11 @@ authorize {
 		}
 	}
 
+	# Password handling
+	chap
+	mschap
+	pap
+
 	# Read the 'users' from ldap
 	ldap
 	if ((ok || updated) && User-Password) {
@@ -55,6 +60,21 @@ authorize {
 }
 
 authenticate {
+	Auth-Type PAP {
+		pap
+		# Callout Mobile ID after 1st method
+		mobileid
+	}
+	Auth-Type CHAP {
+		chap
+		# Callout Mobile ID after 1st method
+		mobileid
+	}
+	Auth-Type MS-CHAP {
+		mschap
+		# Callout Mobile ID after 1st method
+		mobileid
+	}
 	Auth-Type LDAP {
 		ldap
 		# Callout Mobile ID after 1st method
