@@ -3,10 +3,10 @@
 #
 
 ldap {
-	server = LDAPSERVER
-	identity = LDAPUSERID
-	password = LDAPPWD
-	base_dn = LDAPBASEDN
+	server = %LDAP_SERVER%
+	identity = %LDAP_USERID%
+	password = %LDAP_PWD%
+	base_dn = %LDAP_BASEDN%
 
 	update {
 		control:Called-Station-Id       := 'mobile'

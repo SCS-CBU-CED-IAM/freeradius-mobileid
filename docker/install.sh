@@ -6,7 +6,7 @@ cfg=/etc/raddb
 if [ -e $cfg/clients.conf ]; then
   [ -f $cfg/clients.conf.ori ] || cp $cfg/clients.conf $cfg/clients.conf.ori
   cp /opt/freeradius/samples/clients.sample $cfg/clients.conf
-  sed -i -e "s/testing123/$CLIENTPWD/" $cfg/clients.conf
+  sed -i -e "s/testing123/$CLIENT_PWD/" $cfg/clients.conf
 fi
 
 # Server config
@@ -29,16 +29,18 @@ cp /opt/freeradius/samples/dictionary.sample $cfg/dictionary
 [ -f $cfg/mods-available/ldap.ori ] || cp $cfg/mods-available/ldap $cfg/mods-available/ldap.ori
 [ -f $cfg/mods-enabled/ldap ] && rm $cfg/mods-enabled/ldap
 cp /opt/freeradius/samples/ldap.sample $cfg/mods-available/ldap
-sed -i -e "s/LDAPSERVER/$LDAPSERVER/" \
-       -e "s/LDAPUSERID/$LDAPUSERID/" \
-       -e "s/LDAPPWD/$LDAPPWD/" \
-       -e "s/LDAPBASEDN/$LDAPBASEDN/" $cfg/mods-available/ldap
+sed -i -e "s/%LDAP_SERVER%/\"$LDAP_SERVER\"/g" $cfg/mods-available/ldap
+sed -i -e "s/%LDAP_USERID%/\"$LDAP_USERID\"/g" $cfg/mods-available/ldap
+sed -i -e "s/%LDAP_PWD%/\"$LDAP_PWD\"/g" $cfg/mods-available/ldap
+sed -i -e "s/%LDAP_BASEDN%/\"$LDAP_BASEDN\"/g" $cfg/mods-available/ldap
 ln -s $cfg/mods-available/ldap $cfg/mods-enabled/ldap
 
 # Mobile ID
-cp /opt/freeradius/samples/modules/* $cfg/mods-available/
-ln -s $cfg/mods-available/exec_mobileid $cfg/mods-enabled/exec_mobileid
-ln -s $cfg/mods-available/exec_ldapupdate $cfg/mods-enabled/exec_ldapupdate
+if [ ! -e $cfg/mods-available/exec_mobileid ]; then
+  cp /opt/freeradius/samples/modules/* $cfg/mods-available/
+  ln -s $cfg/mods-available/exec_mobileid $cfg/mods-enabled/exec_mobileid
+  ln -s $cfg/mods-available/exec_ldapupdate $cfg/mods-enabled/exec_ldapupdate
+fi
 
 [ -d $cfg/mods-config/mobileid ] || mkdir $cfg/mods-config/mobileid
 if [ ! -e /opt/freeradius/exec-mobileid.properties ]; then

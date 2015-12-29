@@ -2,12 +2,12 @@ FROM alpine:latest
 MAINTAINER Freddy Kaiser <freddy.kaiser@swisscom.com>
 
 # Environment settings and defaults if not passed
-ENV APID="mid://dev.swisscom.ch"
-ENV CLIENTPWD="testing123"
-ENV LDAPSERVER="ldap://yourserver.com"
-ENV LDAPUSERID="SystemLDAP,CN=Users,DC=org,DC=acme,DC=com"
-ENV LDAPPWD="ThisMustStaySecret"
-ENV LDAPBASEDN="CN=Users,DC=org,DC=acme,DC=ch"
+ENV AP_ID="mid://dev.swisscom.ch"
+ENV CLIENT_PWD="testing123"
+ENV LDAP_SERVER="ldap://yourserver.com"
+ENV LDAP_USERID="SystemLDAP,CN=Users,DC=org,DC=acme,DC=com"
+ENV LDAP_PWD="ThisMustStaySecret"
+ENV LDAP_BASEDN="CN=Users,DC=org,DC=acme,DC=ch"
 
 # Install FreeRADIUS
 RUN apk update && apk upgrade \
@@ -34,5 +34,5 @@ VOLUME [ "/etc/raddb" ]
 VOLUME [ "/opt/freeradius" ]
 
 # Run
-CMD /opt/install.sh;sh
+CMD /opt/install.sh;bash
 # CMD /opt/install.sh;/usr/sbin/radiusd -f -X

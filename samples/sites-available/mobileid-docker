@@ -56,7 +56,6 @@ authorize {
 
 authenticate {
 	Auth-Type LDAP {
-		Uncomment it if you want to use ldap for authentication
 		ldap
 		# Callout Mobile ID after 1st method
 		mobileid

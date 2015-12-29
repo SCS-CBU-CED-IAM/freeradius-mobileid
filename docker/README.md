@@ -8,12 +8,12 @@ Lightweight and fast FreeRADIUS 3.x (3.0.6-r1) server Docker image with integrat
 To start: 
 ```
  $ docker run -d \
-   -e APID=mid://dev.swisscom.ch \
-   -e CLIENTPWD=ThisMustStaySecret \
-   -e LDAPSERVER=ldap://yourserver.com \
-   -e LDAPUSERID=CN=SystemLDAP,CN=Users,DC=org,DC=acme,DC=com \
-   -e LDAPPWD=ThisMustStaySecret \
-   -e LDAPBASEDN=CN=Users,DC=org,DC=acme,DC=ch \
+   -e AP_ID=mid://dev.swisscom.ch \
+   -e CLIENT_PWD=ThisMustStaySecret \
+   -e LDAP_SERVER=ldap://yourserver.com \
+   -e LDAP_USERID=CN=SystemLDAP,CN=Users,DC=org,DC=acme,DC=com \
+   -e LDAP_PWD=ThisMustStaySecret \
+   -e LDAP_BASEDN=CN=Users,DC=org,DC=acme,DC=ch \
    -p 1812:1812/udp \
    -p 1813:1813/udp \
    fkaiser/freeradius-mobileid
