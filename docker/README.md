@@ -10,7 +10,7 @@ To start:
  $ docker run -d \
    -e AP_ID=mid://dev.swisscom.ch \
    -e CLIENT_PWD=ThisMustStaySecret \
-   -e LDAP_SERVER=ldap://yourserver.com \
+   -e LDAP_SERVER=yourserver.com \
    -e LDAP_USERID=CN=SystemLDAP,CN=Users,DC=org,DC=acme,DC=com \
    -e LDAP_PWD=ThisMustStaySecret \
    -e LDAP_BASEDN=CN=Users,DC=org,DC=acme,DC=ch \

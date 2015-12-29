@@ -4,7 +4,7 @@ MAINTAINER Freddy Kaiser <freddy.kaiser@swisscom.com>
 # Environment settings and defaults if not passed
 ENV AP_ID="mid://dev.swisscom.ch"
 ENV CLIENT_PWD="testing123"
-ENV LDAP_SERVER="ldap://yourserver.com"
+ENV LDAP_SERVER="yourserver.com"
 ENV LDAP_USERID="SystemLDAP,CN=Users,DC=org,DC=acme,DC=com"
 ENV LDAP_PWD="ThisMustStaySecret"
 ENV LDAP_BASEDN="CN=Users,DC=org,DC=acme,DC=ch"
