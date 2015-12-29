@@ -2,27 +2,28 @@ FROM alpine:latest
 MAINTAINER Freddy Kaiser <freddy.kaiser@swisscom.com>
 
 # Environment settings and defaults if not passed
-ENV AP_ID=mid://dev.swisscom.ch
-ENV CLIENT_PWD=testing123
-ENV LDAP_SERVER=ldap://yourserver.com
-ENV LDAP_USERID=SystemLDAP,CN=Users,DC=org,DC=acme,DC=com
-ENV LDAP_PWD=ThisMustStaySecret
-ENV LDAP_BASEDN=CN=Users,DC=org,DC=acme,DC=ch
+ENV APID="mid://dev.swisscom.ch"
+ENV CLIENTPWD="testing123"
+ENV LDAPSERVER="ldap://yourserver.com"
+ENV LDAPUSERID="SystemLDAP,CN=Users,DC=org,DC=acme,DC=com"
+ENV LDAPPWD="ThisMustStaySecret"
+ENV LDAPBASEDN="CN=Users,DC=org,DC=acme,DC=ch"
 
 # Install FreeRADIUS
 RUN apk update && apk upgrade \
-  && apk add --update freeradius freeradius-ldap freeradius-radclient bash git \
+  && apk add --update freeradius freeradius-ldap freeradius-radclient bash git openldap-clients libxml2-utils \
 # TODO check if needed:  && openssl && \
 # TODO check if needed:  && /bin/sh /etc/raddb/certs/bootstrap && \
   && rm -rf /var/cache/apk/*
 
 # Install Mobile ID module
-ADD install.sh /opt/install.sh
-RUN chmod +x /opt/install.sh \
-  && mkdir -p /opt/freeradius \
+RUN mkdir -p /opt/freeradius \
   && git clone https://github.com/SCS-CBU-CED-IAM/freeradius-mobileid.git /opt/freeradius/ \
-  && chown radius:radius -R /opt/freeradius/ \
-  && /opt/install.sh
+  && chown radius:radius -R /opt/freeradius/
+
+# Add files
+ADD install.sh /opt/install.sh
+RUN chmod +x /opt/install.sh
 
 # Expose ports
 EXPOSE 1812/udp
@@ -33,4 +34,5 @@ VOLUME [ "/etc/raddb" ]
 VOLUME [ "/opt/freeradius" ]
 
 # Run
-CMD /usr/sbin/radiusd -f
+CMD /opt/install.sh;sh
+# CMD /opt/install.sh;/usr/sbin/radiusd -f -X

@@ -3,21 +3,15 @@
 #
 
 ldap {
-	server = LDAP_SERVER
-	identity = LDAP_USERID
-	password = LDAP_PWD
-	base_dn = LDAP_BASEDN
+	server = LDAPSERVER
+	identity = LDAPUSERID
+	password = LDAPPWD
+	base_dn = LDAPBASEDN
 
 	update {
-		control:Password-With-Header	+= 'userPassword'
-		control:Called-Station-Id	:= 'mobile'		control:X-MSS-Language		:= 'preferredLanguage'		control:X-MSS-MobileID-SN	:= 'msNPCallingStationID'
-
-		#  Where only a list is specified as the RADIUS attribute,
-		#  the value of the LDAP attribute is parsed as a valuepair
-		#  in the same format as the 'valuepair_attribute' (above).
-		control:			+= 'radiusControlAttribute'
-		request:			+= 'radiusRequestAttribute'
-		reply:				+= 'radiusReplyAttribute'
+		control:Called-Station-Id       := 'mobile'
+		control:X-MSS-Language          := 'preferredLanguage'
+		control:X-MSS-MobileID-SN       := 'msNPCallingStationID'
 	}
 
 	user {
