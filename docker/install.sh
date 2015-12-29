@@ -14,9 +14,10 @@ if [ -e $cfg/radiusd.conf ]; then
   sed -i -e "s/max_request_time.*/max_request_time = 120/" $cfg/radiusd.conf
 fi
 
+# Sites
 if [ ! -e $cfg/sites-enabled/mobileid ]; then
   rm $cfg/sites-enabled/*
-  cp /opt/freeradius/samples/sites-available/mobileid-server $cfg/sites-available/mobileid
+  cp /opt/freeradius/samples/sites-available/mobileid-docker $cfg/sites-available/mobileid
   ln -s $cfg/sites-available/mobileid $cfg/sites-enabled/mobileid
 fi
 
@@ -26,12 +27,12 @@ cp /opt/freeradius/samples/dictionary.sample $cfg/dictionary
 
 # LDAP
 [ -f $cfg/mods-available/ldap.ori ] || cp $cfg/mods-available/ldap $cfg/mods-available/ldap.ori
-## ln -s $cfg/mods-available/ldap $cfg/mods-enabled/ldap
-## TODO: Touch the ldap config
-
-# Files
-[ -f $cfg/mods-config/files/authorize.ori ] || cp $cfg/mods-config/files/authorize $cfg/mods-config/files/authorize.ori
-cp /opt/freeradius/samples/users.sample $cfg/mods-config/files/authorize
+cp /opt/freeradius/samples/ldap.sample $cfg/mods-available/ldap
+sed -i -e "s/LDAP_SERVER/$LDAP_SERVER" \
+       -e "s/LDAP_USERID/$LDAP_USERID" \
+       -e "s/LDAP_PWD/$LDAP_PWD" \
+       -e "s/LDAP_BASEDN/$LDAP_BASEDN" $cfg/mods-available/ldap
+ln -s $cfg/mods-available/ldap $cfg/mods-enabled/ldap
 
 # Mobile ID
 cp /opt/freeradius/samples/modules/* $cfg/mods-available/

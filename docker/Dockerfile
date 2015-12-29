@@ -4,10 +4,10 @@ MAINTAINER Freddy Kaiser <freddy.kaiser@swisscom.com>
 # Environment settings and defaults if not passed
 ENV AP_ID=mid://dev.swisscom.ch
 ENV CLIENT_PWD=testing123
-ENV LDAP_SERVER=
-ENV LDAP_USERID=
-ENV LDAP_PWD=
-ENV LDAP_BASEDN=
+ENV LDAP_SERVER=ldap://yourserver.com
+ENV LDAP_USERID=SystemLDAP,CN=Users,DC=org,DC=acme,DC=com
+ENV LDAP_PWD=ThisMustStaySecret
+ENV LDAP_BASEDN=CN=Users,DC=org,DC=acme,DC=ch
 
 # Install FreeRADIUS
 RUN apk update && apk upgrade \
@@ -17,9 +17,12 @@ RUN apk update && apk upgrade \
   && rm -rf /var/cache/apk/*
 
 # Install Mobile ID module
-RUN mkdir -p /opt/freeradius \
+ADD install.sh /opt/install.sh
+RUN chmod +x /opt/install.sh \
+  && mkdir -p /opt/freeradius \
   && git clone https://github.com/SCS-CBU-CED-IAM/freeradius-mobileid.git /opt/freeradius/ \
-  && chown radius:radius -R /opt/freeradius/
+  && chown radius:radius -R /opt/freeradius/ \
+  && /opt/install.sh
 
 # Expose ports
 EXPOSE 1812/udp
@@ -29,9 +32,5 @@ EXPOSE 1813/udp
 VOLUME [ "/etc/raddb" ]
 VOLUME [ "/opt/freeradius" ]
 
-# Add files
-ADD install.sh /opt/install.sh
-RUN chmod +x /opt/install.sh
-
 # Run
-CMD /opt/install.sh;/usr/sbin/radiusd -X -f
+CMD /usr/sbin/radiusd -f

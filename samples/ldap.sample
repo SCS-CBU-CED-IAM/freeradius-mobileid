@@ -1,13 +1,56 @@
-1) Enable LDAP in the authentication section of your sites and 
+#
+#  Lightweight Directory Access Protocol (LDAP)
+#
 
+ldap {
+	server = LDAP_SERVER
+	identity = LDAP_USERID
+	password = LDAP_PWD
+	base_dn = LDAP_BASEDN
 
-2) define proper attribute mapping between RADIUS and the related LDAP attributes:
+	update {
+		control:Password-With-Header	+= 'userPassword'
+		control:Called-Station-Id	:= 'mobile'		control:X-MSS-Language		:= 'preferredLanguage'		control:X-MSS-MobileID-SN	:= 'msNPCallingStationID'
 
-# FreeRADIUS 2.x: Adjust the <cfg>/ldap.attrmapcheckItem	Called-Station-Id	mobilecheckItem	X-MSS-Language		preferredLanguagecheckItem	X-MSS-MobileID-SN	msNPCallingStationID# FreeRADIUS 3.x: Adjust the <cfg>/mods-enabled/ldapupdate {	...	#  Generic valuepair attribute	control:Called-Station-Id	:= 'mobile'	control:X-MSS-Language		:= 'preferredLanguage'	control:X-MSS-MobileID-SN	:= 'msNPCallingStationID'3) Set proper filter to find the related user
-user {
-	...
-	#  Filter for user objects based on the sAMAccountName:
-	filter = "(&(objectclass=user)(objectCategory=person)(sAMAccountName=%{User-Name}))"
+		#  Where only a list is specified as the RADIUS attribute,
+		#  the value of the LDAP attribute is parsed as a valuepair
+		#  in the same format as the 'valuepair_attribute' (above).
+		control:			+= 'radiusControlAttribute'
+		request:			+= 'radiusRequestAttribute'
+		reply:				+= 'radiusReplyAttribute'
+	}
 
-	#  Search scope, may be 'base', 'one', sub' or 'children'
-	scope = 'sub'
+	user {
+		base_dn = "${..base_dn}"
+		filter = "(&(objectclass=user)(objectCategory=person)(sAMAccountName=%{User-Name}))"
+		scope = 'sub'
+	}
+	group {
+		base_dn = "${..base_dn}"
+		filter = '(objectClass=posixGroup)'
+		scope = 'sub'
+		membership_attribute = 'memberOf'
+	}
+
+	#  LDAP connection-specific options.
+	options {
+		chase_referrals = yes
+		rebind = yes
+		res_timeout = 5
+		srv_timelimit = 3
+		net_timeout = 1
+		idle = 60
+		probes = 3
+		interval = 3
+	}
+	pool {
+		start = ${thread[pool].start_servers}
+		min = ${thread[pool].min_spare_servers}
+		max = ${thread[pool].max_servers}
+		spare = ${thread[pool].max_spare_servers}
+		uses = 0
+		retry_delay = 30
+		lifetime = 0
+		idle_timeout = 60
+	}
+}

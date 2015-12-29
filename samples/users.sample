@@ -1,3 +1,7 @@
+#
+#  Sample file based user definitions
+#
+
 # Set default language to English
 DEFAULT X-MSS-Language := en
         Fall-Through = Yes
