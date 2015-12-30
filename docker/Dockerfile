@@ -4,8 +4,6 @@ MAINTAINER Freddy Kaiser <freddy.kaiser@swisscom.com>
 # Environment settings and defaults if not passed
 ENV AP_ID="mid://dev.swisscom.ch"
 ENV AP_PREFIX="Test"
-ENV CERT_FILE=
-ENV CERT_KEY=
 ENV UNIQUEID_CHECK=ifset
 ENV ALLOWED_MCC=
 ENV CLIENT_PWD=
@@ -32,14 +30,12 @@ RUN chmod +x /opt/install.sh
 EXPOSE 1812/udp
 EXPOSE 1813/udp
 
-# Define volumes
-VOLUME /etc/raddb
-VOLUME /opt/freeradius
-
 # Run
 CMD /opt/install.sh;bash
 # CMD /opt/install.sh;/usr/sbin/radiusd -f -X
 
 ## TODO
-# - Module crt and key files
 # LDAP Update: optional
+# + sed -i -e 's/AP_ID=.*/AP_ID=mid://dev.swisscom.ch/' /opt/freeradius/exec-mobileid.properties
+#   sed: bad option in substitution expression
+#   same for ldap://

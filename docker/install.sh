@@ -70,5 +70,5 @@ chown -R :radius $cfg
 chown -R :radius $opt
 chmod +x $opt/*.sh
 chmod -R +r $opt
-chmod o-r $opt/certs/*
+chmod o+r $opt/certs/*
 chmod 777 /var/log/radius/
