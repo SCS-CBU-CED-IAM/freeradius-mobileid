@@ -51,7 +51,7 @@ authenticate {
 	Auth-Type LDAP {
 		ldap
 		mobileid
-		mobileid-ldapupdate
+		# mobileid-ldapupdate
 	}
 }
 

@@ -23,6 +23,7 @@ To start:
 ```
 optional environment settings:
 ```
+   -e LDAP_UPDATE=enabled \
    -e UNIQUEID_CHECK=ifset \
    -e ALLOWED_MCC="000" \
 ```

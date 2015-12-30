@@ -1,71 +1,106 @@
 #!/bin/bash
 
+# Define base directories
 cfg=/etc/raddb
 opt=/opt/freeradius
 
-# Clients
+## clients.conf
 if [ -e $cfg/clients.conf ]; then
+ # Backup of original file to be done?
   [ -f $cfg/clients.conf.ori ] || cp $cfg/clients.conf $cfg/clients.conf.ori
+ # Use the sample file provided from the repository
   cp $opt/samples/clients.sample $cfg/clients.conf
+ # Replace the default password with the environment one
   sed -i -e "s/testing123/$CLIENT_PWD/" $cfg/clients.conf
 fi
 
-# Server config
+## radiusd.conf
 if [ -e $cfg/radiusd.conf ]; then
+ # Increase the allowed response time
   sed -i -e "s/max_request_time.*/max_request_time = 120/" $cfg/radiusd.conf
 fi
 
-# Sites
+## sites
 if [ ! -e $cfg/sites-enabled/mobileid ]; then
+ # Remove all currently enabled sites
   rm $cfg/sites-enabled/*
+ # Use the sample file provided from the repository
   cp $opt/samples/sites-available/mobileid-docker $cfg/sites-available/mobileid
+ # and make it available
   ln -s $cfg/sites-available/mobileid $cfg/sites-enabled/mobileid
 fi
 
-# Dictionary
-[ -f $cfg/dictionary.ori ] || cp $cfg/dictionary $cfg/dictionary.ori
-cp $opt/samples/dictionary.sample $cfg/dictionary
-
-# LDAP
-[ -f $cfg/mods-available/ldap.ori ] || cp $cfg/mods-available/ldap $cfg/mods-available/ldap.ori
-[ -f $cfg/mods-enabled/ldap ] && rm $cfg/mods-enabled/ldap
-cp $opt/samples/ldap.sample $cfg/mods-available/ldap
-sed -i -e "s,%LDAP_SERVER%,\"$LDAP_SERVER\",g" $cfg/mods-available/ldap
-sed -i -e "s/%LDAP_USERID%/\"$LDAP_USERID\"/g" $cfg/mods-available/ldap
-sed -i -e "s/%LDAP_PWD%/\"$LDAP_PWD\"/g" $cfg/mods-available/ldap
-sed -i -e "s/%LDAP_BASEDN%/\"$LDAP_BASEDN\"/g" $cfg/mods-available/ldap
-ln -s $cfg/mods-available/ldap $cfg/mods-enabled/ldap
-
-# Mobile ID
-if [ ! -e $cfg/mods-available/exec_mobileid ]; then
-  cp $opt/samples/modules/* $cfg/mods-available/
-  ln -s $cfg/mods-available/exec_mobileid $cfg/mods-enabled/exec_mobileid
-  ln -s $cfg/mods-available/exec_ldapupdate $cfg/mods-enabled/exec_ldapupdate
+## dictionary
+if [ -e $cfg/dictionary ]; then
+ # Backup of original file to be done?
+  [ -f $cfg/dictionary.ori ] || cp $cfg/dictionary $cfg/dictionary.ori
+ # Use the sample file provided from the repository
+  cp $opt/samples/dictionary.sample $cfg/dictionary
 fi
 
-[ -d $cfg/mods-config/mobileid ] || mkdir $cfg/mods-config/mobileid
+## ldap
+if [ ! -e $cfg/mods-enabled/ldap ]; then
+ # Backup of original file to be done?
+  [ -f $cfg/mods-available/ldap.ori ] || cp $cfg/mods-available/ldap $cfg/mods-available/ldap.ori
+ # Use the sample file provided from the repository
+  cp $opt/samples/ldap.sample $cfg/mods-available/ldap
+ # Replace the settings with the environment one.
+ # Use , as keyword instead of / if present; example ldap://server.com
+  sed -i -e "s,%LDAP_SERVER%,\"$LDAP_SERVER\",g" $cfg/mods-available/ldap
+  sed -i -e "s/%LDAP_USERID%/\"$LDAP_USERID\"/g" $cfg/mods-available/ldap
+  sed -i -e "s/%LDAP_PWD%/\"$LDAP_PWD\"/g" $cfg/mods-available/ldap
+  sed -i -e "s/%LDAP_BASEDN%/\"$LDAP_BASEDN\"/g" $cfg/mods-available/ldap
+ # Enable the module
+  ln -s $cfg/mods-available/ldap $cfg/mods-enabled/ldap
+fi
+
+## module exec_mobileid
+if [ ! -e $cfg/mods-available/exec_mobileid ]; then
+ # Use the sample file provided from the repository
+  cp $opt/samples/modules/exec_mobileid $cfg/mods-available/
+ # Enable the module
+  ln -s $cfg/mods-available/exec_mobileid $cfg/mods-enabled/exec_mobileid
+fi
+
+## module exec_mobileid
+if [ ! -e $cfg/mods-available/exec_ldapupdate ]; then
+ # Use the sample file provided from the repository
+  cp $opt/samples/modules/exec_ldapupdate $cfg/mods-available/
+ # Enable the exec_ldapupdate module ?
+  if [ "$LDAP_UPDATE" = "enabled" ]; then
+   # Enable it in the site
+    sed -i -e "s/.*mobileid-ldapupdate.*/\t\tmobileid-ldapupdate/" $cfg/sites-available/mobileid
+   # Enable the module
+    ln -s $cfg/mods-available/exec_ldapupdate $cfg/mods-enabled/exec_ldapupdate
+  fi
+fi
+
+## .properties file for the exec_
 if [ ! -e $opt/exec-mobileid.properties ]; then
+ # Use the sample file provided from the repository
   cp $opt/exec-mobileid.properties.sample $opt/exec-mobileid.properties
+ # Replace the settings with the environment one.
+ # Use , as keyword instead of / if present; example ldap://server.com
   sed -i -e "s,AP_ID=.*,AP_ID=$AP_ID," $opt/exec-mobileid.properties
   sed -i -e "s/AP_PREFIX=.*/AP_PREFIX=\"$AP_PREFIX\"/" $opt/exec-mobileid.properties
   [ "$UNIQUEID_CHECK" != "" ] && sed -i -e "s/UNIQUEID_CHECK=.*/UNIQUEID_CHECK=$UNIQUEID_CHECK/" $opt/exec-mobileid.properties
   [ "$ALLOWED_MCC" != "" ] && sed -i -e "s/# ALLOWED_MCC=.*/ALLOWED_MCC=\"$ALLOWED_MCC\"/" $opt/exec-mobileid.properties
-  ## TODO: Add key and crt
-  ln -s $opt/exec-mobileid.properties $cfg/mods-config/mobileid/exec-mobileid.properties
 fi
 if [ ! -e $opt/exec-ldapupdate.properties ]; then
+ # Use the sample file provided from the repository
   cp $opt/exec-ldapupdate.properties.sample $opt/exec-ldapupdate.properties
+ # Replace the settings with the environment one.
+ # Use , as keyword instead of / if present; example ldap://server.com
   sed -i -e "s,server=.*,server=\"$LDAP_SERVER\"," $opt/exec-ldapupdate.properties
   sed -i -e "s/userid=.*/userid=\"$LDAP_USERID\"/" $opt/exec-ldapupdate.properties
   sed -i -e "s/password=.*/password=$LDAP_PWD/" $opt/exec-ldapupdate.properties
   sed -i -e "s/basedn=.*/basedn=\"$LDAP_BASEDN\"/" $opt/exec-ldapupdate.properties
-  ln -s $opt/exec-ldapupdate.properties $cfg/mods-config/mobileid/exec-ldapupdate.properties
 fi
 
-# Disable unneeded modules
+## Disable unneeded modules that causes trouble
 [ -f $cfg/mods-enabled/eap ] && rm $cfg/mods-enabled/eap
 
-# Permissions
+## Adjust the permissions
 chown -R :radius $cfg
 chown -R :radius $opt
 chmod +x $opt/*.sh
