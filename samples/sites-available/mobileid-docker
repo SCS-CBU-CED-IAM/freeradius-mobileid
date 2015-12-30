@@ -19,7 +19,7 @@ authorize {
 
 	# Suffix handling for realms
 	suffix
-	if (Stripped-User-Name != "") {
+	if (Stripped-User-Name && Stripped-User-Name != "") {
 		update request {
 			User-Name := Stripped-User-Name
 		}
@@ -27,6 +27,11 @@ authorize {
 
 	# Read the 'users' from ldap
 	ldap
+	if ((ok || updated) && User-Password) {
+		update {
+			control:Auth-Type := ldap
+		}
+	}
 
 	# Update request with control values 
 	update request {
@@ -38,12 +43,6 @@ authorize {
 	if (!Called-Station-Id || Called-Station-Id == "") {
 		update request {
 			Called-Station-Id := "%{User-Name}"
-		}
-	}
-	# Ensure Auth-Type is set to go over authenticate
-	if (!control:Auth-Type) {
-		update {
-			control:Auth-Type := ldap
 		}
 	}
 }
