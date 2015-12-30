@@ -12,16 +12,19 @@ To start:
    -e AP_PREFIX="Test" \
    -e CERT_FILE= \
    -e CERT_KEY= \
-   -e UNIQUEID_CHECK=ifset \
-   -e ALLOWED_MCC="000" \
    -e CLIENT_PWD=ThisMustStaySecret \
-   -e LDAP_SERVER=yourserver.com \
+   -e LDAP_SERVER=ldap://yourserver.com \
    -e LDAP_USERID=CN=SystemLDAP,CN=Users,DC=org,DC=acme,DC=com \
    -e LDAP_PWD=ThisMustStaySecret \
    -e LDAP_BASEDN=CN=Users,DC=org,DC=acme,DC=ch \
    -p 1812:1812/udp \
    -p 1813:1813/udp \
    fkaiser/freeradius-mobileid
+```
+optional environment settings:
+```
+   -e UNIQUEID_CHECK=ifset \
+   -e ALLOWED_MCC="000" \
 ```
 
 To test:

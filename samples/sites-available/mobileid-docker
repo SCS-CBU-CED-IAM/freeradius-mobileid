@@ -27,7 +27,6 @@ authorize {
 
 	# Read the 'users' from ldap
 	ldap
-	control:Auth-Type := ldap
 
 	# Update request with control values 
 	update request {
