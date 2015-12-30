@@ -46,9 +46,7 @@ authorize {
 authenticate {
 	ldap
 	mobileid
-	if (ok) {
-		mobileid-ldapupdate
-	}
+	mobileid-ldapupdate
 }
 
 post-auth {

@@ -7,9 +7,9 @@ ENV AP_PREFIX="Test"
 ENV CERT_FILE=
 ENV CERT_KEY=
 ENV UNIQUEID_CHECK=ifset
-ENV ALLOWED_MCC="000"
-ENV CLIENT_PWD="testing123"
-ENV LDAP_SERVER="yourserver.com"
+ENV ALLOWED_MCC=
+ENV CLIENT_PWD=
+ENV LDAP_SERVER="ldap://yourserver.com"
 ENV LDAP_USERID="SystemLDAP,CN=Users,DC=org,DC=acme,DC=com"
 ENV LDAP_PWD="ThisMustStaySecret"
 ENV LDAP_BASEDN="CN=Users,DC=org,DC=acme,DC=ch"

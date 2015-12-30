@@ -47,18 +47,18 @@ fi
 if [ ! -e $opt/exec-mobileid.properties ]; then
   cp $opt/exec-mobileid.properties.sample $opt/exec-mobileid.properties
   sed -i -e "s/AP_ID=.*/AP_ID=$AP_ID/" $opt/exec-mobileid.properties
-  sed -i -e "s/AP_PREFIX=.*/AP_PREFIX=$AP_PREFIX/" $opt/exec-mobileid.properties
-  [ "$UNIQUEID_CHECK" != ""] && sed -i -e "s/UNIQUEID_CHECK=.*/UNIQUEID_CHECK=$UNIQUEID_CHECK/" $opt/exec-mobileid.properties
-  [ "$ALLOWED_MCC" != ""] && sed -i -e "s/# ALLOWED_MCC=.*/ALLOWED_MCC=$ALLOWED_MCC/" $opt/exec-mobileid.properties
+  sed -i -e "s/AP_PREFIX=.*/AP_PREFIX=\"$AP_PREFIX\"/" $opt/exec-mobileid.properties
+  [ "$UNIQUEID_CHECK" != "" ] && sed -i -e "s/UNIQUEID_CHECK=.*/UNIQUEID_CHECK=$UNIQUEID_CHECK/" $opt/exec-mobileid.properties
+  [ "$ALLOWED_MCC" != "" ] && sed -i -e "s/# ALLOWED_MCC=.*/ALLOWED_MCC=\"$ALLOWED_MCC\"/" $opt/exec-mobileid.properties
   ## TODO: Add key and crt
   ln -s $opt/exec-mobileid.properties $cfg/mods-config/mobileid/exec-mobileid.properties
 fi
 if [ ! -e $opt/exec-ldapupdate.properties ]; then
   cp $opt/exec-ldapupdate.properties.sample $opt/exec-ldapupdate.properties
-  sed -i -e "s/server=.*/server=$LDAP_SERVER/" $opt/exec-ldapupdate.properties
-  sed -i -e "s/userid=.*/userid=$LDAP_USERID/" $opt/exec-ldapupdate.properties
+  sed -i -e "s/server=.*/server=\"$LDAP_SERVER\"/" $opt/exec-ldapupdate.properties
+  sed -i -e "s/userid=.*/userid=\"$LDAP_USERID\"/" $opt/exec-ldapupdate.properties
   sed -i -e "s/password=.*/password=$LDAP_PWD/" $opt/exec-ldapupdate.properties
-  sed -i -e "s/basedn=.*/basedn=$LDAP_BASEDN/" $opt/exec-ldapupdate.properties
+  sed -i -e "s/basedn=.*/basedn=\"$LDAP_BASEDN\"/" $opt/exec-ldapupdate.properties
   ln -s $opt/exec-ldapupdate.properties $cfg/mods-config/mobileid/exec-ldapupdate.properties
 fi
 
