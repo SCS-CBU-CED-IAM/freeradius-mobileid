@@ -1,6 +1,6 @@
 # freeradius-mobileid Docker image
 
-!!! WORK IN PROGRESS - DO NOT USE !!!
+!!! WORK IN PROGRESS !!!
 
 
 Lightweight and fast FreeRADIUS 3.x (3.0.6-r1) server Docker image with integrated Mobile ID and LDAP/Active Directory support.
