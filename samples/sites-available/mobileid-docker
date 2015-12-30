@@ -1,4 +1,4 @@
-# This is a sample configuration for the docker server entity
+# This is the configuration for the docker server entity
 
 server mobileid {
 
@@ -25,18 +25,9 @@ authorize {
 		}
 	}
 
-	# Password handling
-	chap
-	mschap
-	pap
-
 	# Read the 'users' from ldap
 	ldap
-	if ((ok || updated) && User-Password) {
-		update {
-			control:Auth-Type := ldap
-		}
-	}
+	control:Auth-Type := ldap
 
 	# Update request with control values 
 	update request {
@@ -50,41 +41,13 @@ authorize {
 			Called-Station-Id := "%{User-Name}"
 		}
 	}
-
-	# Ensure Auth-Type is set to go over authenticate
-	if (!control:Auth-Type) {
-		update {
-			control:Auth-Type := mobileid
-		}
-	}
 }
 
 authenticate {
-	Auth-Type PAP {
-		pap
-		# Callout Mobile ID after 1st method
-		mobileid
-	}
-	Auth-Type CHAP {
-		chap
-		# Callout Mobile ID after 1st method
-		mobileid
-	}
-	Auth-Type MS-CHAP {
-		mschap
-		# Callout Mobile ID after 1st method
-		mobileid
-	}
-	Auth-Type LDAP {
-		ldap
-		# Callout Mobile ID after 1st method
-		mobileid
-		# Optional call to update the user entry
+	ldap
+	mobileid
+	if (ok) {
 		mobileid-ldapupdate
-	}
-	Auth-Type MOBILEID {
-		# Callout Mobile ID only
-		mobileid
 	}
 }
 

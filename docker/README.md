@@ -9,6 +9,11 @@ To start:
 ```
  $ docker run -d \
    -e AP_ID=mid://dev.swisscom.ch \
+   -e AP_PREFIX="Test" \
+   -e CERT_FILE= \
+   -e CERT_KEY= \
+   -e UNIQUEID_CHECK=ifset \
+   -e ALLOWED_MCC="000" \
    -e CLIENT_PWD=ThisMustStaySecret \
    -e LDAP_SERVER=yourserver.com \
    -e LDAP_USERID=CN=SystemLDAP,CN=Users,DC=org,DC=acme,DC=com \

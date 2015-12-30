@@ -3,6 +3,11 @@ MAINTAINER Freddy Kaiser <freddy.kaiser@swisscom.com>
 
 # Environment settings and defaults if not passed
 ENV AP_ID="mid://dev.swisscom.ch"
+ENV AP_PREFIX="Test"
+ENV CERT_FILE=
+ENV CERT_KEY=
+ENV UNIQUEID_CHECK=ifset
+ENV ALLOWED_MCC="000"
 ENV CLIENT_PWD="testing123"
 ENV LDAP_SERVER="yourserver.com"
 ENV LDAP_USERID="SystemLDAP,CN=Users,DC=org,DC=acme,DC=com"
@@ -28,9 +33,12 @@ EXPOSE 1812/udp
 EXPOSE 1813/udp
 
 # Define volumes
-VOLUME [ "/etc/raddb" ]
-VOLUME [ "/opt/freeradius" ]
+VOLUME /etc/raddb
+VOLUME /opt/freeradius
 
 # Run
 CMD /opt/install.sh;bash
 # CMD /opt/install.sh;/usr/sbin/radiusd -f -X
+
+## TODO
+# - Module crt and key files
