@@ -30,7 +30,7 @@ cp $opt/samples/dictionary.sample $cfg/dictionary
 [ -f $cfg/mods-available/ldap.ori ] || cp $cfg/mods-available/ldap $cfg/mods-available/ldap.ori
 [ -f $cfg/mods-enabled/ldap ] && rm $cfg/mods-enabled/ldap
 cp $opt/samples/ldap.sample $cfg/mods-available/ldap
-sed -i -e "s/%LDAP_SERVER%/\"$LDAP_SERVER\"/g" $cfg/mods-available/ldap
+sed -i -e "s,%LDAP_SERVER%,\"$LDAP_SERVER\",g" $cfg/mods-available/ldap
 sed -i -e "s/%LDAP_USERID%/\"$LDAP_USERID\"/g" $cfg/mods-available/ldap
 sed -i -e "s/%LDAP_PWD%/\"$LDAP_PWD\"/g" $cfg/mods-available/ldap
 sed -i -e "s/%LDAP_BASEDN%/\"$LDAP_BASEDN\"/g" $cfg/mods-available/ldap
@@ -46,7 +46,7 @@ fi
 [ -d $cfg/mods-config/mobileid ] || mkdir $cfg/mods-config/mobileid
 if [ ! -e $opt/exec-mobileid.properties ]; then
   cp $opt/exec-mobileid.properties.sample $opt/exec-mobileid.properties
-  sed -i -e "s/AP_ID=.*/AP_ID=$AP_ID/" $opt/exec-mobileid.properties
+  sed -i -e "s,AP_ID=.*,AP_ID=$AP_ID," $opt/exec-mobileid.properties
   sed -i -e "s/AP_PREFIX=.*/AP_PREFIX=\"$AP_PREFIX\"/" $opt/exec-mobileid.properties
   [ "$UNIQUEID_CHECK" != "" ] && sed -i -e "s/UNIQUEID_CHECK=.*/UNIQUEID_CHECK=$UNIQUEID_CHECK/" $opt/exec-mobileid.properties
   [ "$ALLOWED_MCC" != "" ] && sed -i -e "s/# ALLOWED_MCC=.*/ALLOWED_MCC=\"$ALLOWED_MCC\"/" $opt/exec-mobileid.properties
@@ -55,7 +55,7 @@ if [ ! -e $opt/exec-mobileid.properties ]; then
 fi
 if [ ! -e $opt/exec-ldapupdate.properties ]; then
   cp $opt/exec-ldapupdate.properties.sample $opt/exec-ldapupdate.properties
-  sed -i -e "s/server=.*/server=\"$LDAP_SERVER\"/" $opt/exec-ldapupdate.properties
+  sed -i -e "s,server=.*,server=\"$LDAP_SERVER\"," $opt/exec-ldapupdate.properties
   sed -i -e "s/userid=.*/userid=\"$LDAP_USERID\"/" $opt/exec-ldapupdate.properties
   sed -i -e "s/password=.*/password=$LDAP_PWD/" $opt/exec-ldapupdate.properties
   sed -i -e "s/basedn=.*/basedn=\"$LDAP_BASEDN\"/" $opt/exec-ldapupdate.properties

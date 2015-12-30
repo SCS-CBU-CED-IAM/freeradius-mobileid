@@ -36,6 +36,3 @@ CMD /opt/install.sh;bash
 
 ## TODO
 # LDAP Update: optional
-# + sed -i -e 's/AP_ID=.*/AP_ID=mid://dev.swisscom.ch/' /opt/freeradius/exec-mobileid.properties
-#   sed: bad option in substitution expression
-#   same for ldap://
