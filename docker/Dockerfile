@@ -15,12 +15,16 @@ ENV LDAP_UPDATE=
 
 # Install FreeRADIUS
 RUN apk update && apk upgrade \
-  && apk add --update freeradius freeradius-ldap freeradius-radclient bash git openldap-clients libxml2-utils \
+  && apk add --update freeradius freeradius-ldap freeradius-radclient bash git openldap-clients libxml2-utils tzdata \
   && rm -rf /var/cache/apk/*
 
+# Set timezone
+ENV TZ=Europe/Brussels
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Install Mobile ID module
-RUN mkdir -p /opt/freeradius \
-  && git clone https://github.com/SCS-CBU-CED-IAM/freeradius-mobileid.git /opt/freeradius/ \
+WORKDIR /opt
+RUN git clone https://github.com/SCS-CBU-CED-IAM/freeradius-mobileid.git freeradius \
   && chown radius:radius -R /opt/freeradius/
 
 # Add files
