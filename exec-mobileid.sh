@@ -216,7 +216,7 @@ if [ "$RC_CURL" = "0" -a "$http_code" = "200" ]; then
   [ "$RES_1901" = "" ] && RES_1901="00000"
 
   # Decode the signature
-  base64 --decode  $TMP.sig.base64 > $TMP.sig.der
+  base64 -d  $TMP.sig.base64 > $TMP.sig.der
   [ -s "$TMP.sig.der" ] || error "Unable to decode Base64Signature"
 
   # Extract the signers certificate
