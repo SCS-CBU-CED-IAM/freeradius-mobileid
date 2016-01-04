@@ -36,4 +36,7 @@ EXPOSE 1812/udp
 EXPOSE 1813/udp
 
 # Run
-CMD /opt/install.sh;/usr/sbin/radiusd -f -X
+CMD /opt/install.sh;/usr/sbin/radiusd -f -x -l stdout
+
+## TODO
+# ENV for custom attribute in regards to SNofDN: msNPCallingStationID

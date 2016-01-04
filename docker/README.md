@@ -1,9 +1,9 @@
-# freeradius-mobileid Docker image
+freeradius-mobileid docker image
+================================
 
-!!! WORK IN PROGRESS !!!
+Lightweight and fast FreeRADIUS 3.x server Docker image with integrated Mobile ID and LDAP/Active Directory support.
 
-
-Lightweight and fast FreeRADIUS 3.x (3.0.6-r1) server Docker image with integrated Mobile ID and LDAP/Active Directory support.
+## Run
 
 To start: 
 ```
@@ -25,15 +25,30 @@ optional environment settings:
 ```
    -e LDAP_UPDATE=enabled \
    -e UNIQUEID_CHECK=ifset \
-   -e ALLOWED_MCC="000" \
+   -e ALLOWED_MCC="228,295" \
 ```
 
-To test:
+Infos about the `-e` settings:
+
+* AP_ID: AP customer/client identification towards Mobile ID service
+* AP_PREFIX: AP prefix that will be added to the message sent to the mobile
+* CLIENT_PWD: Radius client password / shared secret
+* LDAP_SERVER: Active Directory / LDAP server address in the form ldap://ipOrDNS
+* LDAP_USERID: UserID used to bind in order to search/update user objects
+* LDAP_PWD: Password for the related UserID
+* LDAP_BASEDN: Base DN where to search for user objects
+* LDAP_UPDATE: Update user object with proper Mobile ID SerialNumber of the DN
+* UNIQUEID_CHECK: Unique Mobile ID (SN of DN) verification [ifset (default), required, ignore]
+* ALLOWED_MCC: List of comma separated allowed Mobile Country Codes
+
+
+## Testing
+
 ```
- $ echo "User-Name=<samaccountname>,User-Password='<adpwd>'" | radclient -x -t 120 172.17.0.2 auth ThisMustStaySecret
+ $ echo "User-Name=samaccountname,User-Password='ADUserPwd'" | radclient -x -t 120 172.17.0.2 auth ThisMustStaySecret
 ```
 
-To debug:
+## Show logs
 ```
  $ docker logs freeradius-mobileid
 ```

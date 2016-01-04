@@ -18,6 +18,8 @@ fi
 if [ -e $cfg/radiusd.conf ]; then
  # Increase the allowed response time
   sed -i -e "s/max_request_time.*/max_request_time = 120/" $cfg/radiusd.conf
+ # Log to stdout instead of file
+  sed -i -e "s/destination.*/destination = stdout/" $cfg/radiusd.conf
 fi
 
 ## sites
@@ -106,4 +108,3 @@ chown -R :radius $opt
 chmod +x $opt/*.sh
 chmod -R +r $opt
 chmod o+r $opt/certs/*
-chmod 777 /var/log/radius/
