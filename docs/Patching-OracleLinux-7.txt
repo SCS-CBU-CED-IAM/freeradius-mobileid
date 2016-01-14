@@ -41,8 +41,8 @@ rpm -i freeradius-3.0.4-6.el7.src.rpm
   curl -O --silent ftp://fr2.rpmfind.net/linux/centos/7.2.1511/os/x86_64/Packages/libtalloc-devel-2.1.2-1.el7.x86_64.rpm
     sudo yum install libtalloc-devel-2.1.2-1.el7.x86_64.rpm
 
-  curl -O --silent ftp://fr2.rpmfind.net/linux/centos/7.1.1503/os/x86_64/Packages/tncfhh-devel-0.8.3-16.el7.x86_64.rpm
-  curl -O --silent ftp://fr2.rpmfind.net/linux/centos/7.1.1503/os/x86_64/Packages/tncfhh-examples-0.8.3-16.el7.x86_64.rpm
+  curl -O --silent ftp://fr2.rpmfind.net/linux/centos/7.2.1511/os/x86_64/Packages/tncfhh-devel-0.8.3-16.el7.x86_64.rpm
+  curl -O --silent ftp://fr2.rpmfind.net/linux/centos/7.2.1511/os/x86_64/Packages/tncfhh-examples-0.8.3-16.el7.x86_64.rpm
   curl -O --silent ftp://fr2.rpmfind.net/linux/centos/7.2.1511/os/x86_64/Packages/libtnc-1.25-6.el7.x86_64.rpm
     sudo yum install tncfhh-devel-0.8.3-16.el7.x86_64.rpm tncfhh-examples-0.8.3-16.el7.x86_64.rpm libtnc-1.25-6.el7.x86_64.rpm
 
