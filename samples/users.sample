@@ -2,10 +2,6 @@
 #  Sample file based user definitions
 #
 
-# Set default language to English
-DEFAULT X-MSS-Language := en
-        Fall-Through = Yes
-
 # Configuration for specific users
 #  user with specific mobile number and no password validation at all
 #   "user1"      Called-Station-Id := +41791234567

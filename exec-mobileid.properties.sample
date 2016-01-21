@@ -17,6 +17,9 @@ CERT_CA_MID=$PWD/certs/mobileid-ca-signature.crt  # Root CA and intermediate CA 
 # --proxy <[protocol://][user@password]proxyhost[:port]>
 CURL_OPTIONS="--silent"
 
+# Default language if not set
+DEFAULT_LANGUAGE=en
+
 # Unique Mobile ID (SN of DN) verification
 #  ifset: the verification will only be done if a value has been provided to the module
 #  required: the verification is mandatory and a value must be provided to the module

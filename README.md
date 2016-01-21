@@ -86,7 +86,7 @@ Sample site configurations can be found in [samples/sites-available](samples/sit
 
 Adjust your user store like `<cfg>/users` with proper MID attributes according to the Mobile ID module. The values that have to be set are:
 * `CALLED-STATION-ID`: the mobile phone number of the Mobile ID user
-* `X-MSS-LANGUAGE`: the language for the request to the Mobile ID user (defaults to EN if unset or invalid)
+* `X-MSS-LANGUAGE`: the language for the request to the Mobile ID user
 * `X-MSS-MOBILEID-SN`: the unique Mobile ID serial number that must be verified in the response (optional)
 
 Sample user file can be found here [samples/](samples/users.sample).

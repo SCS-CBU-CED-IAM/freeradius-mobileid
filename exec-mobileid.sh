@@ -9,7 +9,7 @@
 #
 # The script uses the content of following attributes:
 #  CALLED_STATION_ID: the mobile phone number of the Mobile ID user
-#  X_MSS_LANGUAGE: the language for the call (defaults to EN if unset or invalid)
+#  X_MSS_LANGUAGE: the language for the call (defaults to DEFAULT_LANGUAGE if unset or invalid)
 #  X_MSS_MOBILEID_SN: the related SerialNumber in the DN of the Mobile ID user (optional)
 #  X-MSS-MobileID-MCCMNC: the related MCCMNC in the subscriber information of the Mobile ID user (optional)
 # Those attributes can be overriden by the command line parameters
@@ -101,6 +101,7 @@ FILE="$PWD/exec-mobileid.properties"
 . $PWD/exec-mobileid.properties
 # and set default values
 [ "$UNIQUEID_CHECK" = "" ] && UNIQUEID_CHECK="ifset"
+[ "$USERLANG" = "" ] && USERLANG=$DEFAULT_LANGUAGE
 
 # Read dictionary / resources
 USERLANG=$(echo $USERLANG | tr '[:upper:]' '[:lower:]')
