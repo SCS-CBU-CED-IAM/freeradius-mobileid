@@ -4,6 +4,7 @@ MAINTAINER Freddy Kaiser <freddy.kaiser@swisscom.com>
 # Environment settings and defaults if not passed
 ENV AP_ID="mid://dev.swisscom.ch"
 ENV AP_PREFIX="Test"
+ENV DEFAULT_LANGUAGE=en
 ENV UNIQUEID_CHECK=ifset
 ENV ALLOWED_MCC=
 ENV CLIENT_PWD=

@@ -85,6 +85,7 @@ if [ ! -e $opt/exec-mobileid.properties ]; then
  # Use , as keyword instead of / if present; example ldap://server.com
   sed -i -e "s,AP_ID=.*,AP_ID=$AP_ID," $opt/exec-mobileid.properties
   sed -i -e "s/AP_PREFIX=.*/AP_PREFIX=\"$AP_PREFIX\"/" $opt/exec-mobileid.properties
+  [ "$DEFAULT_LANGUAGE" != "" ] && sed -i -e "s/DEFAULT_LANGUAGE=.*/DEFAULT_LANGUAGE=$DEFAULT_LANGUAGE/" $opt/exec-mobileid.properties
   [ "$UNIQUEID_CHECK" != "" ] && sed -i -e "s/UNIQUEID_CHECK=.*/UNIQUEID_CHECK=$UNIQUEID_CHECK/" $opt/exec-mobileid.properties
   [ "$ALLOWED_MCC" != "" ] && sed -i -e "s/# ALLOWED_MCC=.*/ALLOWED_MCC=\"$ALLOWED_MCC\"/" $opt/exec-mobileid.properties
 fi

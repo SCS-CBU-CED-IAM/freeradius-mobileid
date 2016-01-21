@@ -24,6 +24,7 @@ To start:
 optional environment settings:
 ```
    -e LDAP_UPDATE=enabled \
+   -e DEFAULT_LANGUAGE=de \
    -e UNIQUEID_CHECK=ifset \
    -e ALLOWED_MCC="228,295" \
 ```
@@ -38,6 +39,7 @@ Infos about the `-e` settings:
 * LDAP_PWD: Password for the related UserID
 * LDAP_BASEDN: Base DN where to search for user objects
 * LDAP_UPDATE: Update user object with proper Mobile ID SerialNumber of the DN
+* DEFAULT_LANGUAGE: Default language if not set or invalid [en (default), de, fr, it]
 * UNIQUEID_CHECK: Unique Mobile ID (SN of DN) verification [ifset (default), required, ignore]
 * ALLOWED_MCC: List of comma separated allowed Mobile Country Codes
 
