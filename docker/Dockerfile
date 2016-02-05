@@ -13,6 +13,9 @@ ENV LDAP_USERID="SystemLDAP,CN=Users,DC=org,DC=acme,DC=com"
 ENV LDAP_PWD="ThisMustStaySecret"
 ENV LDAP_BASEDN="CN=Users,DC=org,DC=acme,DC=ch"
 ENV LDAP_UPDATE=
+ENV LDAP_ATTR_MOBILE=mobile
+ENV LDAP_ATTR_LANGUAGE=preferredLanguage
+ENV LDAP_ATTR_SNOFDN=msNPCallingStationID
 
 # Install FreeRADIUS
 RUN apk update && apk upgrade \
@@ -38,6 +41,3 @@ EXPOSE 1813/udp
 
 # Run
 CMD /opt/install.sh;/usr/sbin/radiusd -f -x -l stdout
-
-## TODO
-# ENV for custom attribute in regards to SNofDN: msNPCallingStationID

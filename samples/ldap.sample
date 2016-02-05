@@ -9,9 +9,9 @@ ldap {
 	base_dn = %LDAP_BASEDN%
 
 	update {
-		control:Called-Station-Id       := 'mobile'
-		control:X-MSS-Language          := 'preferredLanguage'
-		control:X-MSS-MobileID-SN       := 'msNPCallingStationID'
+		control:Called-Station-Id := '%LDAP_ATTR_MOBILE%'
+		control:X-MSS-Language    := '%LDAP_ATTR_LANGUAGE%'
+		control:X-MSS-MobileID-SN := '%LDAP_ATTR_SNOFDN%'
 	}
 
 	user {

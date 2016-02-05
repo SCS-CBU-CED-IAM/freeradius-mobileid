@@ -24,6 +24,9 @@ To start:
 optional environment settings:
 ```
    -e LDAP_UPDATE=enabled \
+   -e LDAP_ATTR_MOBILE=mobile \
+   -e LDAP_ATTR_LANGUAGE=preferredLanguage \
+   -e LDAP_ATTR_SNOFDN=msNPCallingStationID \
    -e DEFAULT_LANGUAGE=de \
    -e UNIQUEID_CHECK=ifset \
    -e ALLOWED_MCC="228,295" \
@@ -39,6 +42,9 @@ Infos about the `-e` settings:
 * LDAP_PWD: Password for the related UserID
 * LDAP_BASEDN: Base DN where to search for user objects
 * LDAP_UPDATE: Update user object with proper Mobile ID SerialNumber of the DN
+* LDAP_ATTR_MOBILE: Attribute with the mobile number (default: mobile)
+* LDAP_ATTR_LANGUAGE: Attribute with the preferred user language (default: preferredLanguage)
+* LDAP_ATTR_SNOFDN: Attribute with the Mobile ID SerialNumber in the DN (default: msNPCallingStationID)
 * DEFAULT_LANGUAGE: Default language if not set or invalid [en (default), de, fr, it]
 * UNIQUEID_CHECK: Unique Mobile ID (SN of DN) verification [ifset (default), required, ignore]
 * ALLOWED_MCC: List of comma separated allowed Mobile Country Codes

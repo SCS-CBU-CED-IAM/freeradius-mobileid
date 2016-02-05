@@ -52,6 +52,9 @@ if [ ! -e $cfg/mods-enabled/ldap ]; then
   sed -i -e "s/%LDAP_USERID%/\"$LDAP_USERID\"/g" $cfg/mods-available/ldap
   sed -i -e "s/%LDAP_PWD%/\"$LDAP_PWD\"/g" $cfg/mods-available/ldap
   sed -i -e "s/%LDAP_BASEDN%/\"$LDAP_BASEDN\"/g" $cfg/mods-available/ldap
+  sed -i -e "s/%LDAP_ATTR_MOBILE%/$LDAP_ATTR_MOBILE/g" $cfg/mods-available/ldap
+  sed -i -e "s/%LDAP_ATTR_LANGUAGE%/$LDAP_ATTR_LANGUAGE/g" $cfg/mods-available/ldap
+  sed -i -e "s/%LDAP_ATTR_SNOFDN%/$LDAP_ATTR_SNOFDN/g" $cfg/mods-available/ldap
  # Enable the module
   ln -s $cfg/mods-available/ldap $cfg/mods-enabled/ldap
 fi
@@ -98,6 +101,8 @@ if [ ! -e $opt/exec-ldapupdate.properties ]; then
   sed -i -e "s/userid=.*/userid=\"$LDAP_USERID\"/" $opt/exec-ldapupdate.properties
   sed -i -e "s/password=.*/password=$LDAP_PWD/" $opt/exec-ldapupdate.properties
   sed -i -e "s/basedn=.*/basedn=\"$LDAP_BASEDN\"/" $opt/exec-ldapupdate.properties
+  sed -i -e "s/attributes=.*/attributes=\"$LDAP_ATTR_MOBILE $LDAP_ATTR_LANGUAGE $LDAP_ATTR_SNOFDN\"/" $opt/exec-ldapupdate.properties
+  sed -i -e "s/attribute_toupdate=.*/attribute_toupdate=\"$LDAP_ATTR_SNOFDN\"/" $opt/exec-ldapupdate.properties
 fi
 
 ## Disable unneeded modules that causes trouble
