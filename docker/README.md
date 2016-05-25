@@ -19,7 +19,7 @@ To start:
    -v "/home/user/apcert.key":/opt/freeradius/certs/mycert.key \
    -p 1812:1812/udp \
    -p 1813:1813/udp \
-   fkaiser/freeradius-mobileid
+   swisscomtds/freeradius-mobileid
 ```
 optional environment settings:
 ```
