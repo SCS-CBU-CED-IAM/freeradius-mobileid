@@ -55,6 +55,12 @@ if [ ! -e $cfg/mods-enabled/ldap ]; then
   sed -i -e "s/%LDAP_ATTR_MOBILE%/$LDAP_ATTR_MOBILE/g" $cfg/mods-available/ldap
   sed -i -e "s/%LDAP_ATTR_LANGUAGE%/$LDAP_ATTR_LANGUAGE/g" $cfg/mods-available/ldap
   sed -i -e "s/%LDAP_ATTR_SNOFDN%/$LDAP_ATTR_SNOFDN/g" $cfg/mods-available/ldap
+
+ # Replace default sAMAccountName through the env var LDAP_ATTR_USER, if set
+ if [ ! -z ${LDAP_ATTR_USER+x} ]; then
+   sed -i -e "s/sAMAccountName/$LDAP_ATTR_USER/g" $cfg/mods-available/ldap
+ fi
+
  # Enable the module
   ln -s $cfg/mods-available/ldap $cfg/mods-enabled/ldap
 fi

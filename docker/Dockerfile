@@ -16,6 +16,7 @@ ENV LDAP_UPDATE=
 ENV LDAP_ATTR_MOBILE=mobile
 ENV LDAP_ATTR_LANGUAGE=preferredLanguage
 ENV LDAP_ATTR_SNOFDN=msNPCallingStationID
+ENV LDAP_ATTR_USER=sAMAccountName
 
 # Install FreeRADIUS
 RUN apk update && apk upgrade \
