@@ -20,7 +20,7 @@ ENV LDAP_USER_FILTER=(\&(objectclass=user)(objectCategory=person)(sAMAccountName
 
 # Install FreeRADIUS
 RUN apk update && apk upgrade \
-  && apk add --update freeradius freeradius-ldap freeradius-radclient bash git openldap-clients libxml2-utils tzdata \
+  && apk add --update curl openssl freeradius freeradius-ldap freeradius-radclient bash git openldap-clients libxml2-utils tzdata \
   && rm -rf /var/cache/apk/*
 
 # Set timezone
