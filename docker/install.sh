@@ -93,6 +93,12 @@ if [ ! -e $opt/exec-mobileid.properties ]; then
   [ "$UNIQUEID_CHECK" != "" ] && sed -i -e "s/UNIQUEID_CHECK=.*/UNIQUEID_CHECK=$UNIQUEID_CHECK/" $opt/exec-mobileid.properties
   [ "$ALLOWED_MCC" != "" ] && sed -i -e "s/# ALLOWED_MCC=.*/ALLOWED_MCC=\"$ALLOWED_MCC\"/" $opt/exec-mobileid.properties
 fi
+
+## If provided, replace MID base URL (development only)
+if [ ! -z "$MID_BASE_URL" ]; then
+  sed -i -e "s#BASE_URL=.*#BASE_URL=\"$MID_BASE_URL\"#" $opt/exec-mobileid.properties
+fi
+
 if [ ! -e $opt/exec-ldapupdate.properties ]; then
  # Use the sample file provided from the repository
   cp $opt/exec-ldapupdate.properties.sample $opt/exec-ldapupdate.properties
