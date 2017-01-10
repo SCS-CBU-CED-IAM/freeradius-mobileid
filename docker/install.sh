@@ -56,9 +56,6 @@ if [ ! -e $cfg/mods-enabled/ldap ]; then
   sed -i -e "s/%LDAP_ATTR_LANGUAGE%/$LDAP_ATTR_LANGUAGE/g" $cfg/mods-available/ldap
   sed -i -e "s/%LDAP_ATTR_SNOFDN%/$LDAP_ATTR_SNOFDN/g" $cfg/mods-available/ldap
 
- # Replace default user search filter through the env var LDAP_USER_FILTER
-   sed -i -e "s/(&(objectclass=user)(objectCategory=person)(sAMAccountName=%{User-Name}))/${LDAP_USER_FILTER}/g" $cfg/mods-available/ldap
-
  # Enable the module
   ln -s $cfg/mods-available/ldap $cfg/mods-enabled/ldap
 fi

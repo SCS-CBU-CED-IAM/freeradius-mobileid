@@ -27,7 +27,6 @@ optional environment settings:
    -e LDAP_ATTR_MOBILE=mobile \
    -e LDAP_ATTR_LANGUAGE=preferredLanguage \
    -e LDAP_ATTR_SNOFDN=msNPCallingStationID \
-   -e LDAP_ATTR_USER=cn \
    -e DEFAULT_LANGUAGE=de \
    -e UNIQUEID_CHECK=ifset \
    -e ALLOWED_MCC="228,295" \
