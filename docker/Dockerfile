@@ -19,7 +19,7 @@ ENV LDAP_ATTR_SNOFDN=msNPCallingStationID
 
 # Install FreeRADIUS
 RUN apk update && apk upgrade \
-  && apk add --update curl openssl freeradius freeradius-ldap freeradius-radclient bash git openldap-clients libxml2-utils tzdata \
+  && apk add --update curl openssl ca-certificates freeradius freeradius-ldap freeradius-radclient bash git openldap-clients libxml2-utils tzdata \
   && rm -rf /var/cache/apk/*
 
 # Set timezone
