@@ -97,7 +97,6 @@ fi
 ## If provided, replace MID base URL (for development only)
 if [ ! -z "$MID_BASE_URL" ]; then
   sed -i -e "s#BASE_URL=.*#BASE_URL=\"$MID_BASE_URL\"#" $opt/exec-mobileid.properties
-  sed -i -e "s#CURL_OPTIONS=.*#CURL_OPTIONS=\"--silent --cacert $CERT_CA_SSL\"#" $opt/exec-mobileid.properties
 fi
 
 if [ ! -e $opt/exec-ldapupdate.properties ]; then
