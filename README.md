@@ -230,19 +230,19 @@ Instruction files can be found here [docs/](docs/).
 
 This issues is solved with the following custom selinux policy:
 module freeradiusd-v2.1.0;
-require {
+`require {
 type tmp_t;
 type radiusd_t;
 class file
 { write create open }
 ;
-}
+}`
 
-#============= radiusd_t ==============
+`\#============= radiusd_t ==============
 allow radiusd_t tmp_t:file create;
 allow radiusd_t tmp_t:file
 { write open }
-; ()
+; ()`
 
 The alternative is to disable `SELINUX`: 
 - edit following file `/etc/selinux/config` 
