@@ -34,3 +34,4 @@ VERBOSITY=2
 
 # Swisscom BASE URL
 BASE_URL=https://mobileid.swisscom.com
+#BASE_URL=https://195.65.233.222	# BASE_URL for service access over LAN-I
