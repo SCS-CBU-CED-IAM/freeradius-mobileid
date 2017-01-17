@@ -228,7 +228,7 @@ Instruction files can be found here [docs/](docs/).
 
 `curl` raises error 7 and/or `exec-mobileid.sh` states about `freeradius:exec-mobileid::ERROR: Error in creating temporary file(s)` 
 
-This issues is solved with the following custom selinux policy:  
+This issue is solved with the following custom selinux policy:  
 `module freeradiusd-v2.1.0;`  
 `require {`  
 `type tmp_t;`  
