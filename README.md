@@ -16,13 +16,6 @@ Checkout the project directly from git under a specific folder:
   git clone https://github.com/SCS-CBU-CED-IAM/freeradius-mobileid.git freeradius
 ```
 
-To update your local folder with the current repository:
-```
-  cd /opt/freeradius
-  git pull
-  # don't forget to update the permissions (see bellow)
-```
-
 ## Configuration
 
 `<cfg>` is referring to the folder containing the FreeRADIUS configuration elements. This is depending to the operating system and the chosen installation method. For Linux it should be `/etc/freeradius` or `/etc/raddb` and for Windows `C:\FreeRADIUS\etc\raddb`
@@ -68,19 +61,21 @@ ATTRIBUTE  X-MSS-MobileID-MCCMNC  3002  string
 
 ### Create a rlm_exec module file for Mobile ID
 
-Create a rlm_exec module file exec_mobileid in `<cfg>/mods-available` based on the sample provided in [samples/modules/exec_mobileid](samples/modules/exec_mobileid) and make it available over a symlink in `<cfg>/mods-enabled`.
+Create a rlm_exec module file `mobileid` in `<cfg>/mods-available` based on the sample provided in [samples/modules/mobileid](samples/modules/mobileid) and make it available over a symlink in `<cfg>/mods-enabled`.
 
 Note: On older distributions, the `<cfg>/mods-available` may not be present and the relevant place will be `<cfg>/modules`
 
-The <program> depends on the operating system and on the location of the files:
+The `program` depends on the operating system and on the location of the files:
  * Linux: `program = '/opt/freeradius/exec-mobileid.sh'`
  * Windows: `program = 'c:\\FreeRADIUS\\var\\mobileid\\exec-mobileid.bat %{Called-Station-Id} %{X-MSS-Language} %{X-MSS-MobileID-SN}'`
  
 ### Configure your site to use the Mobile ID module
 
-The module can be called in the site configuration like any other standard module (ldap, files, ...) by the name you defined in the rlm_exec file, in our case this would be `mobileid`
+The module can be called in the site configuration like any other standard module (ldap, files, ...) by the name you defined in the rlm_exec file such as `<cf>/mods-available/mobileid`.
 
 Sample site configurations can be found in [samples/sites-available](samples/sites-available)
+
+Enable the `mobileid` rlm_exec module by adding the `mobileid-config` to `<cfg>/sites-available` and adding a symlink in `<cfg>/sites-enabled` that points to `<cfg>/sites-available/mobileid-config`.
 
 ### Define user attributes related to the Mobile ID module
 
@@ -131,8 +126,9 @@ sudo radiusd –X -f
 An easy way to test your RADIUS server is by using the FreeRADIUS provided radclient tool: 
 ````
 echo "User-Name=+4179xxxxxxx,User-Password=''" | radclient -x -t 120 localhost auth testing123
+echo "User-Name=user1,User-Password='secret'" | radclient -x -t 120 localhost auth testing123
+echo "User-Name=user2,User-Password='secret'" | radclient -x -t 120 localhost auth testing123
 ````
-
 
 ## Advanced configuration
 
@@ -163,7 +159,7 @@ exec-ldapupdate::INFO: No entry johndoe found
 exec-ldapupdate::INFO: RC=0
 ```
 
-2) Create a rlm_exec module file exec_ldapupdate in `<cfg>/mods-available` based on the sample provided in [samples/modules/exec_ldapupdate](samples/modules/exec_ldapupdate) and make it available over a symlink in `<cfg>/mods-enabled`.
+2) Create a rlm_exec module file `ldapupdate` in `<cfg>/mods-available` based on the sample provided in [samples/modules/ldapupdate](samples/modules/ldapupdate) and make it available over a symlink in `<cfg>/mods-enabled`.
 
 3) Configure your site to enable this module after the Mobile ID call  
 Uncomment the `# mobileid-ldapupdate` in the `post-auth` section to make it active.
