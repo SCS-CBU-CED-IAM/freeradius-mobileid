@@ -47,8 +47,8 @@ authorize {
 
 	# Ensure Auth-Type is set to go over authenticate
 	if (!control:Auth-Type) {
-		update {
-			control:Auth-Type := mobileid
+		update control {
+			Auth-Type := mobileid
 		}
 	}
 }
