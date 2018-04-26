@@ -242,7 +242,7 @@ if [ "$RC_CURL" = "0" -a "$http_code" = "200" ]; then
 
   # Get the details from the signers certificate
   RES_CERT_SUBJ=$(openssl x509 -subject -nameopt utf8 -nameopt sep_comma_plus -noout -in $SIGNER)
-  UNIQUEIDNEW=$(echo "$RES_CERT_SUBJ" | sed -n -e 's/.*serialNumber=\(.*\),CN=.*/\1/p')
+  UNIQUEIDNEW=$(echo "$RES_CERT_SUBJ" | sed -n -e 's/.*serialNumber=\(MIDCHE.\{10\}\).*/\1/p')
 
   # Unique ID checks
   case "$UNIQUEID_CHECK" in
